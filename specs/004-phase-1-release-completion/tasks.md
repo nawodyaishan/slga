@@ -10,7 +10,7 @@
 - **Forbidden:** CMS schemas/data, dependencies, deployment.
 - **Acceptance:** canonical/OG/alternates/JSON-LD/robots/headers work with safe defaults.
 - **Verify:** lint, typecheck, build, HTTP/header/browser inspection.
-- **Risk:** Medium. **Approval:** granted. **Status:** in-progress.
+- **Risk:** Medium. **Approval:** granted. **Status:** done.
 
 ## P4-02 — Playwright and accessibility foundation
 
@@ -19,7 +19,7 @@
 - **Forbidden:** production dependencies and app behavior.
 - **Acceptance:** deterministic seed-mode web server and three browser projects configured.
 - **Verify:** list tests and run Chromium.
-- **Depends on:** P4-01. **Risk:** Medium. **Approval:** granted. **Status:** todo.
+- **Depends on:** P4-01. **Risk:** Medium. **Approval:** granted. **Status:** done.
 
 ## P4-03 — Browser, keyboard, and axe coverage
 
@@ -28,7 +28,7 @@
 - **Forbidden:** weakening app behavior or suppressing violations.
 - **Acceptance:** Chromium passes with no critical/serious axe violations.
 - **Verify:** `pnpm test:e2e --project=chromium` and Playwright MCP pass.
-- **Depends on:** P4-02. **Risk:** Medium. **Status:** todo.
+- **Depends on:** P4-02. **Risk:** Medium. **Status:** done.
 
 ## P4-04 — Founder and rollback guide
 
@@ -36,7 +36,7 @@
 - **Allowed:** `docs/**`.
 - **Acceptance:** concise actionable guide covers code/content/Studio recovery.
 - **Verify:** command/path review against repository tooling.
-- **Depends on:** P4-01. **Risk:** Low. **Status:** todo.
+- **Depends on:** P4-01. **Risk:** Low. **Status:** done.
 
 ## P4-05 — Release verification and handoff
 
@@ -44,7 +44,7 @@
 - **Allowed:** Spec 004 status only.
 - **Acceptance:** lint/typecheck/build/tests pass; launch remains unclaimed.
 - **Verify:** `make verify` plus browser checks.
-- **Depends on:** P4-01–P4-04. **Risk:** Medium. **Status:** todo.
+- **Depends on:** P4-01–P4-04. **Risk:** Medium. **Status:** local gates complete; external launch approval pending.
 
 ## Order
 

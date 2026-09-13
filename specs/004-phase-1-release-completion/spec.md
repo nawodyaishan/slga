@@ -1,7 +1,7 @@
 # Spec 004 — Phase 1 release completion
 
 **Type:** release specification  
-**Status:** approved for planning and implementation  
+**Status:** local implementation complete; external release approval pending
 **Source of truth:** `docs/SLGA-PHASE-1-TECH-SPEC.md`, `docs/TASKS.md` T07–T10  
 **Depends on:** Specs 001–003
 

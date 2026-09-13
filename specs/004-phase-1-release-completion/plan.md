@@ -25,6 +25,15 @@ guidance plus current Next.js metadata/security-header guidance.
 
 ## Architecture approach
 
+### SEO follow-up (tech spec §14, requested 2026-09-14)
+
+Complete P4-01 metadata gaps without dependencies, CMS mutations, or deployment:
+load the configured default social image for every page, emit 1200 × 630 Sanity
+social crops and article publication metadata, retain bilingual alternates and
+all sitemap routes, and remove fabricated static modification dates. Add focused
+metadata-policy/image tests and verify rendered output with Playwright MCP.
+
+
 1. Centralize site-origin parsing and deployment-context indexing decisions.
 2. Use Next Metadata APIs for canonical/Open Graph/language alternatives and
    JSON-LD rendered as escaped JSON script data.
