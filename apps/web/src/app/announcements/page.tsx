@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui";
 import { AnnouncementCard } from "@/components/sections/announcement-card";
 import { content } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await content.getSiteSettings();
+  return createPageMetadata({
+  fallbackImage: settings.defaultOgImage,
   title: "Announcements",
   description: "Notices published by the SLGA admin team: rule changes, server news and community programmes.",
-};
+  path: "/announcements",
+  });
+}
 
 export default async function AnnouncementsPage() {
   const announcements = await content.getAnnouncements();

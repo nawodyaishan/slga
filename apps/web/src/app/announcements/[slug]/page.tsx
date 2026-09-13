@@ -7,27 +7,31 @@ import { announcementPortableTextComponents } from "@/components/portable-text/a
 import { CommunityCtaLink } from "@/components/sections/community-cta-link";
 import { content } from "@/lib/content";
 import { requireSocialUrl } from "@/lib/content/social";
+import { absoluteSiteUrl, createPageMetadata, socialImage } from "@/lib/site";
+import { JsonLd } from "@/lib/structured-data";
+import { formatShortDate } from "@/lib/date";
 
 interface AnnouncementDetailPageProps {
   params: Promise<{ slug: string }>;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-
 export async function generateMetadata({ params }: AnnouncementDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const announcement = await content.getAnnouncementBySlug(slug);
-  if (!announcement) return { title: "Announcement not found" };
+  const [announcement, settings] = await Promise.all([
+    content.getAnnouncementBySlug(slug),
+    content.getSiteSettings(),
+  ]);
+  if (!announcement) notFound();
 
-  return {
+  return createPageMetadata({
     title: announcement.title,
     description: announcement.excerpt,
-    openGraph: {
-      title: announcement.title,
-      description: announcement.excerpt,
-      images: announcement.coverImage ? [{ url: announcement.coverImage.src }] : undefined,
-    },
-  };
+    path: `/announcements/${announcement.slug}`,
+    image: announcement.coverImage,
+    fallbackImage: settings.defaultOgImage,
+    publishedTime: announcement.publishedAt,
+    type: "article",
+  });
 }
 
 export default async function AnnouncementDetailPage({ params }: AnnouncementDetailPageProps) {
@@ -40,9 +44,24 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
   if (!announcement) notFound();
 
   const discordUrl = requireSocialUrl(settings.social, "discord");
+  const articleUrl = absoluteSiteUrl(`/announcements/${announcement.slug}`);
+  const organizationId = `${absoluteSiteUrl("/")}#organization`;
 
   return (
     <article>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: announcement.title,
+          description: announcement.excerpt,
+          datePublished: announcement.publishedAt,
+          mainEntityOfPage: articleUrl,
+          image: socialImage(announcement.coverImage ?? settings.defaultOgImage)?.url,
+          url: articleUrl,
+          publisher: { "@type": "Organization", "@id": organizationId, name: settings.siteName, url: absoluteSiteUrl("/") },
+        }}
+      />
       <Container className="pt-(--spacing-page-top)">
         <nav aria-label="Breadcrumb">
           <ol className="m-0 mb-8.5 flex list-none flex-wrap items-center gap-2 p-0 font-mono text-[11px] tracking-[0.08em] text-dim">
@@ -69,7 +88,7 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
               {announcement.kind}
             </span>
             <time dateTime={announcement.publishedAt} className="font-mono text-[11.5px] tracking-[0.06em] text-muted">
-              {dateFormatter.format(new Date(announcement.publishedAt))}
+              {formatShortDate(announcement.publishedAt)}
             </time>
           </div>
           <h1 className="m-0 text-h1-page leading-[1.06] font-extrabold tracking-[-0.03em]">{announcement.title}</h1>

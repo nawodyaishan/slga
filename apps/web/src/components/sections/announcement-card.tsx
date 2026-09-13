@@ -4,8 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import type { Announcement } from "@/lib/content/types";
-
-const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+import { formatShortDate } from "@/lib/date";
 
 export function AnnouncementCard({ announcement }: { announcement: Announcement }) {
   return (
@@ -31,7 +30,7 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
             {announcement.kind}
           </Badge>
           <time dateTime={announcement.publishedAt} className="font-mono text-[11px] tracking-[0.06em] text-muted">
-            {dateFormatter.format(new Date(announcement.publishedAt))}
+            {formatShortDate(announcement.publishedAt)}
           </time>
         </div>
         <h2 className="m-0 text-[21px] leading-[1.24] font-bold tracking-[-0.025em]">{announcement.title}</h2>

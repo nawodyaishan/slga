@@ -5,13 +5,12 @@ import { rulesPortableTextComponents } from "@/components/portable-text/rules-po
 import { CommunityCtaLink } from "./community-cta-link";
 import { content } from "@/lib/content";
 import type { Locale } from "@/lib/content/types";
+import { formatShortDate } from "@/lib/date";
 
 interface RulesPageProps {
   locale: Locale;
   discordUrl: string;
 }
-
-const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
 /** Shared by `/rules` and `/si/rules` - only the locale differs. */
 export async function RulesPage({ locale, discordUrl }: RulesPageProps) {
@@ -60,7 +59,7 @@ export async function RulesPage({ locale, discordUrl }: RulesPageProps) {
               <p className="m-0 font-mono text-[11px] leading-[1.5] tracking-[0.06em] text-muted">
                 LAST UPDATED{" "}
                 <time dateTime={copy.lastUpdated} className="text-foreground">
-                  {dateFormatter.format(new Date(copy.lastUpdated))}
+                  {formatShortDate(copy.lastUpdated)}
                 </time>
               </p>
             </div>

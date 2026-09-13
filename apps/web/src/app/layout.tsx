@@ -5,6 +5,7 @@ import { SkipLink } from "@/components/layout/skip-link";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { content } from "@/lib/content";
 import { requireSocialUrl } from "@/lib/content/social";
+import { getSiteOrigin, isIndexableDeployment } from "@/lib/site";
 import "../styles/globals.css";
 
 const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist" });
@@ -12,9 +13,12 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 const notoSansSinhala = Noto_Sans_Sinhala({ subsets: ["sinhala"], variable: "--font-noto-sinhala" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: getSiteOrigin(),
   title: { default: "Sri Lankan Gaming Alliance", template: "%s | SLGA" },
   description: "The home for Sri Lankan gamers.",
+  robots: isIndexableDeployment()
+    ? { index: true, follow: true }
+    : { index: false, follow: false, noarchive: true },
 };
 
 const NAV_ITEMS = [
@@ -38,7 +42,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const facebookUrl = requireSocialUrl(settings.social, "facebook");
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${notoSansSinhala.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${geistMono.variable} ${notoSansSinhala.variable}`}
+    >
       <body>
         <SkipLink />
         <SiteChrome
@@ -55,4 +63,3 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     </html>
   );
 }
-

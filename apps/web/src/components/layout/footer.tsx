@@ -85,13 +85,13 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
             © {year} Sri Lankan Gaming Alliance. COMMUNITY-RUN · NOT AN OFFICIAL GOVERNING BODY.
           </p>
           <div className="flex items-center gap-3 text-[12.5px] text-dim">
-            <span>Built by Nawodya Ishan</span>
+            <span>Built by Nawodya</span>
             <div className="flex items-center gap-2">
               <a
                 href="https://github.com/nawodyaishan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-foreground"
+                className="inline-grid size-11 place-items-center rounded-lg transition-colors hover:text-foreground"
                 aria-label="GitHub Profile"
               >
                 <Github className="size-[15px]" />
@@ -100,7 +100,7 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
                 href="https://www.linkedin.com/in/nawodyaishan/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-foreground"
+                className="inline-grid size-11 place-items-center rounded-lg transition-colors hover:text-foreground"
                 aria-label="LinkedIn Profile"
               >
                 <Linkedin className="size-[15px]" />

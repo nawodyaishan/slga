@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui";
 import { ArtworkGrid } from "@/components/sections/artwork-grid";
 import { content } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await content.getSiteSettings();
+  return createPageMetadata({
+  fallbackImage: settings.defaultOgImage,
   title: "Showcase",
   description:
     "In-game photography and art made by SLGA members. Admins pick the pieces; each one links back to the original post in the Facebook group.",
-};
+  path: "/showcase",
+  });
+}
 
 export default async function ShowcasePage() {
   const artworks = await content.getArtworks();

@@ -4,12 +4,11 @@ import Link from "next/link";
 import { Container, Badge, SectionHeading } from "@/components/ui";
 import { track } from "@/lib/analytics";
 import type { Announcement } from "@/lib/content/types";
+import { formatShortDate } from "@/lib/date";
 
 interface LatestAnnouncementProps {
   announcement: Announcement;
 }
-
-const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
 /** Hidden entirely when there are no announcements - never renders an empty-state card. */
 export function LatestAnnouncement({ announcement }: LatestAnnouncementProps) {
@@ -42,7 +41,7 @@ export function LatestAnnouncement({ announcement }: LatestAnnouncementProps) {
             <div className="flex flex-wrap items-center gap-3">
               <Badge>{announcement.kind}</Badge>
               <time dateTime={announcement.publishedAt} className="font-mono text-[11px] tracking-[0.06em] text-muted">
-                {dateFormatter.format(new Date(announcement.publishedAt))}
+                {formatShortDate(announcement.publishedAt)}
               </time>
             </div>
             <h3 className="m-0 max-w-[28ch] text-h3 leading-[1.15] font-bold tracking-[-0.025em]">{announcement.title}</h3>

@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import { Container, Eyebrow } from "@/components/ui";
 import { content } from "@/lib/content";
+import { createPageMetadata } from "@/lib/site";
+import { formatShortDate } from "@/lib/date";
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await content.getSiteSettings();
+  return createPageMetadata({
+  fallbackImage: settings.defaultOgImage,
   title: "Privacy notice",
   description: "How SLGA's website handles analytics and external links.",
-};
-
-const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+  path: "/privacy",
+  });
+}
 
 export default async function PrivacyPage() {
   const privacy = await content.getPrivacyNotice();
@@ -23,7 +28,7 @@ export default async function PrivacyPage() {
         <p className="mt-3.5 font-mono text-[11px] tracking-[0.06em] text-muted">
           LAST REVIEWED{" "}
           <time dateTime={privacy.lastReviewed} className="text-foreground">
-            {dateFormatter.format(new Date(privacy.lastReviewed))}
+            {formatShortDate(privacy.lastReviewed)}
           </time>
         </p>
         <div className="mt-11 flex flex-col gap-8.5">
