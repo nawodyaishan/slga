@@ -9,7 +9,7 @@
     "typecheck": "pnpm --recursive --if-present typecheck",
     "dev:studio": "pnpm --filter @slga/studio dev",
     "prepare": "husky",
-    "precommit": "lint-staged && pnpm typecheck"
+    "prepush": "pnpm lint && pnpm typecheck"
   },
   "devDependencies": {
     "husky": "^9.1.7",
