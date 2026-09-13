@@ -34,7 +34,7 @@ const aboutFacts: readonly AboutFact[] = [
   {
     key: "facebook",
     title: "66,000+ members",
-    description: "The main room: posts, screenshots and discussion, moderated since 2021.",
+    description: "The main room: posts, screenshots and discussion, moderated since 2018.",
   },
   {
     key: "discord",

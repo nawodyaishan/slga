@@ -80,7 +80,7 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
       </div>
 
       <div className="border-t border-border-soft">
-        <div className="mx-auto flex max-w-(--spacing-shell) flex-col justify-between gap-4 px-(--spacing-gutter) py-5 md:flex-row md:items-center">
+        <div className="mx-auto flex max-w-(--spacing-shell) flex-col justify-between gap-4 px-(--spacing-gutter) pt-5 pb-[calc(5rem+env(safe-area-inset-bottom))] nav:pb-5 md:flex-row md:items-center">
           <p className="text-[12.5px] leading-relaxed text-dim">
             © {year} Sri Lankan Gaming Alliance. COMMUNITY-RUN · NOT AN OFFICIAL GOVERNING BODY.
           </p>
