@@ -112,6 +112,16 @@ export interface Announcement {
   readonly publishedAt: string;
 }
 
+export interface Artwork {
+  readonly id: string;
+  readonly title: string;
+  readonly artist: string;
+  readonly game: string;
+  readonly image: ImageRef;
+  readonly sourceUrl: string;
+  readonly displayOrder: number;
+}
+
 export interface FacebookFeature {
   readonly id: string;
   readonly title: string;
@@ -152,6 +162,8 @@ export interface ContentAdapter {
   /** Founder-selected published announcement, falling back to the newest published item. */
   getFeaturedAnnouncement(): Promise<Announcement | null>;
   getAnnouncementBySlug(slug: string): Promise<Announcement | null>;
+  /** Ordered by displayOrder, then creation time. Disabled pieces excluded. */
+  getArtworks(): Promise<Artwork[]>;
   /** At most three, ordered by displayOrder. Disabled cards excluded. */
   getFacebookFeatures(): Promise<FacebookFeature[]>;
   getPrivacyNotice(): Promise<PrivacyNotice>;

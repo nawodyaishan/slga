@@ -28,16 +28,17 @@ export type PrivacyNotice = {
   }>;
 };
 
-export type FacebookFeature = {
+export type Artwork = {
   _id: string;
-  _type: "facebookFeature";
+  _type: "artwork";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title: string;
-  postUrl: string;
-  excerpt: string;
+  artist: string;
+  game: string;
   image: ImageWithAlt;
+  sourceUrl: string;
   displayOrder: number;
   enabled: boolean;
 };
@@ -54,6 +55,20 @@ export type ImageWithAlt = {
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt: string;
+};
+
+export type FacebookFeature = {
+  _id: string;
+  _type: "facebookFeature";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  postUrl: string;
+  excerpt: string;
+  image: ImageWithAlt;
+  displayOrder: number;
+  enabled: boolean;
 };
 
 export type Rule = {
@@ -322,7 +337,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = PrivacyNotice | FacebookFeature | ImageWithAlt | Rule | Slug | RulesBlockContent | LocalizedString | SiteSettings | Announcement | AnnouncementBlockContent | SanityImageCrop | SanityImageHotspot | LocalizedText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = PrivacyNotice | Artwork | ImageWithAlt | FacebookFeature | Rule | Slug | RulesBlockContent | LocalizedString | SiteSettings | Announcement | AnnouncementBlockContent | SanityImageCrop | SanityImageHotspot | LocalizedText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
@@ -443,6 +458,17 @@ export type FACEBOOK_FEATURES_QUERYResult = Array<{
   excerpt: string;
   postUrl: string;
   image: ImageWithAlt;
+  displayOrder: number;
+}>;
+// Variable: ARTWORK_QUERY
+// Query: *[  _type == "artwork" &&  enabled == true &&  !(_id in path("drafts.**"))] | order(displayOrder asc, _createdAt asc){  _id, title, artist, game, image, sourceUrl, displayOrder}
+export type ARTWORK_QUERYResult = Array<{
+  _id: string;
+  title: string;
+  artist: string;
+  game: string;
+  image: ImageWithAlt;
+  sourceUrl: string;
   displayOrder: number;
 }>;
 // Variable: PRIVACY_QUERY

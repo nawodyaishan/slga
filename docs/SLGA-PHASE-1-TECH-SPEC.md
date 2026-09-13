@@ -141,12 +141,13 @@ No website-admin login exists on the public Next.js application.
 | `/si/rules` | Sinhala Rules | Same Sanity rule documents | Index, `hreflang="si"` |
 | `/announcements` | Published announcement list | Sanity announcements | Index |
 | `/announcements/[slug]` | Permanent announcement detail | One Sanity announcement | Index |
+| `/showcase` | Community artwork showcase | Sanity `artwork` documents | Index |
 | `/privacy` | Concise static privacy/analytics notice | Code-owned content approved before launch | Index |
 | `/robots.txt` | Crawler policy | Next.js metadata file | N/A |
 | `/sitemap.xml` | All indexable routes and published announcements | Next.js metadata file + Sanity query | N/A |
 | unmatched route | Branded 404 with Home/Rules links | Code | No index |
 
-The primary navigation is **Home · Rules · Announcements**, followed by a visually prominent **Join Discord** action. Join Facebook remains equally prominent in the homepage hero.
+The primary navigation is **Home · Rules · Showcase · Announcements**, followed by a visually prominent **Join Discord** action. Join Facebook remains equally prominent in the homepage hero.
 
 The site does not have a global language switch. Only the Rules pages display an **English / සිංහල** language control. `/rules` and `/si/rules` are real URLs rather than a client-only toggle so each version is shareable and accessible.
 
@@ -155,7 +156,7 @@ The site does not have a global language switch. Only the Rules pages display an
 ### 8.1 Global header
 
 - SLGA logo/wordmark links to `/`.
-- Desktop navigation: Home, Rules, Announcements, Join Discord.
+- Desktop navigation: Home, Rules, Showcase, Announcements, Join Discord.
 - Mobile navigation: shadcn `Sheet` with the same destinations.
 - Header becomes solid after the page scrolls; it must not obscure anchored or focused content.
 - The current page is indicated visually and through `aria-current="page"`.
@@ -211,6 +212,15 @@ Empty-state rules:
 - Cards are normal website UI, not Facebook embeds.
 - Opening the original post records an analytics event.
 - Do not proxy Facebook content or imply that a card updates automatically.
+
+### 8.7 Community showcase
+
+- Curated in-game photography and art submissions created by SLGA members.
+- Responsive grid of 4:5 artwork cards displaying order number, title, artist, and game.
+- Fullscreen animated lightbox viewer built on shadcn `Dialog` and `Carousel`.
+- Lightbox supports swipe navigation on touch devices, keyboard arrows, and escape-to-close.
+- External link to the original Facebook post opens in a new tab with `rel="noopener noreferrer"`.
+- Empty state displayed gracefully when zero artworks are enabled.
 
 ## 9. Visual and interaction design
 
@@ -413,6 +423,7 @@ SLGA Content
 ├── Site & Homepage
 ├── Rules
 ├── Announcements
+├── Artwork Showcase
 ├── Featured Facebook Posts
 └── Privacy notice
 ```
@@ -429,6 +440,20 @@ Requirements:
 - prevent accidental empty announcements from being published through required-field validation.
 
 The Studio is deployed separately using Sanity hosting at a selected available hostname such as `slga.sanity.studio`. The exact hostname is not guaranteed until claimed.
+
+### 11.7 `artwork`
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `title` | string | Yes | Artwork title |
+| `artist` | string | Yes | Creator credit line |
+| `game` | string | Yes | Featured game name |
+| `image` | image + alt | Yes | Founder-uploaded artwork image |
+| `sourceUrl` | URL | Yes | Absolute HTTPS URL to original post |
+| `displayOrder` | number | Yes | Integer ≥ 1 |
+| `enabled` | boolean | Yes | Defaults to true |
+
+The showcase query returns all enabled documents ordered by `displayOrder` ascending with `_createdAt` deterministic fallback.
 
 ## 12. Repository and folder structure
 
@@ -548,6 +573,8 @@ Install Vercel Web Analytics in the root layout. Record normal page views and th
 | `community_cta_click` | `destination: facebook|discord`, `placement: header|hero|footer` |
 | `facebook_feature_click` | `feature_id`, `placement: homepage` |
 | `announcement_open` | `slug`, `placement: homepage|index` |
+| `artwork_open` | `artwork_id`, `placement: showcase` |
+| `artwork_source_click` | `artwork_id` |
 
 Do not send names, email addresses, Discord identities, full external URLs, free-text content, or other personal data as event properties. Event names/properties are code-owned and documented centrally in `lib/analytics.ts`.
 

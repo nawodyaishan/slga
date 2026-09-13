@@ -340,6 +340,39 @@ a:hover{color:#7FE9F4}
 </div>
 </sc-if>
 
+<sc-if value="{{ isShowcase }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="border-bottom:1px solid #253041">
+<div style="max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} {{ sectionPadY }}">
+<p style="display:flex;align-items:center;gap:10px;margin:0 0 22px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em"><span aria-hidden="true" style="width:22px;height:1px;background:#20D6E7"></span>COMMUNITY SHOWCASE</p>
+<h1 style="margin:0;max-width:20ch;font-size:{{ h1s }};line-height:1.04;letter-spacing:-.03em;font-weight:800">Best artwork</h1>
+<p style="margin:24px 0 0;max-width:62ch;font-size:{{ lead }};line-height:1.7;color:#9BA7B7">In-game photography and art made by SLGA members. Admins pick the pieces; each one links back to the original post in the Facebook group.</p>
+<p style="margin:22px 0 0;font:500 11px/1.6 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.06em">SHOWING {{ artCount }} PIECES · CURATED IN THE CMS · NEWEST FIRST</p>
+</div>
+</section>
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax({{ artMin }},1fr));gap:{{ artGap }}">
+<sc-for list="{{ artworks }}" as="art" hint-placeholder-count="16">
+<li>
+<a href="{{ art.url }}" onClick="{{ openArt }}" data-i="{{ art.i }}" aria-label="{{ art.aria }}" style="display:flex;flex-direction:column;gap:12px;color:#F6F8FB">
+<span style="position:relative;display:block;aspect-ratio:4/5;border:1px solid #253041;border-radius:12px;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);overflow:hidden" style-hover="border-color:#20D6E7">
+<span aria-hidden="true" style="position:absolute;left:10px;top:10px;padding:4px 8px;background:rgba(8,11,18,.8);border:1px solid #253041;border-radius:6px;font:600 10px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7">{{ art.n }}</span>
+<span style="position:absolute;left:0;right:0;bottom:0;padding:12px;text-align:center;font:500 9.5px/1.6 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.1em">ARTWORK IMAGE<br>MOCK · 4:5</span>
+</span>
+<span style="display:flex;flex-direction:column;gap:5px">
+<span style="font-size:15.5px;line-height:1.3;font-weight:600;letter-spacing:-.02em">{{ art.title }}</span>
+<span style="font-size:13.5px;line-height:1.4;color:#C9D3E0">{{ art.artist }}</span>
+<span style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;font:500 {{ artMetaSize }}/1.5 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.06em">{{ art.game }}<span aria-hidden="true">·</span><time datetime="{{ art.iso }}">{{ art.date }}</time></span>
+</span>
+</a>
+</li>
+</sc-for>
+</ul>
+<p style="margin:40px 0 0;max-width:60ch;font-size:15px;line-height:1.65;color:#9BA7B7">Want your work here? Post it in the Facebook group with the game name and credit. Admins refresh this page when new pieces are picked.</p>
+</div>
+</div>
+</sc-if>
+
 <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
 <article>
 <div style="max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} 0">
@@ -461,6 +494,30 @@ a:hover{color:#7FE9F4}
 </div>
 </footer>
 
+<sc-if value="{{ artOpen }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="Artwork viewer" style="position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;background:rgba(5,7,12,.96);backdrop-filter:blur(10px)">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid #1B2432">
+<p style="margin:0;font:600 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.14em">{{ artView.pos }}</p>
+<button type="button" ref="{{ artCloseRef }}" onClick="{{ closeArt }}" aria-label="Close viewer" style="width:44px;height:44px;display:grid;place-items:center;background:#111722;border:1px solid #253041;border-radius:10px;color:#F6F8FB;font:400 18px/1 'Geist',sans-serif;cursor:pointer">×</button>
+</div>
+<div onTouchStart="{{ onArtTouchStart }}" onTouchEnd="{{ onArtTouchEnd }}" style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px">
+<button type="button" onClick="{{ prevArt }}" aria-label="Previous artwork" style="flex:none;width:48px;height:48px;display:grid;place-items:center;background:#111722;border:1px solid #253041;border-radius:12px;color:#F6F8FB;font:400 18px/1 'Geist',sans-serif;cursor:pointer">←</button>
+<div style="flex:1;min-width:0;max-width:760px;height:{{ artStageH }};border:1px solid #253041;border-radius:14px;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);display:grid;place-items:center">
+<p style="margin:0;text-align:center;padding:20px;font:500 10px/1.7 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.1em">FULL-SIZE ARTWORK<br>FOUNDER-SUPPLIED · MOCK</p>
+</div>
+<button type="button" onClick="{{ nextArt }}" aria-label="Next artwork" style="flex:none;width:48px;height:48px;display:grid;place-items:center;background:#111722;border:1px solid #253041;border-radius:12px;color:#F6F8FB;font:400 18px/1 'Geist',sans-serif;cursor:pointer">→</button>
+</div>
+<div style="display:flex;flex-direction:{{ artBarDir }};gap:14px;align-items:{{ artAlign }};justify-content:space-between;padding:16px 18px calc(18px + env(safe-area-inset-bottom));border-top:1px solid #1B2432;background:#080B12">
+<div style="min-width:0">
+<p style="margin:0;font-size:18px;line-height:1.25;font-weight:700;letter-spacing:-.02em">{{ artView.title }}</p>
+<p style="margin:6px 0 0;font-size:14.5px;line-height:1.4;color:#C9D3E0">{{ artView.artist }}</p>
+<p style="margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font:500 {{ artMetaSize }}/1.5 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.06em">{{ artView.game }}<span aria-hidden="true">·</span><time datetime="{{ artView.iso }}">{{ artView.date }}</time></p>
+</div>
+<a href="{{ artView.url }}" target="_blank" rel="noopener noreferrer" style="flex:none;display:flex;align-items:center;justify-content:center;gap:9px;width:{{ artLinkW }};min-height:48px;padding:0 20px;background:#111722;border:1px solid #253041;border-radius:10px;color:#F6F8FB;font:500 15px/1 'Geist',sans-serif">View original post<span aria-hidden="true" style="font:500 11px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+</div>
+</sc-if>
+
 <sc-if value="{{ showBottomBar }}" hint-placeholder-val="{{ false }}">
 <div style="position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(8,11,18,.95);backdrop-filter:blur(16px);border-top:1px solid #253041">
 <a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;background:#20D6E7;color:#061018;border-radius:10px;font:600 15px/1 'Geist',sans-serif">Join Discord<span aria-hidden="true" style="font:500 11px/1 'Geist Mono',monospace;opacity:.55">↗</span></a>
@@ -471,9 +528,9 @@ a:hover{color:#7FE9F4}
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;viewport&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Fluid&quot;,&quot;375&quot;,&quot;768&quot;,&quot;1440&quot;],&quot;default&quot;:&quot;Fluid&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Review&quot;},&quot;heroAtmosphere&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Purple bloom&quot;,&quot;Cyan only&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Purple bloom&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showRulesIndex&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showTranslationNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showMockNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;viewport&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Fluid&quot;,&quot;375&quot;,&quot;768&quot;,&quot;1440&quot;],&quot;default&quot;:&quot;Fluid&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Review&quot;},&quot;showcaseCount&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;12&quot;,&quot;16&quot;],&quot;default&quot;:&quot;16&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;heroAtmosphere&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Purple bloom&quot;,&quot;Cyan only&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Purple bloom&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showRulesIndex&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showTranslationNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showMockNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
-  state = { route: "home", slug: "slga-discord-is-now-open", w: 1440, scrolled: false, deep: false, menu: false };
+  state = { route: "home", slug: "slga-discord-is-now-open", w: 1440, scrolled: false, deep: false, menu: false, art: null };
 
   // ---- mock content (mirrors future Sanity types: siteSettings / rule / announcement / facebookFeature)
   rulesData = [
@@ -544,6 +601,26 @@ class Component extends DCLogic {
     { id: "f3", title: "Co-op request thread that turned into a clan", excerpt: "One member asked for two players for a Helldivers run. Forty replies later, the Friday squad exists.", url: "https://facebook.com/groups/slga/posts/3", img: "FEATURE IMAGE\nMOCK · 16:10" }
   ];
 
+  // future Sanity type: artwork { title, artist, game, image+alt, sourceUrl, displayOrder, enabled }
+  artworkData = [
+    { t: "Dawn Ride", a: "MOCK · creator name", g: "Ghost of Tsushima", iso: "2026-09-02", d: "2 Sep 2026" },
+    { t: "Rainy Colombo", a: "MOCK · creator name", g: "Cyberpunk 2077", iso: "2026-08-28", d: "28 Aug 2026" },
+    { t: "Erdtree, Far Off", a: "MOCK · creator name", g: "Elden Ring", iso: "2026-08-21", d: "21 Aug 2026" },
+    { t: "Lighthouse Watch", a: "MOCK · creator name", g: "Red Dead Redemption 2", iso: "2026-08-14", d: "14 Aug 2026" },
+    { t: "Snowline", a: "MOCK · creator name", g: "God of War Ragnarök", iso: "2026-08-09", d: "9 Aug 2026" },
+    { t: "Last Train Home", a: "MOCK · creator name", g: "Metro Exodus", iso: "2026-08-03", d: "3 Aug 2026" },
+    { t: "Sunset Duel", a: "MOCK · creator name", g: "Sekiro", iso: "2026-07-27", d: "27 Jul 2026" },
+    { t: "Quiet Hours", a: "MOCK · creator name", g: "Death Stranding", iso: "2026-07-19", d: "19 Jul 2026" },
+    { t: "Storm Front", a: "MOCK · creator name", g: "Horizon Forbidden West", iso: "2026-07-11", d: "11 Jul 2026" },
+    { t: "Neon Alley", a: "MOCK · creator name", g: "Stray", iso: "2026-07-04", d: "4 Jul 2026" },
+    { t: "The Long Fall", a: "MOCK · creator name", g: "Hollow Knight", iso: "2026-06-26", d: "26 Jun 2026" },
+    { t: "Dust and Chrome", a: "MOCK · creator name", g: "Forza Horizon 5", iso: "2026-06-18", d: "18 Jun 2026" },
+    { t: "Temple Steps", a: "MOCK · creator name", g: "Uncharted", iso: "2026-06-09", d: "9 Jun 2026" },
+    { t: "Deep Blue", a: "MOCK · creator name", g: "Subnautica", iso: "2026-05-30", d: "30 May 2026" },
+    { t: "Two Lanterns", a: "MOCK · creator name", g: "Ghost of Yotei", iso: "2026-05-22", d: "22 May 2026" },
+    { t: "Home Screen", a: "MOCK · creator name", g: "Stardew Valley", iso: "2026-05-15", d: "15 May 2026" }
+  ];
+
   privacyData = [
     { h: "Analytics", p: ["We use Vercel Web Analytics to count page views and to see which links people use — for example how many visitors open Discord or Facebook from this site. Vercel describes the service as cookie-free and based on a daily-reset visitor hash.", "We do not collect names, email addresses, Discord identities or any free-text information, and we do not use advertising trackers."] },
     { h: "No accounts in Phase 1", p: ["This website has no registration, no sign-in and no member profiles. There is no member database, so there is nothing here to store about you.", "Community membership lives on Facebook and Discord, not on this site."] },
@@ -567,7 +644,20 @@ class Component extends DCLogic {
       const s = y > 12, d = y > 460;
       if (s !== this.state.scrolled || d !== this.state.deep) this.setState({ scrolled: s, deep: d });
     };
-    this.onKey = (e) => { if (e.key === "Escape" && this.state.menu) this.setState({ menu: false }); };
+    this.onKey = (e) => {
+      if (e.key === "Escape") {
+        if (this.state.art !== null) this.setState({ art: null }, () => {
+          requestAnimationFrame(() => { if (this.artTrigger) this.artTrigger.focus(); });
+        });
+        else if (this.state.menu) this.setState({ menu: false }, () => {
+          requestAnimationFrame(() => { if (this.menuTrigger && document.contains(this.menuTrigger)) this.menuTrigger.focus(); });
+        });
+      }
+      if (this.state.art !== null) {
+        if (e.key === "ArrowRight") this.stepArt(1);
+        if (e.key === "ArrowLeft") this.stepArt(-1);
+      }
+    };
     window.addEventListener("hashchange", this.onHash);
     window.addEventListener("scroll", this.onScroll, { passive: true });
     window.addEventListener("keydown", this.onKey);
@@ -582,6 +672,13 @@ class Component extends DCLogic {
   }
   componentDidUpdate(pp, ps) {
     if (this.state.menu && !ps.menu && this.closeBtn) this.closeBtn.focus();
+    if (this.state.art !== null && ps.art === null && this.artCloseBtn) this.artCloseBtn.focus();
+  }
+
+  stepArt(d) {
+    const list = this.artworkData.slice(0, Number(this.props.showcaseCount || 16));
+    const n = list.length;
+    this.setState({ art: (this.state.art + d + n) % n });
   }
 
   readHash() {
@@ -590,6 +687,7 @@ class Component extends DCLogic {
     if (h === "/rules") return this.setState({ route: "rules", menu: false });
     if (h === "/si/rules") return this.setState({ route: "rules-si", menu: false });
     if (h === "/announcements") return this.setState({ route: "announcements", menu: false });
+    if (h === "/showcase") return this.setState({ route: "showcase", menu: false });
     if (h === "/privacy") return this.setState({ route: "privacy", menu: false });
     const m = h.match(/^\/announcements\/(.+)$/);
     if (m) {
@@ -615,7 +713,7 @@ class Component extends DCLogic {
       e.preventDefault();
       const slug = el.getAttribute("data-slug") || this.state.slug;
       const hash = r === "home" ? "/" : r === "rules" ? "/rules" : r === "rules-si" ? "/si/rules"
-        : r === "announcements" ? "/announcements" : r === "privacy" ? "/privacy"
+        : r === "announcements" ? "/announcements" : r === "showcase" ? "/showcase" : r === "privacy" ? "/privacy"
         : r === "announcement" ? "/announcements/" + slug : "/404";
       this.setState({ route: r, slug, menu: false }, () => window.scrollTo(0, 0));
       try { window.location.hash = hash; } catch (err) { /* sandboxed */ }
@@ -624,6 +722,7 @@ class Component extends DCLogic {
     const nav = [
       { label: "Home", href: "#/", route: "home" },
       { label: "Rules", href: "#/rules", route: "rules" },
+      { label: "Showcase", href: "#/showcase", route: "showcase" },
       { label: "Announcements", href: "#/announcements", route: "announcements" }
     ].map((n) => {
       const active = n.route === route || (n.route === "rules" && si) ||
@@ -667,8 +766,15 @@ class Component extends DCLogic {
       },
       closeRef: (el) => { this.closeBtn = el; },
       go,
-      openMenu: () => this.setState({ menu: true }),
-      closeMenu: () => this.setState({ menu: false }),
+      openMenu: (e) => {
+        this.menuTrigger = e.currentTarget;
+        this.setState({ menu: true }, () => {
+          requestAnimationFrame(() => { if (this.closeBtn) this.closeBtn.focus(); });
+        });
+      },
+      closeMenu: () => this.setState({ menu: false }, () => {
+        requestAnimationFrame(() => { if (this.menuTrigger && document.contains(this.menuTrigger)) this.menuTrigger.focus(); });
+      }),
       menuOpen: this.state.menu ? "true" : undefined,
 
       // viewport frame
@@ -679,6 +785,7 @@ class Component extends DCLogic {
       isHome: route === "home" || undefined,
       isRules: route === "rules" || si || undefined,
       isIndex: route === "announcements" || undefined,
+      isShowcase: route === "showcase" || undefined,
       isDetail: route === "announcement" || undefined,
       isPrivacy: route === "privacy" || undefined,
       is404: route === "404" || undefined,
@@ -765,12 +872,59 @@ class Component extends DCLogic {
       announcements: anns,
       detail: Object.assign({}, detail, { crumb: detail.title.toUpperCase().slice(0, 26) }),
       features: this.featuresData,
+      artworks: this.artworkData.slice(0, Number(this.props.showcaseCount || 16)).map((x, i) => ({
+        n: i + 1 < 10 ? "0" + (i + 1) : String(i + 1),
+        i: i,
+        title: x.t, artist: x.a, game: x.g, iso: x.iso, date: x.d,
+        url: "https://facebook.com/groups/slga/posts/art-" + (i + 1),
+        aria: "View " + x.t + " by " + x.a + " full size"
+      })),
+      artCount: Number(this.props.showcaseCount || 16),
+      openArt: (e) => {
+        e.preventDefault();
+        this.artTrigger = e.currentTarget;
+        this.setState({ art: Number(e.currentTarget.getAttribute("data-i")) }, () => {
+          requestAnimationFrame(() => { if (this.artCloseBtn) this.artCloseBtn.focus(); });
+        });
+      },
+      closeArt: () => this.setState({ art: null }, () => {
+        requestAnimationFrame(() => { if (this.artTrigger) this.artTrigger.focus(); });
+      }),
+      nextArt: () => this.stepArt(1),
+      prevArt: () => this.stepArt(-1),
+      artCloseRef: (el) => { this.artCloseBtn = el; },
+      onArtTouchStart: (e) => { this.tx = e.touches[0].clientX; },
+      onArtTouchEnd: (e) => {
+        if (this.tx == null) return;
+        const dx = e.changedTouches[0].clientX - this.tx;
+        this.tx = null;
+        if (Math.abs(dx) > 48) this.stepArt(dx < 0 ? 1 : -1);
+      },
+      artOpen: this.state.art !== null || undefined,
+      artView: (() => {
+        const list = this.artworkData.slice(0, Number(this.props.showcaseCount || 16));
+        const i = this.state.art === null ? 0 : this.state.art;
+        const x = list[i] || list[0];
+        return {
+          title: x.t, artist: x.a, game: x.g, iso: x.iso, date: x.d,
+          url: "https://facebook.com/groups/slga/posts/art-" + (i + 1),
+          pos: (i + 1) + " / " + list.length
+        };
+      })(),
+      artMetaSize: sm ? "12.5px" : "10.5px",
+      artStageH: sm ? "54vh" : "68vh",
+      artBarDir: sm ? "column" : "row",
+      artAlign: sm ? "stretch" : "center",
+      artLinkW: sm ? "100%" : "auto",
+      artMin: xs ? "140px" : sm ? "150px" : md ? "200px" : "240px",
+      artGap: sm ? "10px" : "16px",
       privacy: this.privacyData,
       socials: this.socialsData,
       footerLinks: [
         { label: "Home", href: "#/", route: "home" },
         { label: "Rules", href: "#/rules", route: "rules" },
         { label: "නීති (සිංහල)", href: "#/si/rules", route: "rules-si" },
+        { label: "Showcase", href: "#/showcase", route: "showcase" },
         { label: "Announcements", href: "#/announcements", route: "announcements" },
         { label: "Privacy", href: "#/privacy", route: "privacy" },
         { label: "404 preview", href: "#/404", route: "404" }

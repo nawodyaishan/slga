@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pnpm --filter @slga/web dev",
     "build": "pnpm --filter @slga/web build",
-    "lint": "pnpm --recursive --if-present lint",
+    "lint": "pnpm --filter @slga/web lint",
     "typecheck": "pnpm --recursive --if-present typecheck",
     "dev:studio": "pnpm --filter @slga/studio dev",
     "prepare": "husky",

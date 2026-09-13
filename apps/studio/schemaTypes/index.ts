@@ -1,4 +1,5 @@
 import { announcement } from "./announcement";
+import { artwork } from "./artwork";
 import { facebookFeature } from "./facebookFeature";
 import { announcementBlockContent } from "./objects/announcementBlockContent";
 import { imageWithAlt } from "./objects/imageWithAlt";
@@ -19,6 +20,8 @@ export const schemaTypes = [
   rule,
   announcement,
   facebookFeature,
+  artwork,
   privacyNotice,
 ];
+
 

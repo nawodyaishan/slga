@@ -1,6 +1,7 @@
 import type {
   AboutFact,
   Announcement,
+  Artwork,
   ContentAdapter,
   FacebookFeature,
   PrivacyNotice,
@@ -55,7 +56,7 @@ const siteSettings: SiteSettings = {
   heroHeading: ["Home for", "Sri Lankan", "Gamers"],
   heroBody:
     "SLGA connects Sri Lankan gamers across platforms. The Facebook group carries the reach and the conversation the community grew up with. Discord adds voice, LFG and everyday company. Between the two you get game sessions, screenshots, and questions answered by people playing the same things you are.",
-  heroImage: null,
+  heroImage: { src: "/assets/img/home1.jpg", alt: "Sri Lankan Gaming Alliance community artwork" },
   memberCount: 66_000,
   memberCountLabel: "community members",
   memberCountSource:
@@ -369,7 +370,7 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Screenshot night: our September picks",
     excerpt: "Six member captures chosen by admins, from Ghost of Yotei photo mode to a very patient Elden Ring sunrise.",
     postUrl: "https://facebook.com/groups/slga/posts/1",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
+    image: { src: "/assets/img/memo1.jpg", alt: "Screenshot night: our September picks" },
     displayOrder: 1,
   },
   {
@@ -377,7 +378,7 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Where Sri Lankan gamers actually buy PC parts",
     excerpt: "A long comment thread turned into the most useful hardware guide in the group this year.",
     postUrl: "https://facebook.com/groups/slga/posts/2",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
+    image: { src: "/assets/img/memo2.jpg", alt: "Where Sri Lankan gamers actually buy PC parts" },
     displayOrder: 2,
   },
   {
@@ -385,8 +386,101 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Co-op request thread that turned into a clan",
     excerpt: "One member asked for two players for a Helldivers run. Forty replies later, the Friday squad exists.",
     postUrl: "https://facebook.com/groups/slga/posts/3",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
+    image: { src: "/assets/img/memo3.jpg", alt: "Co-op request thread that turned into a clan" },
     displayOrder: 3,
+  },
+];
+
+const artworks: readonly Artwork[] = [
+  {
+    id: "art-1",
+    title: "Dawn Ride",
+    artist: "Tharindu Jayasinghe",
+    game: "Ghost of Tsushima",
+    image: { src: "/assets/img/home1.jpg", alt: "Dawn Ride by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-1",
+    displayOrder: 1,
+  },
+  {
+    id: "art-2",
+    title: "Rainy Colombo",
+    artist: "Tharindu Jayasinghe",
+    game: "Cyberpunk 2077",
+    image: { src: "/assets/img/memo1.jpg", alt: "Rainy Colombo by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-2",
+    displayOrder: 2,
+  },
+  {
+    id: "art-3",
+    title: "Erdtree, Far Off",
+    artist: "Tharindu Jayasinghe",
+    game: "Elden Ring",
+    image: { src: "/assets/img/memo2.jpg", alt: "Erdtree, Far Off by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-3",
+    displayOrder: 3,
+  },
+  {
+    id: "art-4",
+    title: "Lighthouse Watch",
+    artist: "Tharindu Jayasinghe",
+    game: "Red Dead Redemption 2",
+    image: { src: "/assets/img/memo3.jpg", alt: "Lighthouse Watch by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-4",
+    displayOrder: 4,
+  },
+  {
+    id: "art-5",
+    title: "Snowline",
+    artist: "Tharindu Jayasinghe",
+    game: "God of War Ragnarök",
+    image: { src: "/assets/img/memo4.jpg", alt: "Snowline by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-5",
+    displayOrder: 5,
+  },
+  {
+    id: "art-6",
+    title: "Last Train Home",
+    artist: "Tharindu Jayasinghe",
+    game: "Metro Exodus",
+    image: { src: "/assets/img/memo5.jpg", alt: "Last Train Home by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-6",
+    displayOrder: 6,
+  },
+  {
+    id: "art-7",
+    title: "Sunset Duel",
+    artist: "Tharindu Jayasinghe",
+    game: "Sekiro",
+    image: { src: "/assets/img/memo6.jpg", alt: "Sunset Duel by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-7",
+    displayOrder: 7,
+  },
+  {
+    id: "art-8",
+    title: "Quiet Hours",
+    artist: "Tharindu Jayasinghe",
+    game: "Death Stranding",
+    image: { src: "/assets/img/memo7.jpg", alt: "Quiet Hours by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-8",
+    displayOrder: 8,
+  },
+  {
+    id: "art-9",
+    title: "Storm Front",
+    artist: "Tharindu Jayasinghe",
+    game: "Horizon Forbidden West",
+    image: { src: "/assets/img/memo8.jpg", alt: "Storm Front by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-9",
+    displayOrder: 9,
+  },
+  {
+    id: "art-10",
+    title: "Neon Alley",
+    artist: "Tharindu Jayasinghe",
+    game: "Stray",
+    image: { src: "/assets/img/memo9.jpg", alt: "Neon Alley by Tharindu Jayasinghe" },
+    sourceUrl: "https://facebook.com/groups/slga/posts/art-10",
+    displayOrder: 10,
   },
 ];
 
@@ -454,6 +548,10 @@ export const seedAdapter: ContentAdapter = {
 
   async getAnnouncementBySlug(slug: string) {
     return announcements.find((announcement) => announcement.slug === slug) ?? null;
+  },
+
+  async getArtworks() {
+    return [...artworks];
   },
 
   async getFacebookFeatures() {

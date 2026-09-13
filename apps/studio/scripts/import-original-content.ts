@@ -50,10 +50,12 @@ function imageWithAlt(assetId: string, alt: string) {
 }
 
 async function buildDocuments(assetIds: ReadonlyMap<string, string>): Promise<SanityDocumentLike[]> {
-  const [settings, rules, privacy] = await Promise.all([
+  const [settings, rules, privacy, artworks, facebookFeatures] = await Promise.all([
     seedAdapter.getSiteSettings(),
     seedAdapter.getRules(),
     seedAdapter.getPrivacyNotice(),
+    seedAdapter.getArtworks(),
+    seedAdapter.getFacebookFeatures(),
   ]);
   const heroAssetId = assetIds.get("home1.jpg");
 
@@ -115,6 +117,41 @@ async function buildDocuments(assetIds: ReadonlyMap<string, string>): Promise<Sa
     enabled: true,
   }));
 
+  const artworkDocuments: SanityDocumentLike[] = artworks.map((art, index) => {
+    const assetKey = index === 0 ? "home1.jpg" : `memo${index}.jpg`;
+    const assetId = assetIds.get(assetKey);
+    if (!assetId && !dryRun) throw new Error(`${assetKey} was not found for artwork ${art.title}`);
+
+    return {
+      _id: art.id,
+      _type: "artwork",
+      title: art.title,
+      artist: art.artist,
+      game: art.game,
+      image: imageWithAlt(assetId ?? "mock-asset-id", `${art.title} by ${art.artist}`),
+      sourceUrl: art.sourceUrl,
+      displayOrder: art.displayOrder,
+      enabled: true,
+    };
+  });
+
+  const facebookFeatureDocuments: SanityDocumentLike[] = facebookFeatures.map((feat, index) => {
+    const assetKey = `memo${index + 1}.jpg`;
+    const assetId = assetIds.get(assetKey);
+    if (!assetId && !dryRun) throw new Error(`${assetKey} was not found for feature ${feat.title}`);
+
+    return {
+      _id: feat.id,
+      _type: "facebookFeature",
+      title: feat.title,
+      excerpt: feat.excerpt,
+      postUrl: feat.postUrl,
+      image: imageWithAlt(assetId ?? "mock-asset-id", feat.title),
+      displayOrder: feat.displayOrder,
+      enabled: true,
+    };
+  });
+
   const privacyNotice: SanityDocumentLike = {
     _id: "privacyNotice",
     _type: "privacyNotice",
@@ -127,13 +164,13 @@ async function buildDocuments(assetIds: ReadonlyMap<string, string>): Promise<Sa
     })),
   };
 
-  return [siteSettings, privacyNotice, ...ruleDocuments];
+  return [siteSettings, privacyNotice, ...ruleDocuments, ...artworkDocuments, ...facebookFeatureDocuments];
 }
 
 async function main() {
   const config = client.config();
   console.log(`Target: ${config.projectId}/${config.dataset}`);
-  console.log(`Assets: ${assetNames.length}; documents: 12; mock announcements/features: excluded`);
+  console.log(`Assets: ${assetNames.length}; importing settings, rules, privacy, artworks, and features`);
 
   if (config.projectId !== EXPECTED_PROJECT || config.dataset !== EXPECTED_DATASET) {
     throw new Error(`Refusing unexpected target ${config.projectId}/${config.dataset}`);
@@ -149,7 +186,20 @@ async function main() {
   }
 
   const assetIds = new Map<string, string>();
+  const existingAssets = await client.fetch<Array<{ _id: string; originalFilename: string }>>(
+    '*[_type == "sanity.imageAsset"]{ _id, originalFilename }',
+  );
+  for (const asset of existingAssets) {
+    if (asset.originalFilename) {
+      assetIds.set(asset.originalFilename, asset._id);
+    }
+  }
+
   for (const filename of assetNames) {
+    if (assetIds.has(filename)) {
+      console.log(`Using existing ${filename} -> ${assetIds.get(filename)}`);
+      continue;
+    }
     const source = join(assetsDirectory, filename);
     const asset = await client.assets.upload("image", createReadStream(source), {
       filename: basename(source),

@@ -45,13 +45,13 @@ sanity-deploy:
 	$(SANITY_ENV) pnpm --filter @slga/studio run deploy
 
 lint:
-	pnpm lint
+	pnpm --filter @slga/web lint
 
 typecheck:
 	pnpm typecheck
 
 build:
-	pnpm build
+	NEXT_PUBLIC_SANITY_PROJECT_ID=$(SANITY_PROJECT_ID) NEXT_PUBLIC_SANITY_DATASET=$(SANITY_DATASET) pnpm build
 
 clean:
 	rm -rf apps/web/.next

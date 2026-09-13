@@ -7,7 +7,7 @@ import { singletonTypes, structure } from "./structure";
 export default defineConfig({
   name: "slga-studio",
   title: "SLGA Content",
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? "",
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? "lcgep8ux",
   dataset: process.env.SANITY_STUDIO_DATASET ?? "production",
   plugins: [structureTool({ structure }), visionTool()],
   schema: { types: schemaTypes },

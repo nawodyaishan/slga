@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 import type {
   Announcement,
+  Artwork,
   ContentAdapter,
   FacebookFeature,
   PrivacyNotice,
@@ -14,6 +15,7 @@ import { resolveSanityImage } from "./image";
 import type {
   ANNOUNCEMENT_BY_SLUG_QUERYResult,
   ANNOUNCEMENTS_QUERYResult,
+  ARTWORK_QUERYResult,
   FACEBOOK_FEATURES_QUERYResult,
   FEATURED_ANNOUNCEMENT_QUERYResult,
   PRIVACY_QUERYResult,
@@ -101,6 +103,14 @@ const FACEBOOK_FEATURES_QUERY = groq`*[
   _id, title, excerpt, postUrl, image, displayOrder
 }`;
 
+const ARTWORK_QUERY = groq`*[
+  _type == "artwork" &&
+  enabled == true &&
+  !(_id in path("drafts.**"))
+] | order(displayOrder asc, _createdAt asc){
+  _id, title, artist, game, image, sourceUrl, displayOrder
+}`;
+
 const PRIVACY_QUERY = groq`*[_type == "privacyNotice" && !(_id in path("drafts.**"))][0]{
   lastReviewed, intro, sections
 }`;
@@ -108,6 +118,7 @@ const PRIVACY_QUERY = groq`*[_type == "privacyNotice" && !(_id in path("drafts.*
 type SiteSettingsQueryData = NonNullable<SITE_SETTINGS_QUERYResult>;
 type RuleQueryItem = RULES_QUERYResult[number];
 type AnnouncementQueryItem = ANNOUNCEMENTS_QUERYResult[number];
+type ArtworkQueryItem = ARTWORK_QUERYResult[number];
 type FacebookFeatureQueryItem = FACEBOOK_FEATURES_QUERYResult[number];
 type PrivacyQueryData = NonNullable<PRIVACY_QUERYResult>;
 
@@ -216,6 +227,23 @@ function mapFeature(raw: FacebookFeatureQueryItem): FacebookFeature {
   };
 }
 
+function mapArtwork(raw: ArtworkQueryItem): Artwork {
+  const image = resolveSanityImage(raw.image, { width: 800, height: 1000 });
+  return {
+    id: raw._id,
+    title: raw.title,
+    artist: raw.artist,
+    game: raw.game,
+    sourceUrl: raw.sourceUrl,
+    image: image ?? {
+      src: "",
+      alt: raw.title,
+      placeholder: "IMAGE MISSING",
+    },
+    displayOrder: raw.displayOrder,
+  };
+}
+
 function mapPrivacyNotice(raw: PrivacyQueryData): PrivacyNotice {
   return {
     lastReviewed: raw.lastReviewed,
@@ -273,6 +301,15 @@ export const sanityAdapter: ContentAdapter = {
       { next: { revalidate: 60 } },
     );
     return raw ? mapAnnouncement(raw) : null;
+  },
+
+  async getArtworks() {
+    const raw = await getSanityClient().fetch<ARTWORK_QUERYResult>(
+      ARTWORK_QUERY,
+      {},
+      { next: { revalidate: 60 } },
+    );
+    return raw.map(mapArtwork);
   },
 
   async getFacebookFeatures() {

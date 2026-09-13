@@ -29,6 +29,19 @@ type AnalyticsEvent =
         readonly slug: string;
         readonly placement: "homepage" | "index";
       };
+    }
+  | {
+      readonly name: "artwork_open";
+      readonly properties: {
+        readonly artwork_id: string;
+        readonly placement: "showcase";
+      };
+    }
+  | {
+      readonly name: "artwork_source_click";
+      readonly properties: {
+        readonly artwork_id: string;
+      };
     };
 
 type EventName = AnalyticsEvent["name"];

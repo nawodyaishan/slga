@@ -12,6 +12,7 @@ export const structure: StructureResolver = (S) =>
         .child(S.document().schemaType("siteSettings").documentId("siteSettings")),
       S.documentTypeListItem("rule").title("Rules"),
       S.documentTypeListItem("announcement").title("Announcements"),
+      S.documentTypeListItem("artwork").title("Artwork Showcase"),
       S.documentTypeListItem("facebookFeature").title("Featured Facebook Posts"),
       S.listItem()
         .id("privacyNotice")

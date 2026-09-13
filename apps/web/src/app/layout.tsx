@@ -20,12 +20,14 @@ export const metadata: Metadata = {
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Rules", href: "/rules" },
+  { label: "Showcase", href: "/showcase" },
   { label: "Announcements", href: "/announcements" },
 ] as const;
 
 const SITE_LINKS = [
   { label: "Home", href: "/" },
   { label: "Rules", href: "/rules" },
+  { label: "Showcase", href: "/showcase" },
   { label: "Announcements", href: "/announcements" },
   { label: "Privacy", href: "/privacy" },
 ] as const;
