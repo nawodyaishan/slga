@@ -28,13 +28,16 @@ export function LatestAnnouncement({ announcement }: LatestAnnouncementProps) {
           onClick={() => track("announcement_open", { slug: announcement.slug, placement: "homepage" })}
           className="flex flex-wrap overflow-hidden rounded-2xl border border-border bg-surface text-foreground hover:border-accent"
         >
-          <div className="grid min-h-[230px] flex-[1_1_300px] place-items-center [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
-            <p className="m-0 px-5 py-5 text-center font-mono text-[10.5px] leading-[1.7] tracking-[0.1em] text-muted">
-              COVER IMAGE
-              <br />
-              <span className="text-dim">16:9 · OPTIONAL</span>
-            </p>
-          </div>
+          {announcement.coverImage && (
+            <div className="relative min-h-[230px] flex-[1_1_300px] overflow-hidden">
+              <img
+                src={announcement.coverImage.src}
+                alt={announcement.coverImage.alt}
+                className="absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: announcement.coverImage.focalPoint }}
+              />
+            </div>
+          )}
           <div className="flex min-w-0 flex-[1_1_380px] flex-col justify-center gap-4 p-(--spacing-card)">
             <div className="flex flex-wrap items-center gap-3">
               <Badge>{announcement.kind}</Badge>
