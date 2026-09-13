@@ -1,0 +1,18 @@
+{
+  "name": "slgaofficial.github.io",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @slga/web dev",
+    "build": "pnpm --filter @slga/web build",
+    "lint": "pnpm --filter @slga/web lint",
+    "typecheck": "pnpm --filter @slga/web typecheck",
+    "dev:studio": "pnpm --filter @slga/studio dev",
+    "prepare": "husky",
+    "precommit": "lint-staged && pnpm typecheck"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11"
+  }
+}

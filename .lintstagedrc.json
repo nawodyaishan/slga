@@ -1,0 +1,4 @@
+{
+  "apps/web/**/*.{ts,tsx}": "pnpm --filter @slga/web lint",
+  "apps/web/**/*.{css,mjs,ts,tsx}": "pnpm --filter @slga/web lint"
+}
