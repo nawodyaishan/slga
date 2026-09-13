@@ -4,7 +4,13 @@
   "scripts": {
     "dev": "sanity dev",
     "build": "sanity build",
-    "deploy": "sanity deploy"
+    "deploy": "sanity deploy",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "schema:extract": "sanity schema extract --path schema.json --enforce-required-fields",
+    "typegen": "pnpm schema:extract && sanity typegen generate",
+    "content:dry-run": "sanity exec scripts/import-original-content.ts -- --dry-run",
+    "content:import-original": "sanity exec scripts/import-original-content.ts --with-user-token -- --confirm-production"
   },
   "dependencies": {
     "@sanity/vision": "^4.0.0",
@@ -16,4 +22,3 @@
     "typescript": "^5.7.0"
   }
 }
-
