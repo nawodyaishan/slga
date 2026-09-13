@@ -1,20 +1,146 @@
 @import "tailwindcss";
 
-:root { --background: #080b12; --foreground: #f6f8fb; --accent: #20d6e7; --surface: #111722; --muted: #9ba7b7; --border: #253041; }
-* { box-sizing: border-box; }
-html { background: var(--background); color: var(--foreground); }
-body { margin: 0; min-width: 320px; font-family: Arial, sans-serif; background: var(--background); }
-a { color: inherit; text-decoration: none; }
-.site-shell, .content-page, .centered { width: min(100% - 2rem, 72rem); margin: auto; }
-.site-header { display: flex; align-items: center; justify-content: space-between; min-height: 5rem; border-bottom: 1px solid var(--border); }
-.site-header nav, .actions { display: flex; align-items: center; gap: 1rem; }
-.wordmark { font-weight: 800; letter-spacing: .08em; }.wordmark span, .eyebrow { color: var(--accent); }
-.site-header nav a:not(.button) { color: var(--muted); font-size: .9rem; }
-.hero { padding: 8rem 0 9rem; max-width: 52rem; }.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-h1, h2 { line-height: 1.05; letter-spacing: -.04em; }.hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); margin: 1rem 0 1.5rem; }.hero-copy { color: var(--muted); font-size: 1.2rem; max-width: 38rem; }
-.button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; padding: .75rem 1rem; border: 1px solid var(--accent); border-radius: .25rem; background: var(--accent); color: #061016; font-weight: 700; }.button-secondary { background: transparent; color: var(--foreground); border-color: var(--border); }.button-small { min-height: 2.5rem; padding: .5rem .75rem; }
-.foundation-note { border-top: 1px solid var(--border); padding: 3rem 0 6rem; max-width: 42rem; }.foundation-note h2 { font-size: clamp(2rem, 5vw, 3.5rem); }.foundation-note p:last-child, .content-page p { color: var(--muted); line-height: 1.7; }
-.content-page { padding: 7rem 0; max-width: 52rem; }.content-page h1, .centered h1 { font-size: clamp(3rem, 8vw, 6rem); }.centered { min-height: 70vh; display: grid; place-content: center; }
-@media (max-width: 640px) { .site-header nav a:not(.button) { display: none; }.hero { padding: 6rem 0; }.actions { align-items: stretch; flex-direction: column; max-width: 18rem; }.actions .button { width: 100%; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+/* ---------------------------------------------------------------------------
+   SLGA design tokens — obsidian + electric cyan.
+   Values are taken from the approved Claude Design prototype
+   (design/phase_1/SLGA Phase 1.dc.html). The prototype switched between fixed
+   sizes at measured widths of 420 / 700 / 1040 px; here those steps become
+   fluid clamp() values that match the prototype exactly at 375 px and 1440 px.
+--------------------------------------------------------------------------- */
+@theme {
+  /* Breakpoints mirroring the prototype's JS thresholds. */
+  --breakpoint-nav: 43.75rem; /* 700px — desktop nav appears */
+  --breakpoint-wide: 65rem; /* 1040px — rules index becomes a sticky column */
 
+  /* Surfaces */
+  --color-abyss: #05070c; /* page letterbox */
+  --color-background: #080b12;
+  --color-surface: #111722; /* cards, elevated */
+  --color-surface-sunken: #0d131e; /* secondary cards, callouts */
+  --color-surface-raised: #0c1320; /* drawer, notice bar */
+  --color-footer: #06090f;
+
+  /* Text */
+  --color-foreground: #f6f8fb;
+  --color-body: #c9d3e0; /* long-form reading text */
+  --color-muted: #9ba7b7; /* secondary text */
+  --color-dim: #6c7a8c; /* labels, meta */
+
+  /* Accent */
+  --color-accent: #20d6e7;
+  --color-accent-soft: #7fe9f4;
+  --color-accent-ink: #061018; /* text on accent fills */
+
+  /* Lines */
+  --color-border: #253041;
+  --color-border-soft: #1b2432;
+
+  /* Type families — bound to next/font CSS variables in layout.tsx */
+  --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sinhala: var(--font-noto-sinhala), var(--font-geist), sans-serif;
+
+  /* Fluid type scale */
+  --text-h1: clamp(2.3125rem, 1.41rem + 3.85vw, 4.875rem); /* 37 → 78 */
+  --text-h1-page: clamp(1.875rem, 1.259rem + 2.63vw, 3.625rem); /* 30 → 58 */
+  --text-h2: clamp(1.5625rem, 1.2325rem + 1.41vw, 2.5rem); /* 25 → 40 */
+  --text-h3: clamp(1.25rem, 1.14rem + 0.47vw, 1.5625rem); /* 20 → 25 */
+  --text-lead: clamp(1rem, 0.967rem + 0.14vw, 1.09375rem); /* 16 → 17.5 */
+  --text-body: clamp(1rem, 0.989rem + 0.05vw, 1.03125rem); /* 16 → 16.5 */
+  --text-article: clamp(1.03125rem, 0.998rem + 0.09vw, 1.09375rem); /* 16.5 → 17.5 */
+  --text-stat: clamp(1.875rem, 1.699rem + 0.75vw, 2.375rem); /* 30 → 38 */
+  --text-ghost: clamp(6rem, 3.93rem + 8.83vw, 11.875rem); /* 404 numeral */
+  --text-label: 0.625rem; /* 10px mono labels */
+  --text-label-lg: 0.6875rem; /* 11px mono labels */
+
+  /* Fluid spacing */
+  --spacing-gutter: clamp(1rem, 0.296rem + 3vw, 3rem); /* 16 → 48 */
+  --spacing-section: clamp(3.25rem, 2.4575rem + 3.38vw, 5.5rem); /* 52 → 88 */
+  --spacing-hero-top: clamp(2.75rem, 2.0475rem + 2.99vw, 5.375rem); /* 44 → 86 */
+  --spacing-hero-bottom: clamp(3.25rem, 2.4025rem + 3.61vw, 6.25rem); /* 52 → 100 */
+  --spacing-page-top: clamp(2.75rem, 2.3575rem + 1.67vw, 4.5rem); /* 44 → 72 */
+  --spacing-card: clamp(1.5rem, 1.28rem + 0.94vw, 2.125rem); /* 24 → 34 */
+  --spacing-layout-gap: clamp(2.125rem, 1.817rem + 1.31vw, 3rem); /* 34 → 48 */
+  --spacing-rule-gap: clamp(1.875rem, 1.655rem + 0.94vw, 2.5rem); /* 30 → 40 */
+  --spacing-shell: 75rem; /* 1200px content frame */
+  --spacing-header: 3.75rem; /* 60px, mobile */
+  --spacing-header-lg: 4.75rem; /* 76px, desktop */
+  --spacing-anchor: 6.875rem; /* 110px — clears the sticky header */
+}
+
+/* ---------------------------------------------------------------------------
+   Base layer
+--------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--color-abyss);
+    color: var(--color-foreground);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-abyss);
+    font-family: var(--font-sans);
+    text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* The Sinhala face has taller glyphs; give it a touch more room. */
+  [lang="si"] {
+    font-family: var(--font-sinhala);
+    line-height: 1.85;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion — a single entrance transition, disabled on request.
+--------------------------------------------------------------------------- */
+@keyframes slga-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-rise {
+  animation: slga-rise 0.5s ease both;
+}
+
+@utility animate-rise-slow {
+  animation: slga-rise 0.6s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}

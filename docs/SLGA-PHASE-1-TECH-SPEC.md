@@ -323,19 +323,25 @@ Only one document may be created or edited.
 | `siteName` | string | Yes | Default `Sri Lankan Gaming Alliance` |
 | `shortName` | string | Yes | Default `SLGA` |
 | `heroEyebrow` | string | No | Short identity line |
-| `heroHeading` | string | Yes | English |
+| `heroHeading` | string | Yes | English; newline characters define the intentional stacked display lines |
 | `heroBody` | text | Yes | English; length validation |
 | `heroImage` | image + alt | No | Hotspot enabled |
 | `memberCount` | number | Yes | Integer, non-negative |
 | `memberCountLabel` | string | Yes | Example: `community members` |
-| `aboutHeading` | string | Yes | English |
+| `memberCountSource` | string | Yes | Public provenance for the founder-verified count |
+| `aboutHeading` | string | Yes | English; newline characters may define stacked display lines |
 | `aboutBody` | Portable Text | Yes | Restricted block styles |
+| `aboutFacts` | array of objects | Yes | Two to four homepage facts: stable key, title, description |
 | `socialLinks` | array of objects | Yes | Platform, label, URL, enabled, order |
 | `featuredAnnouncement` | reference | No | Falls back to newest published |
 | `rulesHeadingEn` | string | Yes | English |
 | `rulesHeadingSi` | string | Yes | Sinhala |
 | `rulesIntroEn` | text | Yes | English |
 | `rulesIntroSi` | text | Yes | Sinhala |
+| `rulesOutroTitleEn` | string | Yes | English rules closing-panel title |
+| `rulesOutroTitleSi` | string | Yes | Sinhala rules closing-panel title |
+| `rulesOutroBodyEn` | text | Yes | English rules closing-panel body |
+| `rulesOutroBodySi` | text | Yes | Sinhala rules closing-panel body |
 | `rulesLastUpdated` | date | Yes | Displayed on both versions |
 | `seoTitle` | string | Yes | Default metadata title |
 | `seoDescription` | text | Yes | Target roughly 120–160 characters |
@@ -364,10 +370,12 @@ Portable Text for rules permits paragraphs, `h3`, bold, italic, links, ordered l
 | --- | --- | --- | --- |
 | `title` | string | Yes | English; sensible length validation |
 | `slug` | slug | Yes | Generated from title, unique, immutable after publication unless redirect is added |
+| `kind` | string | Yes | One of `ANNOUNCEMENT`, `RULES UPDATE`, `COMMUNITY`, `EVENT`; defaults to `ANNOUNCEMENT` |
 | `excerpt` | text | Yes | Used in cards and metadata |
 | `body` | Portable Text | Yes | English |
 | `coverImage` | image + alt | No | Hotspot enabled |
 | `publishedAt` | datetime | Yes | Public only when ≤ current time |
+| `seoDescription` | string | No | Optional metadata override; target roughly 120–160 characters |
 
 Sanity's native draft/publish state is authoritative; do not create a redundant `published` boolean. The displayed date does not itself publish a draft. Sanity Free currently does not include Scheduled Drafts, so Phase 1 assumes manual publishing.
 
@@ -386,7 +394,17 @@ Announcement Portable Text permits paragraphs, `h2`/`h3`, bold, italic, links, l
 
 The homepage query returns only the first three enabled documents by `displayOrder`.
 
-### 11.5 Studio structure and validation
+### 11.5 `privacyNotice` — singleton
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `lastReviewed` | date | Yes | Displayed as a machine-readable review date |
+| `intro` | text | Yes | Plain-language introduction |
+| `sections` | array of objects | Yes | At least one section; each contains a required heading and one or more paragraphs |
+
+Privacy content is public and code-independent but remains founder-approved. The schema descriptions must warn editors not to enter member data, credentials, or internal notes.
+
+### 11.6 Studio structure and validation
 
 Studio navigation:
 
@@ -395,12 +413,13 @@ SLGA Content
 ├── Site & Homepage
 ├── Rules
 ├── Announcements
-└── Featured Facebook Posts
+├── Featured Facebook Posts
+└── Privacy notice
 ```
 
 Requirements:
 
-- hide singleton creation/duplication actions for `siteSettings`;
+- hide create, duplicate, and delete actions for `siteSettings` and `privacyNotice`, and open both through fixed document IDs;
 - order lists meaningfully in Studio;
 - provide document previews with title, state, date/order, and thumbnail where useful;
 - validate required localized rule fields;
@@ -444,7 +463,7 @@ slgaofficial.github.io/
 │   │   │   │       ├── client.ts
 │   │   │   │       ├── image.ts
 │   │   │   │       ├── queries.ts
-│   │   │   │       └── types.ts
+│   │   │   │       └── sanity.types.ts
 │   │   │   └── styles/globals.css
 │   │   ├── public/
 │   │   ├── next.config.ts
@@ -453,12 +472,20 @@ slgaofficial.github.io/
 │       ├── schemaTypes/
 │       │   ├── announcement.ts
 │       │   ├── facebookFeature.ts
+│       │   ├── objects/
+│       │   │   ├── announcementBlockContent.ts
+│       │   │   ├── imageWithAlt.ts
+│       │   │   ├── localizedString.ts
+│       │   │   ├── localizedText.ts
+│       │   │   └── rulesBlockContent.ts
+│       │   ├── privacyNotice.ts
 │       │   ├── rule.ts
 │       │   ├── siteSettings.ts
 │       │   └── index.ts
-│       ├── structure/
+│       ├── structure/index.ts
 │       ├── sanity.cli.ts
 │       ├── sanity.config.ts
+│       ├── eslint.config.mjs
 │       └── package.json
 ├── .github/workflows/
 │   └── ci.yml
