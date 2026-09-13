@@ -1,4 +1,5 @@
 import type { SocialLink } from "@/lib/content/types";
+import { Github, Linkedin } from "lucide-react";
 
 export interface FooterLink {
   label: string;
@@ -79,10 +80,33 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
       </div>
 
       <div className="border-t border-border-soft">
-        <div className="mx-auto max-w-(--spacing-shell) px-(--spacing-gutter) py-5">
-          <p className="text-[12.5px] leading-relaxed text-dim">
+        <div className="mx-auto flex max-w-(--spacing-shell) flex-col items-center justify-between gap-4 px-(--spacing-gutter) py-5 md:flex-row">
+          <p className="text-center text-[12.5px] leading-relaxed text-dim md:text-left">
             © {year} Sri Lankan Gaming Alliance. COMMUNITY-RUN · NOT AN OFFICIAL GOVERNING BODY.
           </p>
+          <div className="flex items-center gap-3 text-[12.5px] text-dim">
+            <span>Built by Nawodya Ishan</span>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/nawodyaishan"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-foreground"
+                aria-label="GitHub Profile"
+              >
+                <Github className="size-[15px]" />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/nawodyaishan/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-foreground"
+                aria-label="LinkedIn Profile"
+              >
+                <Linkedin className="size-[15px]" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
