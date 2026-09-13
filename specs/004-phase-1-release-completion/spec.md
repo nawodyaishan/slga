@@ -1,7 +1,7 @@
 # Spec 004 — Phase 1 release completion
 
 **Type:** release specification  
-**Status:** draft; founder decisions required before planning  
+**Status:** approved for planning and implementation  
 **Source of truth:** `docs/SLGA-PHASE-1-TECH-SPEC.md`, `docs/TASKS.md` T07–T10  
 **Depends on:** Specs 001–003
 
@@ -228,12 +228,12 @@ must be approved against the actual launch configuration before release.
 
 | # | Question | Owner | Blocks |
 | --- | --- | --- | --- |
-| Q1 | What is the exact production web origin and Vercel project? | Founder/release owner | Canonicals, robots, CSP, deployment planning |
-| Q2 | Approve adding the minimal test dependencies and lockfile changes required for browser and accessibility automation? | Founder | Automated-test planning and implementation |
-| Q3 | Which member count, rules/translations, privacy copy, images, announcements, and featured cards are approved for launch? | Founder/editor | Editorial completion and release |
+| Q1 | What is the exact production web origin and Vercel project? | Resolved by documented default | Use `https://slgaofficial.github.io`; Vercel deployment remains deferred |
+| Q2 | Approve adding the minimal test dependencies and lockfile changes required for browser and accessibility automation? | Resolved: approved | Add Playwright Test and axe integration |
+| Q3 | Which imported content is approved for launch? | Resolved: approved | Rules, privacy copy, retained images, and 66,000-member count are approved |
 
 ## Human approval status
 
-Drafted from the remaining work in `docs/TASKS.md` T07–T10 and the completed
-state of Specs 001–003. The specification is ready for founder clarification;
-technical planning must wait until Q1–Q3 are resolved or explicitly deferred.
+Approved through the instruction to proceed, add Playwright/accessibility
+coverage, and treat the imported content as confirmed. Public web deployment
+still requires explicit approval of the exact release commit.
