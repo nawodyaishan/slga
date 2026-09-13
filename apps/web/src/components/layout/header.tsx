@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/ui";
 import { useScrollState } from "./use-scroll-state";
 import { MobileNav, type MobileNavItem } from "./mobile-nav";
 
@@ -86,7 +87,11 @@ export function Header({ navItems, discordUrl, facebookUrl, homeHref = "/" }: He
               href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-3 flex min-h-11 items-center gap-2 rounded-[9px] bg-accent px-5 font-sans text-[14.5px] font-semibold tracking-[-0.01em] text-accent-ink"
+              className={buttonVariants({
+                variant: "solid",
+                size: "sm",
+                className: "ml-3 min-h-11 rounded-[9px] px-5 text-[14.5px]",
+              })}
             >
               Join Discord
               <span aria-hidden="true" className="font-mono text-[11px] opacity-60">
@@ -100,7 +105,11 @@ export function Header({ navItems, discordUrl, facebookUrl, homeHref = "/" }: He
               href={discordUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-11 items-center rounded-[9px] bg-accent px-3.5 font-sans text-[13.5px] font-semibold text-accent-ink"
+              className={buttonVariants({
+                variant: "solid",
+                size: "sm",
+                className: "min-h-11 rounded-[9px] px-3.5 text-[13.5px]",
+              })}
             >
               Discord
             </a>

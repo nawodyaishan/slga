@@ -18,6 +18,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { track } from "@/lib/analytics";
+import { buttonVariants } from "@/components/ui";
 import type { Artwork } from "@/lib/content/types";
 
 interface ArtworkLightboxProps {
@@ -110,7 +111,7 @@ export function ArtworkLightbox({
             className="flex h-full w-full max-w-5xl items-center justify-center gap-2.5"
           >
             <CarouselPrevious
-              className="relative inset-auto top-auto left-auto translate-x-0 translate-y-0 grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
+              className="relative inset-auto top-auto left-auto translate-x-0 translate-y-0 grid h-11 w-11 nav:h-12 nav:w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
               aria-label="Previous artwork"
             />
 
@@ -145,7 +146,7 @@ export function ArtworkLightbox({
             </CarouselContent>
 
             <CarouselNext
-              className="relative inset-auto top-auto right-auto translate-x-0 translate-y-0 grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
+              className="relative inset-auto top-auto right-auto translate-x-0 translate-y-0 grid h-11 w-11 nav:h-12 nav:w-12 shrink-0 place-items-center rounded-xl border border-border bg-surface text-foreground transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
               aria-label="Next artwork"
             />
           </Carousel>
@@ -174,7 +175,11 @@ export function ArtworkLightbox({
                 artwork_id: currentArtwork.id,
               })
             }
-            className="inline-flex min-h-12 w-full nav:w-auto shrink-0 items-center justify-center gap-2.5 rounded-[10px] border border-border bg-surface px-5 font-sans text-[15px] font-medium text-foreground transition-colors hover:border-accent focus-visible:outline-2 focus-visible:outline-accent"
+            className={buttonVariants({
+              variant: "surface",
+              size: "default",
+              className: "w-full nav:w-auto font-medium shrink-0",
+            })}
           >
             View original post
             <span

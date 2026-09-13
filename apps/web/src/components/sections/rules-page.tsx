@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, Eyebrow, buttonVariants } from "@/components/ui";
 import { rulesPortableTextComponents } from "@/components/portable-text/rules-portable-text";
 import { CommunityCtaLink } from "./community-cta-link";
 import { content } from "@/lib/content";
@@ -151,7 +151,11 @@ export async function RulesPage({ locale, discordUrl }: RulesPageProps) {
               destination="discord"
               placement="footer"
               url={discordUrl}
-              className="flex min-h-13 items-center gap-2.5 rounded-[10px] bg-accent px-6 font-sans text-base font-semibold whitespace-nowrap text-accent-ink"
+              className={buttonVariants({
+                variant: "solid",
+                size: "lg",
+                className: "w-full sm:w-auto",
+              })}
             >
               Join Discord
               <span aria-hidden="true" className="font-mono text-xs opacity-55">

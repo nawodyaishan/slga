@@ -1,4 +1,4 @@
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, Eyebrow, buttonVariants } from "@/components/ui";
 import { CommunityCtaLink } from "./community-cta-link";
 import type { SiteSettings } from "@/lib/content/types";
 
@@ -8,8 +8,17 @@ interface HeroProps {
   facebookUrl: string;
 }
 
-const ctaBase =
-  "flex min-h-[54px] flex-1 items-center justify-center gap-2.5 rounded-[10px] px-6 font-sans text-[16px] leading-none tracking-[-0.01em] sm:flex-none";
+const heroPrimaryCta = buttonVariants({
+  variant: "solid",
+  size: "hero",
+  className: "w-full sm:w-auto",
+});
+
+const heroSecondaryCta = buttonVariants({
+  variant: "surface",
+  size: "hero",
+  className: "w-full sm:w-auto font-medium",
+});
 
 export function Hero({ settings, discordUrl, facebookUrl }: HeroProps) {
   return (
@@ -35,12 +44,12 @@ export function Hero({ settings, discordUrl, facebookUrl }: HeroProps) {
             ))}
           </h1>
           <p className="mt-[26px] max-w-[52ch] text-lead leading-[1.6] text-muted">{settings.heroBody}</p>
-          <div className="mt-8 flex flex-wrap gap-2.5">
+          <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-2.5">
             <CommunityCtaLink
               destination="discord"
               placement="hero"
               url={discordUrl}
-              className={`${ctaBase} bg-accent font-semibold text-accent-ink`}
+              className={heroPrimaryCta}
             >
               Join Discord
               <span aria-hidden="true" className="font-mono text-xs opacity-55">
@@ -51,7 +60,7 @@ export function Hero({ settings, discordUrl, facebookUrl }: HeroProps) {
               destination="facebook"
               placement="hero"
               url={facebookUrl}
-              className={`${ctaBase} border border-border bg-surface font-medium text-foreground`}
+              className={heroSecondaryCta}
             >
               Join Facebook Community
               <span aria-hidden="true" className="font-mono text-xs text-muted">

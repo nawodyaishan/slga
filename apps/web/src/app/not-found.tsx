@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Container } from "@/components/ui";
+import { Container, buttonVariants } from "@/components/ui";
 
 export default function NotFound() {
   return (
@@ -17,16 +17,24 @@ export default function NotFound() {
         <p className="mx-auto mt-5 max-w-[46ch] text-lead leading-[1.65] text-muted">
           The link may be old, or the page may have moved. Everything current is one of these doors.
         </p>
-        <div className="mt-9 flex flex-wrap justify-center gap-3">
+        <div className="mt-9 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="flex min-h-13 items-center rounded-[10px] bg-accent px-6.5 font-sans text-base font-semibold text-accent-ink"
+            className={buttonVariants({
+              variant: "solid",
+              size: "lg",
+              className: "w-full sm:w-auto",
+            })}
           >
             Back to home
           </Link>
           <Link
             href="/rules"
-            className="flex min-h-13 items-center rounded-[10px] border border-border bg-surface px-6.5 font-sans text-base font-medium text-foreground"
+            className={buttonVariants({
+              variant: "surface",
+              size: "lg",
+              className: "w-full sm:w-auto font-medium",
+            })}
           >
             Read the rules
           </Link>

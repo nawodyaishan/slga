@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PortableText } from "@portabletext/react";
-import { Container } from "@/components/ui";
+import { Container, buttonVariants } from "@/components/ui";
 import { announcementPortableTextComponents } from "@/components/portable-text/announcement-portable-text";
 import { CommunityCtaLink } from "@/components/sections/community-cta-link";
 import { content } from "@/lib/content";
@@ -95,8 +95,8 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
         <div className="flex max-w-[72ch] flex-col gap-5">
           <PortableText value={announcement.body} components={announcementPortableTextComponents} />
         </div>
-        <div className="mt-12 flex max-w-[72ch] flex-wrap items-center justify-between gap-3.5 border-t border-border pt-7">
-          <Link href="/announcements" className="flex min-h-11 items-center gap-2.5 text-[15px] font-semibold">
+        <div className="mt-12 flex max-w-[72ch] flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3.5 border-t border-border pt-7">
+          <Link href="/announcements" className="inline-flex min-h-11 items-center gap-2.5 text-[15px] font-semibold text-foreground transition-colors hover:text-accent">
             <span aria-hidden="true">←</span>
             All announcements
           </Link>
@@ -104,7 +104,11 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
             destination="discord"
             placement="footer"
             url={discordUrl}
-            className="flex min-h-12 items-center gap-2.5 rounded-[10px] border border-border bg-surface px-5.5 font-sans text-[15px] font-medium text-foreground"
+            className={buttonVariants({
+              variant: "surface",
+              size: "default",
+              className: "w-full sm:w-auto font-medium",
+            })}
           >
             Join Discord
             <span aria-hidden="true" className="font-mono text-xs text-muted">

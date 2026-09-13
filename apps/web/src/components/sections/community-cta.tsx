@@ -1,4 +1,4 @@
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, Eyebrow, buttonVariants } from "@/components/ui";
 import { CommunityCtaLink } from "./community-cta-link";
 
 interface CommunityCtaProps {
@@ -42,7 +42,11 @@ export function CommunityCta({ discordUrl, facebookUrl }: CommunityCtaProps) {
               destination="discord"
               placement="footer"
               url={discordUrl}
-              className="flex min-h-13 items-center justify-center gap-2.5 rounded-[10px] bg-accent font-sans text-base font-semibold text-accent-ink"
+              className={buttonVariants({
+                variant: "solid",
+                size: "lg",
+                className: "w-full",
+              })}
             >
               Join Discord
               <span aria-hidden="true" className="font-mono text-xs opacity-55">
@@ -61,7 +65,11 @@ export function CommunityCta({ discordUrl, facebookUrl }: CommunityCtaProps) {
               destination="facebook"
               placement="footer"
               url={facebookUrl}
-              className="flex min-h-13 items-center justify-center gap-2.5 rounded-[10px] border border-border bg-transparent font-sans text-base font-medium text-foreground"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                className: "w-full font-medium",
+              })}
             >
               Join Facebook Community
               <span aria-hidden="true" className="font-mono text-xs text-muted">

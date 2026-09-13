@@ -1,5 +1,6 @@
 "use client";
 
+import { buttonVariants } from "@/components/ui";
 import { useScrollState } from "./use-scroll-state";
 
 export interface MobileCtaBarProps {
@@ -26,17 +27,25 @@ export function MobileCtaBar({ discordUrl, facebookUrl }: MobileCtaBarProps) {
         href={discordUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex min-h-11 flex-1 items-center justify-center rounded-[10px] bg-accent font-sans text-[14.5px] font-semibold text-accent-ink"
+        className={buttonVariants({
+          variant: "solid",
+          size: "default",
+          className: "flex-1 min-w-0 px-2 text-[14px] xs:text-[14.5px]",
+        })}
       >
-        Join Discord
+        <span className="truncate">Join Discord</span>
       </a>
       <a
         href={facebookUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex min-h-11 flex-1 items-center justify-center rounded-[10px] border border-border font-sans text-[14.5px] font-medium text-foreground"
+        className={buttonVariants({
+          variant: "outline",
+          size: "default",
+          className: "flex-1 min-w-0 px-2 text-[14px] xs:text-[14.5px] font-medium",
+        })}
       >
-        Join Facebook
+        <span className="truncate">Join Facebook</span>
       </a>
     </div>
   );

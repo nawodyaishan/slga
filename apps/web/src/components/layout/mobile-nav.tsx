@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type RefObject } from "react";
 import { cn } from "@/lib/cn";
+import { buttonVariants } from "@/components/ui";
 
 export interface MobileNavItem {
   label: string;
@@ -127,7 +128,11 @@ export function MobileNav({ open, onClose, navItems, discordUrl, facebookUrl, tr
           href={discordUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-13 items-center justify-center rounded-[11px] bg-accent font-sans text-base font-semibold text-accent-ink"
+          className={buttonVariants({
+            variant: "solid",
+            size: "lg",
+            className: "w-full rounded-[11px]",
+          })}
         >
           Join Discord ↗
         </a>
@@ -135,7 +140,11 @@ export function MobileNav({ open, onClose, navItems, discordUrl, facebookUrl, tr
           href={facebookUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex min-h-13 items-center justify-center rounded-[11px] border border-border font-sans text-base font-medium text-foreground"
+          className={buttonVariants({
+            variant: "outline",
+            size: "lg",
+            className: "w-full rounded-[11px] font-medium",
+          })}
         >
           Join Facebook ↗
         </a>
