@@ -10,6 +10,8 @@ next-env.d.ts
 # Sanity
 .sanity/
 dist/
+apps/studio/schema.json
+.backups/
 
 # local environment files
 .env*
