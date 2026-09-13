@@ -1,7 +1,8 @@
 # Tasks 003 — Phase 1 content and release readiness
 
 **Spec:** `spec.md` · **Plan:** `plan.md`  
-**Sources:** `docs/TASKS.md` T07–T10 and Specs 001–002
+**Status:** complete
+**Sources:** `docs/TASKS.md` T09 and Specs 001–002
 
 ## P3-01 — Migration and local-run tooling
 
@@ -43,44 +44,12 @@
 - **Risk:** Low.
 - **Status:** done — web and Studio started together; all listed endpoints returned HTTP 200.
 
-## P3-04 — Security headers and production configuration (T07)
-
-- **Objective:** Implement CSP/security headers, metadata/canonicals, env
-  validation, and production build/deploy configuration from the tech spec.
-- **Allowed/forbidden:** define in a focused implementation pass after origin
-  and analytics choices are approved.
-- **Verify:** header probes and configured production build.
-- **Approval:** production config and deployment require explicit approval.
-- **Status:** blocked — production origin and Vercel project are unknown.
-
-## P3-05 — Automated test suite (T08)
-
-- **Objective:** Add unit/integration, Playwright, and axe coverage for the
-  acceptance matrix in Spec 001 and `docs/TASKS.md` T08.
-- **Verify:** Chromium CI, then Firefox/WebKit before release.
-- **Approval:** dependency/lockfile changes require explicit approval.
-- **Status:** blocked — test dependency decision not approved.
-
-## P3-06 — Editorial review and replacement content (T09)
-
-- **Objective:** Review imported rules/assets and member count, verify the
-  founder-supplied social links, and add approved announcements and featured cards.
-- **Verify:** Studio validation, logged-out links, rights confirmation, and
-  founder sign-off for both rule languages.
-- **Status:** blocked — founder editorial inputs and rights approval required.
-
-## P3-07 — Release QA and launch (T10)
-
-- **Objective:** Complete cross-browser/a11y/performance QA, founder guide,
-  rollback documentation, exact-commit approval, and public launch.
-- **Depends on:** P3-03 through P3-06.
-- **Verify:** all Phase 1 acceptance criteria and Lighthouse targets.
-- **Approval:** exact release commit and deployment approval required.
-- **Status:** blocked.
-
 ## Dependency order
 
-`P3-01 → P3-02 → P3-03 → (P3-04, P3-05, P3-06) → P3-07`
+`P3-01 → P3-02 → P3-03`
 
-P3-04, P3-05, and P3-06 are parallel-safe once their separate approval gates
-are resolved; their write scopes must be fixed before agents are assigned.
+## Handoff
+
+The remaining T07–T10 production security, testing, editorial approval, QA, and
+launch outcomes moved to `specs/004-phase-1-release-completion/spec.md`. They
+are not incomplete work in this migration/local-readiness scope.

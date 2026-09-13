@@ -1,7 +1,7 @@
 # Plan 003 — Phase 1 content and release readiness
 
 **Spec:** `specs/003-phase-1-content-and-release-readiness/spec.md`  
-**Status:** approved by direct user instruction
+**Status:** complete
 
 ## Summary and inputs reviewed
 
@@ -35,7 +35,7 @@ and Node stream asset uploads.
 - `Makefile`: guarded import/export and combined local runtime targets.
 - Sanity dataset: creates/replaces two singleton documents and ten rule docs;
   uploads the retained image inventory.
-- `specs/003-*`: remaining Phase 1 execution contract.
+- `specs/003-*`: migration and local-execution contract.
 
 No web domain type, query, route, schema, dependency, or lockfile changes.
 
@@ -79,5 +79,6 @@ inventory, and affected IDs without logging credentials.
 
 ## Human architecture approval
 
-Approved by the user's instruction. Public deployment and dependency updates
-remain separate approval gates.
+Approved by the user's instruction and completed. Public deployment,
+release-level editorial approval, security, and automated testing continue in
+Spec 004.

@@ -1,16 +1,14 @@
 # Spec 003 — Phase 1 content and release readiness
 
-**Type:** migration and release-readiness spec  
-**Status:** approved by the instruction to import original content and continue remaining development  
-**Source of truth:** `docs/SLGA-PHASE-1-TECH-SPEC.md`, `docs/TASKS.md` T07–T10  
+**Type:** migration and local-readiness spec
+**Status:** complete
+**Source of truth:** `docs/SLGA-PHASE-1-TECH-SPEC.md`, `docs/TASKS.md` T09
 **Depends on:** Specs 001 and 002
 
 ## Problem statement
 
-The Phase 1 web app and Studio are implemented, but the real Sanity dataset has
-no baseline content. Local development is split across separate commands, and
-the remaining security, test, content-approval, and release work is not grouped
-into an implementation-ready phase.
+The Phase 1 web app and Studio were implemented, but the real Sanity dataset had
+no baseline content and local development was split across separate commands.
 
 ## Goals
 
@@ -19,8 +17,6 @@ into an implementation-ready phase.
 2. Supply the minimum settings and privacy documents required for every public
    route to run against Sanity locally.
 3. Start the web app and Studio together with the real project configuration.
-4. Define the remaining Phase 1 work from `docs/TASKS.md` T07–T10 as bounded
-   tasks without inventing content or approvals.
 
 ## Non-goals
 
@@ -90,10 +86,11 @@ notes. The local authenticated CLI token remains in Sanity's user config.
 
 ## Open questions
 
-None block migration or local execution. Final content approval, current social
-URLs/count, and image rights remain explicit founder gates before launch.
+None. Release-level questions and founder gates are owned by
+`specs/004-phase-1-release-completion/spec.md`.
 
 ## Approval status
 
-Approved for migration tooling, authenticated import, and local execution by
-the user's direct instruction. Public-site deployment remains unapproved.
+Completed and verified. Migration tooling, authenticated import, and local
+execution were approved by direct user instruction. Public-site release work is
+explicitly handed off to Spec 004.

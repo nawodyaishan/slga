@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono"
 const notoSansSinhala = Noto_Sans_Sinhala({ subsets: ["sinhala"], variable: "--font-noto-sinhala" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
   title: { default: "Sri Lankan Gaming Alliance", template: "%s | SLGA" },
   description: "The home for Sri Lankan gamers.",
 };
