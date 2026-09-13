@@ -9,7 +9,7 @@ interface CommunityCtaProps {
 /**
  * The page's final conversion point. Neither "hero" nor "header" describes
  * this section, so its clicks are tracked under the `footer` placement
- * (TECH-SPEC.md §15 defines only header/hero/footer) — a deliberate
+ * (TECH-SPEC.md §15 defines only header/hero/footer) - a deliberate
  * approximation, not a mislabel of the literal page footer below it.
  */
 export function CommunityCta({ discordUrl, facebookUrl }: CommunityCtaProps) {
@@ -54,7 +54,7 @@ export function CommunityCta({ discordUrl, facebookUrl }: CommunityCtaProps) {
             <p className="m-0 font-mono text-[10px] tracking-[0.14em] text-muted">FACEBOOK</p>
             <h3 className="m-0 text-h3 leading-[1.15] font-bold tracking-[-0.025em]">Where the community lives</h3>
             <p className="m-0 flex-1 text-[15px] leading-[1.6] text-muted">
-              66,000+ members, years of posts, and the widest reach in Sri Lankan gaming. Read the rules first —
+              66,000+ members, years of posts, and the widest reach in Sri Lankan gaming. Read the rules first -
               every post is reviewed against them.
             </p>
             <CommunityCtaLink

@@ -7,7 +7,7 @@ interface TrackedLinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>,
   children: ReactNode;
   /**
    * Invoked on click, before navigation. Callers wire this to their own
-   * analytics dispatch (e.g. `lib/analytics.ts`) — this component has no
+   * analytics dispatch (e.g. `lib/analytics.ts`) - this component has no
    * knowledge of what "tracking" means, only that external links need a
    * hook point.
    */

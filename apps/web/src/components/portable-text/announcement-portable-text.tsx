@@ -5,8 +5,8 @@ import { resolveSanityImage, type SanityImageField } from "@/lib/sanity/image";
 /**
  * Allowlisted renderer for announcement bodies (TECH-SPEC.md §11.3):
  * paragraphs, h2/h3, bold, italic, links, lists, block quotes, and images
- * with required alt text — matching the article column markup in the design
- * (`design/phase_1/SLGA Phase 1.dc.html` lines 373–378). Any other block,
+ * with required alt text - matching the article column markup in the design
+ * (`design/phase_1/SLGA Phase 1.dc.html` lines 373-378). Any other block,
  * mark or type is not registered here, so `@portabletext/react` falls back
  * to plain text instead of raw HTML.
  *
@@ -75,7 +75,7 @@ export const announcementPortableTextComponents: PortableTextComponents = {
   types: {
     // In-body images arrive as a raw Sanity image reference (the same shape
     // `resolveSanityImage` already handles for cover images), not a
-    // pre-resolved `ImageRef` — resolve it here so the renderer works for
+    // pre-resolved `ImageRef` - resolve it here so the renderer works for
     // both the sanity adapter and any future seed content with inline images.
     image: ({ value }) => {
       const resolved = resolveSanityImage(value as SanityImageField, { width: 1600, height: 900 });

@@ -28,7 +28,7 @@ function isCurrent(pathname: string, href: string): boolean {
 
 /**
  * Client boundary that owns the one piece of state the shared shell needs
- * from the URL — which nav item is current — so `layout.tsx` can stay a
+ * from the URL - which nav item is current - so `layout.tsx` can stay a
  * Server Component that only fetches `siteSettings` once per request.
  */
 export function SiteChrome({ navItems, siteLinks, socialLinks, discordUrl, facebookUrl, children }: SiteChromeProps) {

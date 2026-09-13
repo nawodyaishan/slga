@@ -66,7 +66,7 @@ export const facebookFeature = defineType({
     prepare({ title, enabled, displayOrder }) {
       return {
         title,
-        subtitle: `${enabled ? "Enabled" : "Disabled"} · Order ${displayOrder ?? "—"}`,
+        subtitle: `${enabled ? "Enabled" : "Disabled"} · Order ${displayOrder ?? "-"}`,
       };
     },
   },

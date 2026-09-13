@@ -6,7 +6,7 @@ import { sanityAdapter } from "@/lib/sanity/queries";
 /**
  * The single source page components import content from (plan.md §2). A
  * production deployment must never silently fall back to seed/mock content
- * (TECH-SPEC.md §10.3) — if Sanity is unconfigured there, module load throws
+ * (TECH-SPEC.md §10.3) - if Sanity is unconfigured there, module load throws
  * instead of shipping placeholder copy.
  */
 function selectAdapter(): ContentAdapter {

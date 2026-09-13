@@ -11,7 +11,7 @@ interface LatestAnnouncementProps {
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
-/** Hidden entirely when there are no announcements — never renders an empty-state card. */
+/** Hidden entirely when there are no announcements - never renders an empty-state card. */
 export function LatestAnnouncement({ announcement }: LatestAnnouncementProps) {
   return (
     <section aria-labelledby="slga-latest-h" className="border-b border-border">

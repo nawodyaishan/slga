@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   SLGA design tokens — obsidian + electric cyan.
+   SLGA design tokens - obsidian + electric cyan.
    Values are taken from the approved Claude Design prototype
    (design/phase_1/SLGA Phase 1.dc.html). The prototype switched between fixed
    sizes at measured widths of 420 / 700 / 1040 px; here those steps become
@@ -9,8 +9,8 @@
 --------------------------------------------------------------------------- */
 @theme {
   /* Breakpoints mirroring the prototype's JS thresholds. */
-  --breakpoint-nav: 43.75rem; /* 700px — desktop nav appears */
-  --breakpoint-wide: 65rem; /* 1040px — rules index becomes a sticky column */
+  --breakpoint-nav: 43.75rem; /* 700px - desktop nav appears */
+  --breakpoint-wide: 65rem; /* 1040px - rules index becomes a sticky column */
 
   /* Surfaces */
   --color-abyss: #05070c; /* page letterbox */
@@ -35,7 +35,7 @@
   --color-border: #253041;
   --color-border-soft: #1b2432;
 
-  /* Type families — bound to next/font CSS variables in layout.tsx */
+  /* Type families - bound to next/font CSS variables in layout.tsx */
   --font-sans: var(--font-geist), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-sinhala: var(--font-noto-sinhala), var(--font-geist), sans-serif;
@@ -65,7 +65,7 @@
   --spacing-shell: 75rem; /* 1200px content frame */
   --spacing-header: 3.75rem; /* 60px, mobile */
   --spacing-header-lg: 4.75rem; /* 76px, desktop */
-  --spacing-anchor: 6.875rem; /* 110px — clears the sticky header */
+  --spacing-anchor: 6.875rem; /* 110px - clears the sticky header */
 }
 
 /* ---------------------------------------------------------------------------
@@ -111,7 +111,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Motion — a single entrance transition, disabled on request.
+   Motion - a single entrance transition, disabled on request.
 --------------------------------------------------------------------------- */
 @keyframes slga-rise {
   from {

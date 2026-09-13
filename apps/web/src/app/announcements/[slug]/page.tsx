@@ -79,10 +79,14 @@ export default async function AnnouncementDetailPage({ params }: AnnouncementDet
 
       {announcement.coverImage && (
         <Container className="pt-(--spacing-section)">
-          <div className="grid aspect-[16/7] place-items-center rounded-2xl border border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
-            <p className="m-0 px-6 text-center font-mono text-[10.5px] leading-[1.7] tracking-[0.1em] text-dim">
-              {announcement.coverImage.placeholder ?? announcement.coverImage.alt}
-            </p>
+          <div className="relative grid aspect-[16/7] place-items-center overflow-hidden rounded-2xl border border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
+            {announcement.coverImage.src ? (
+              <img
+                src={announcement.coverImage.src}
+                alt={announcement.coverImage.alt}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : null}
           </div>
         </Container>
       )}

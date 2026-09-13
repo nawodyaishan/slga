@@ -15,7 +15,7 @@ interface CommunityCtaLinkProps {
 /**
  * Every outbound Discord/Facebook button on the page routes through here so
  * the three approved `community_cta_click` placements (TECH-SPEC.md §15) are
- * the only ones that can ever be sent — see `lib/analytics.ts`.
+ * the only ones that can ever be sent - see `lib/analytics.ts`.
  */
 export function CommunityCtaLink({ destination, placement, url, className, children }: CommunityCtaLinkProps) {
   return (

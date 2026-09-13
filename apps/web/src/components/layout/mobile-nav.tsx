@@ -15,7 +15,7 @@ interface MobileNavProps {
   navItems: readonly MobileNavItem[];
   discordUrl: string;
   facebookUrl: string;
-  /** The hamburger button that opened this drawer — focus returns to it on close. */
+  /** The hamburger button that opened this drawer - focus returns to it on close. */
   triggerRef: RefObject<HTMLButtonElement | null>;
 }
 
@@ -25,7 +25,7 @@ const FOCUSABLE_SELECTOR =
 /**
  * The mobile navigation drawer. Traps focus while open, closes on Escape or a
  * backdrop click, and restores focus to the element that opened it.
- * No portal/dependency is used — this is intentionally hand-rolled per
+ * No portal/dependency is used - this is intentionally hand-rolled per
  * plan.md §3 (shadcn `Sheet` was rejected as unnecessary weight).
  */
 export function MobileNav({ open, onClose, navItems, discordUrl, facebookUrl, triggerRef }: MobileNavProps) {

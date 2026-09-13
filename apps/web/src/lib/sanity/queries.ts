@@ -127,7 +127,7 @@ interface PortableTextBlockLike {
 
 /**
  * `SiteSettings.aboutBody` is `readonly string[]` (one entry per paragraph)
- * while the Sanity schema stores it as Portable Text (TECH-SPEC.md §11.1) —
+ * while the Sanity schema stores it as Portable Text (TECH-SPEC.md §11.1) -
  * flatten each text block's spans into a single paragraph string.
  */
 function asParagraphs(value: unknown): readonly string[] {
@@ -206,7 +206,7 @@ function mapFeature(raw: FacebookFeatureQueryItem): FacebookFeature {
     excerpt: raw.excerpt,
     postUrl: raw.postUrl,
     // Schema requires this field, so a null image indicates a data problem
-    // rather than an expected empty state — fail loudly instead of guessing.
+    // rather than an expected empty state - fail loudly instead of guessing.
     image: image ?? {
       src: "",
       alt: raw.title,

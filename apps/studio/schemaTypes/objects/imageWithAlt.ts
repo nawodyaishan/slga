@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /**
  * Image type with hotspot enabled and a required `alt` field. The `production`
- * dataset is public — no field here should ever invite sensitive content
+ * dataset is public - no field here should ever invite sensitive content
  * (spec 002, "Data sensitivity").
  */
 export const imageWithAlt = defineType({

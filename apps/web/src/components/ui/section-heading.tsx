@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 interface SectionHeadingProps {
-  /** e.g. "01" — rendered in the accent color ahead of the label. */
+  /** e.g. "01" - rendered in the accent color ahead of the label. */
   number: string;
   label: string;
   heading: ReactNode;

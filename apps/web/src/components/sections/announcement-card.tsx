@@ -15,10 +15,14 @@ export function AnnouncementCard({ announcement }: { announcement: Announcement 
       className="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface text-foreground hover:border-accent"
     >
       {announcement.coverImage && (
-        <div className="grid aspect-video place-items-center border-b border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
-          <p className="m-0 px-3.5 py-3.5 text-center font-mono text-[10px] leading-[1.6] tracking-[0.1em] text-dim">
-            {announcement.coverImage.placeholder ?? announcement.coverImage.alt}
-          </p>
+        <div className="relative grid aspect-video place-items-center border-b border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
+          {announcement.coverImage.src ? (
+            <img
+              src={announcement.coverImage.src}
+              alt={announcement.coverImage.alt}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          ) : null}
         </div>
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">

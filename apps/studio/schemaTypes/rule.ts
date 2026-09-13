@@ -1,16 +1,16 @@
 import { defineField, defineType } from "sanity";
 
 /**
- * Rule document (TECH-SPEC §11.2). Backs `/rules` and `/si/rules` — see
+ * Rule document (TECH-SPEC §11.2). Backs `/rules` and `/si/rules` - see
  * `apps/web/src/lib/sanity/queries.ts` (`RULES_QUERY`, `mapRule`) and the
  * `Rule` type in `apps/web/src/lib/content/types.ts`.
  *
  * Field names below intentionally mirror what `RULES_QUERY` projects
  * (`title`, `body`, `displayOrder`, `enabled`) rather than the flat
- * `titleEn`/`titleSi`/`isActive` naming sometimes used in planning docs —
+ * `titleEn`/`titleSi`/`isActive` naming sometimes used in planning docs -
  * the query and its `RawRule` mapper are the source of truth for shape.
  *
- * Both languages are required on `title` and `body` together — a rule must
+ * Both languages are required on `title` and `body` together - a rule must
  * never publish half-translated (spec 002, FR-3).
  */
 export const rule = defineType({
@@ -106,7 +106,7 @@ export const rule = defineType({
       titleEn: "title.en",
     },
     prepare({ displayOrder, titleEn }) {
-      const order = typeof displayOrder === "number" ? String(displayOrder).padStart(2, "0") : "—";
+      const order = typeof displayOrder === "number" ? String(displayOrder).padStart(2, "0") : "-";
       return {
         title: titleEn || "Untitled rule",
         subtitle: `Rule ${order}`,

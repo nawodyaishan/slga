@@ -5,7 +5,7 @@ import { track as vercelTrack } from "@vercel/analytics";
  *
  * Each event's property shape is part of the type, so sending an unapproved
  * event name or a malformed property object fails `tsc`, not a runtime check.
- * Never widen a property to `string` without a literal union — that is how
+ * Never widen a property to `string` without a literal union - that is how
  * PII, free text, or full URLs would sneak into an event payload.
  */
 type AnalyticsEvent =

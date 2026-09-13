@@ -64,22 +64,26 @@ export function Hero({ settings, discordUrl, facebookUrl }: HeroProps) {
             <span className="text-[13.5px] leading-[1.45] text-muted">
               {settings.memberCountLabel}
               <br />
-              <span className="font-mono text-[10px] tracking-[0.08em] text-dim">FACEBOOK GROUP · CMS-EDITABLE</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-dim">
+                {settings.memberCountSource}
+              </span>
             </span>
           </div>
         </div>
         <div className="animate-rise-slow min-w-0 flex-[1_1_330px]">
           <div className="relative aspect-4/5 overflow-hidden rounded-2xl border border-border [background:repeating-linear-gradient(135deg,#111722_0_11px,#0D131E_11px_22px)]">
+            {settings.heroImage?.src ? (
+              <img
+                src={settings.heroImage.src}
+                alt={settings.heroImage.alt}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            ) : null}
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 bg-linear-to-t from-[rgba(8,11,18,.9)] to-transparent to-55%"
             />
-            <p className="relative grid h-full place-items-center px-[26px] text-center font-mono text-[11px] leading-[1.7] tracking-[0.1em] text-muted">
-              HERO IMAGE
-              <br />
-              <span className="text-dim">FOUNDER-SUPPLIED · SANITY HOTSPOT</span>
-            </p>
-            <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 bg-accent" />
+            <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-0.5 z-10 bg-accent" />
           </div>
         </div>
       </Container>

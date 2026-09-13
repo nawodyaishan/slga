@@ -34,10 +34,14 @@ export function FeaturedFacebook({ features }: FeaturedFacebookProps) {
               onOpen={() => track("facebook_feature_click", { feature_id: feature.id, placement: "homepage" })}
               className="flex flex-col overflow-hidden rounded-[14px] border border-border bg-surface text-foreground hover:border-accent"
             >
-              <div className="grid aspect-[16/10] place-items-center border-b border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
-                <p className="m-0 px-4 py-4 text-center font-mono text-[10px] leading-[1.7] tracking-[0.1em] text-dim">
-                  {feature.image.placeholder ?? feature.image.alt}
-                </p>
+              <div className="relative grid aspect-[16/10] place-items-center border-b border-border [background:repeating-linear-gradient(135deg,#151C2A_0_11px,#101724_11px_22px)]">
+                {feature.image.src ? (
+                  <img
+                    src={feature.image.src}
+                    alt={feature.image.alt}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : null}
               </div>
               <div className="flex flex-1 flex-col gap-2.5 p-5.5">
                 <p className="m-0 flex items-center gap-2 font-mono text-[10px] tracking-[0.12em] text-muted">

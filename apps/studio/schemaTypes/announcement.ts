@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /**
  * Announcement document (TECH-SPEC §11.3). Backs the homepage/announcements
- * feed and `/announcements/[slug]` — see
+ * feed and `/announcements/[slug]` - see
  * `apps/web/src/lib/sanity/queries.ts` (`ANNOUNCEMENTS_QUERY`,
  * `ANNOUNCEMENT_BY_SLUG_QUERY`, `mapAnnouncement`) and the `Announcement`
  * type in `apps/web/src/lib/content/types.ts`.
@@ -79,12 +79,12 @@ export const announcement = defineType({
       name: "seoDescription",
       title: "SEO description",
       type: "string",
-      description: "Meta description for search and social previews. Aim for 120–160 characters.",
+      description: "Meta description for search and social previews. Aim for 120-160 characters.",
       validation: (Rule) =>
         Rule.max(160).warning("Keep the SEO description between 120 and 160 characters.").custom((value) => {
           if (!value) return true;
           if (value.length < 120) {
-            return "Shorter than 120 characters — consider adding more detail for search previews.";
+            return "Shorter than 120 characters - consider adding more detail for search previews.";
           }
           return true;
         }),

@@ -12,7 +12,7 @@ export interface FooterProps {
 }
 
 /**
- * Global footer. Pure Server Component — everything it renders comes from
+ * Global footer. Pure Server Component - everything it renders comes from
  * props, so it has no dependency on the content-boundary or analytics agents.
  */
 export function Footer({ siteLinks, socialLinks }: FooterProps) {
@@ -34,7 +34,7 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
             </span>
           </div>
           <p className="max-w-[34ch] text-[14.5px] leading-relaxed text-muted">
-            The home for Sri Lankan gamers — community-built, community-run.
+            The home for Sri Lankan gamers - community-built, community-run.
           </p>
         </div>
 
@@ -80,8 +80,8 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
       </div>
 
       <div className="border-t border-border-soft">
-        <div className="mx-auto flex max-w-(--spacing-shell) flex-col items-center justify-between gap-4 px-(--spacing-gutter) py-5 md:flex-row">
-          <p className="text-center text-[12.5px] leading-relaxed text-dim md:text-left">
+        <div className="mx-auto flex max-w-(--spacing-shell) flex-col justify-between gap-4 px-(--spacing-gutter) py-5 md:flex-row md:items-center">
+          <p className="text-[12.5px] leading-relaxed text-dim">
             © {year} Sri Lankan Gaming Alliance. COMMUNITY-RUN · NOT AN OFFICIAL GOVERNING BODY.
           </p>
           <div className="flex items-center gap-3 text-[12.5px] text-dim">
