@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans_Sinhala } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SkipLink } from "@/components/layout/skip-link";
-import { PrototypeBanner } from "@/components/layout/prototype-banner";
 import { SiteChrome } from "@/components/layout/site-chrome";
 import { content } from "@/lib/content";
 import { requireSocialUrl } from "@/lib/content/social";
@@ -40,7 +39,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${notoSansSinhala.variable}`}>
       <body>
         <SkipLink />
-        {content.provisional && <PrototypeBanner />}
         <SiteChrome
           navItems={NAV_ITEMS}
           siteLinks={SITE_LINKS}

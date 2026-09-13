@@ -434,7 +434,7 @@ const privacyNotice: PrivacyNotice = {
 
 export const seedAdapter: ContentAdapter = {
   name: "seed",
-  provisional: true,
+  provisional: false,
 
   async getSiteSettings() {
     return siteSettings;
