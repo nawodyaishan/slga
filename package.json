@@ -7,6 +7,7 @@
     "build": "pnpm --filter @slga/web build",
     "lint": "pnpm --filter @slga/web lint",
     "typecheck": "pnpm --recursive --if-present typecheck",
+    "test:e2e": "pnpm --filter @slga/web test:e2e",
     "dev:studio": "pnpm --filter @slga/studio dev",
     "prepare": "husky",
     "prepush": "pnpm lint && pnpm typecheck"

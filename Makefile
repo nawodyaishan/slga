@@ -2,7 +2,7 @@ SANITY_PROJECT_ID ?= lcgep8ux
 SANITY_DATASET ?= production
 SANITY_ENV = SANITY_STUDIO_PROJECT_ID=$(SANITY_PROJECT_ID) SANITY_STUDIO_DATASET=$(SANITY_DATASET)
 
-.PHONY: install dev dev-all dev-studio sanity-dev sanity-schema sanity-typegen sanity-check sanity-build sanity-export sanity-import-original sanity-deploy lint typecheck build clean
+.PHONY: install dev dev-all dev-studio sanity-dev sanity-schema sanity-typegen sanity-check sanity-build sanity-export sanity-import-original sanity-deploy lint typecheck build test-e2e verify clean
 
 install:
 	pnpm install
@@ -52,6 +52,11 @@ typecheck:
 
 build:
 	NEXT_PUBLIC_SANITY_PROJECT_ID=$(SANITY_PROJECT_ID) NEXT_PUBLIC_SANITY_DATASET=$(SANITY_DATASET) pnpm build
+
+test-e2e:
+	pnpm test:e2e
+
+verify: lint typecheck build test-e2e
 
 clean:
 	rm -rf apps/web/.next

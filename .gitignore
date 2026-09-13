@@ -21,6 +21,7 @@ apps/studio/schema.json
 coverage/
 playwright-report/
 test-results/
+.playwright-mcp/
 *.tsbuildinfo
 
 # OS/editor files
