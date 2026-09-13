@@ -26,8 +26,8 @@ import { h2, p, prose, quote, ul } from "./blocks";
 const social: readonly SocialLink[] = [
   { platform: "facebook", label: "Facebook Group", url: "https://www.facebook.com/groups/slgaofficial", mark: "f" },
   { platform: "discord", label: "Discord Server", url: "https://discord.com/invite/kHyyWcftg", mark: "D" },
-  { platform: "steam", label: "Steam Group", url: "https://steamcommunity.com/groups/slga", mark: "S" },
-  { platform: "reddit", label: "Reddit", url: "https://reddit.com/r/slga", mark: "R" },
+  { platform: "steam", label: "Steam Group", url: "https://steamcommunity.com/groups/Sri-Lankan-Gaming-Alliance", mark: "S" },
+  { platform: "reddit", label: "Reddit", url: "https://www.reddit.com/r/SL_Gaming_Alliance/", mark: "R" },
 ];
 
 const aboutFacts: readonly AboutFact[] = [
