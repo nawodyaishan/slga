@@ -1,0 +1,19 @@
+{
+  "name": "@slga/studio",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "@sanity/vision": "^4.0.0",
+    "sanity": "^4.0.0",
+    "styled-components": "^6.1.0"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.0",
+    "typescript": "^5.7.0"
+  }
+}
+

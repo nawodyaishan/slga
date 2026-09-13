@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#05070C;color:#F6F8FB;font-family:"Geist",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+*{box-sizing:border-box}
+a{color:#20D6E7;text-decoration:none}
+a:hover{color:#7FE9F4}
+::selection{background:#20D6E7;color:#061018}
+:focus-visible{outline:2px solid #20D6E7;outline-offset:3px;border-radius:2px}
+@keyframes slgaUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#05070C;display:flex;justify-content:center">
+<div ref="{{ frameRef }}" style="width:{{ frameWidth }};max-width:100%;background:#080B12;position:relative;overflow:hidden;border-left:{{ frameEdge }};border-right:{{ frameEdge }}">
+
+<a href="#slga-main" style="position:absolute;left:12px;top:-60px;z-index:60;background:#20D6E7;color:#061018;font:600 14px/1 'Geist',sans-serif;padding:14px 18px;border-radius:8px">Skip to content</a>
+
+<sc-if value="{{ showMockNotice }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;padding:10px 20px;background:#0C1320;border-bottom:1px solid #253041;font:500 11px/1.5 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.04em">
+<span style="color:#20D6E7">PROTOTYPE</span>
+<span>{{ mockNotice }}</span>
+</div>
+</sc-if>
+
+<header style="position:sticky;top:0;z-index:50;background:{{ headerBg }};backdrop-filter:blur(14px);border-bottom:1px solid {{ headerBorder }};transition:background .25s ease,border-color .25s ease">
+<div style="max-width:1200px;margin:0 auto;padding:0 {{ pad }};height:{{ headerH }};display:flex;align-items:center;justify-content:space-between;gap:16px">
+
+<a href="#/" onClick="{{ go }}" data-route="home" aria-label="Sri Lankan Gaming Alliance — home" style="display:flex;align-items:center;gap:11px;color:#F6F8FB;min-height:44px">
+<span aria-hidden="true" style="width:30px;height:30px;flex:none;display:grid;place-items:center;border:1px solid #20D6E7;border-radius:7px;font:700 13px/1 'Geist',sans-serif;color:#20D6E7;letter-spacing:-.02em">SL</span>
+<span style="display:flex;flex-direction:column;line-height:1.05">
+<span style="font:700 15px/1.05 'Geist',sans-serif;letter-spacing:-.02em">SLGA</span>
+<sc-if value="{{ showWordmarkSub }}" hint-placeholder-val="{{ true }}"><span style="font:500 9.5px/1.4 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.1em">SRI LANKAN GAMING ALLIANCE</span></sc-if>
+</span>
+</a>
+
+<sc-if value="{{ deskNav }}" hint-placeholder-val="{{ true }}">
+<nav aria-label="Primary" style="display:flex;align-items:center;gap:4px">
+<sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+<a href="{{ item.href }}" onClick="{{ go }}" data-route="{{ item.route }}" aria-current="{{ item.current }}" style="position:relative;display:flex;align-items:center;min-height:44px;padding:0 14px;font-size:14.5px;letter-spacing:-.01em;font-weight:{{ item.weight }};color:{{ item.color }}">
+{{ item.label }}
+<sc-if value="{{ item.current }}"><span aria-hidden="true" style="position:absolute;left:14px;right:14px;bottom:8px;height:2px;background:#20D6E7;border-radius:2px"></span></sc-if>
+</a>
+</sc-for>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="margin-left:12px;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;background:#20D6E7;color:#061018;border-radius:9px;font:600 14.5px/1 'Geist',sans-serif;letter-spacing:-.01em">Join Discord<span aria-hidden="true" style="font:500 11px/1 'Geist Mono',monospace;opacity:.6">↗</span></a>
+</nav>
+</sc-if>
+
+<sc-if value="{{ mobileNav }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:8px">
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;min-height:44px;padding:0 14px;background:#20D6E7;color:#061018;border-radius:9px;font:600 13.5px/1 'Geist',sans-serif">Discord</a>
+<button type="button" onClick="{{ openMenu }}" aria-expanded="{{ menuOpen }}" aria-label="Open menu" style="width:44px;height:44px;display:grid;place-items:center;gap:0;background:#111722;border:1px solid #253041;border-radius:9px;color:#F6F8FB;cursor:pointer">
+<span aria-hidden="true" style="display:flex;flex-direction:column;gap:4px"><span style="display:block;width:17px;height:1.5px;background:#F6F8FB"></span><span style="display:block;width:17px;height:1.5px;background:#F6F8FB"></span><span style="display:block;width:11px;height:1.5px;background:#20D6E7"></span></span>
+</button>
+</div>
+</sc-if>
+</div>
+</header>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;inset:0;z-index:70;display:flex;justify-content:flex-end">
+<div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(5,7,12,.72)"></div>
+<div role="dialog" aria-modal="true" aria-label="Site menu" style="position:relative;width:min(340px,86vw);height:100%;background:#0C1320;border-left:1px solid #253041;padding:20px;display:flex;flex-direction:column;gap:6px;animation:slgaUp .2s ease">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+<span style="font:500 10px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.14em">MENU</span>
+<button type="button" ref="{{ closeRef }}" onClick="{{ closeMenu }}" aria-label="Close menu" style="width:44px;height:44px;display:grid;place-items:center;background:transparent;border:1px solid #253041;border-radius:9px;color:#F6F8FB;font:400 18px/1 'Geist',sans-serif;cursor:pointer">×</button>
+</div>
+<sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+<a href="{{ item.href }}" onClick="{{ go }}" data-route="{{ item.route }}" aria-current="{{ item.current }}" style="display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 14px;border:1px solid {{ item.mBorder }};background:{{ item.mBg }};border-radius:11px;font-weight:{{ item.weight }};font-size:17px;color:{{ item.color }}">
+{{ item.label }}
+<sc-if value="{{ item.current }}"><span style="font:500 9.5px/1 'Geist Mono',monospace;color:#20D6E7;letter-spacing:.12em">CURRENT</span></sc-if>
+</a>
+</sc-for>
+<div style="height:1px;background:#253041;margin:14px 0"></div>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;min-height:52px;background:#20D6E7;color:#061018;border-radius:11px;font:600 16px/1 'Geist',sans-serif">Join Discord ↗</a>
+<a href="https://facebook.com/groups/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;min-height:52px;border:1px solid #253041;color:#F6F8FB;border-radius:11px;font:500 16px/1 'Geist',sans-serif">Join Facebook ↗</a>
+</div>
+</div>
+</sc-if>
+
+<main id="slga-main" style="display:block">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+<section aria-labelledby="slga-hero-h" style="position:relative;overflow:hidden;border-bottom:1px solid #253041">
+<sc-if value="{{ bloomPurple }}" hint-placeholder-val="{{ true }}"><div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(90% 120% at 88% -10%, rgba(94,58,196,.38) 0%, rgba(94,58,196,0) 58%),radial-gradient(70% 90% at 4% 108%, rgba(32,214,231,.16) 0%, rgba(32,214,231,0) 60%)"></div></sc-if>
+<sc-if value="{{ bloomCyan }}"><div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(80% 110% at 88% -10%, rgba(32,214,231,.2) 0%, rgba(32,214,231,0) 58%)"></div></sc-if>
+<div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(#253041 1px,transparent 1px),linear-gradient(90deg,#253041 1px,transparent 1px);background-size:64px 64px;opacity:.32;mask-image:radial-gradient(120% 90% at 50% 0%,#000 10%,transparent 72%)"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:{{ heroPadT }} {{ pad }} {{ heroPadB }}">
+<div style="display:flex;flex-wrap:wrap;gap:{{ heroGap }};align-items:center">
+<div style="flex:1 1 440px;min-width:0;animation:slgaUp .5s ease both">
+<p style="display:flex;align-items:center;gap:10px;margin:0 0 22px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em">
+<span aria-hidden="true" style="width:22px;height:1px;background:#20D6E7"></span>SRI LANKAN GAMING ALLIANCE
+</p>
+<h1 id="slga-hero-h" style="margin:0;font-size:{{ h1 }};line-height:.98;letter-spacing:-.035em;font-weight:800">Home for<br>Sri Lankan<br>Gamers</h1>
+<p style="margin:26px 0 0;max-width:52ch;font-size:{{ lead }};line-height:1.6;color:#9BA7B7">A community for players across PC, PlayStation, Xbox and Switch. Conversations, game nights, screenshots and the people who play what you play — on Facebook since 2021, and now on Discord.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:32px">
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="flex:{{ ctaFlex }};display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;background:#20D6E7;color:#061018;border-radius:10px;font:600 16px/1 'Geist',sans-serif;letter-spacing:-.01em">Join Discord<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;opacity:.55">↗</span></a>
+<a href="https://facebook.com/groups/slga" target="_blank" rel="noopener noreferrer" style="flex:{{ ctaFlex }};display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 22px;background:#111722;border:1px solid #253041;color:#F6F8FB;border-radius:10px;font:500 16px/1 'Geist',sans-serif;letter-spacing:-.01em">Join Facebook Community<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:36px;padding-top:26px;border-top:1px solid #253041">
+<span style="font-size:{{ statSize }};font-weight:700;letter-spacing:-.03em">66,000+</span>
+<span style="font-size:13.5px;line-height:1.45;color:#9BA7B7">community members<br><span style="font:500 10px/1.4 'Geist Mono',monospace;letter-spacing:.08em;color:#6C7A8C">FACEBOOK GROUP · CMS-EDITABLE</span></span>
+</div>
+</div>
+<div style="flex:1 1 330px;min-width:0;animation:slgaUp .6s ease both">
+<div style="position:relative;aspect-ratio:{{ heroAspect }};border:1px solid #253041;border-radius:16px;background:repeating-linear-gradient(135deg,#111722 0 11px,#0D131E 11px 22px);display:grid;place-items:center;overflow:hidden">
+<div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(8,11,18,.9) 0%,rgba(8,11,18,0) 55%)"></div>
+<p style="position:relative;margin:0;padding:0 26px;text-align:center;font:500 11px/1.7 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.1em">HERO IMAGE<br><span style="color:#6C7A8C">FOUNDER-SUPPLIED · SANITY HOTSPOT</span></p>
+<span aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#20D6E7"></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="slga-about-h" style="border-bottom:1px solid #253041">
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<p style="display:flex;align-items:center;gap:12px;margin:0 0 24px;font:500 10.5px/1 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.16em"><span style="color:#20D6E7">01</span>ABOUT SLGA</p>
+<div style="display:flex;flex-wrap:wrap;gap:{{ heroGap }}">
+<h2 id="slga-about-h" style="flex:1 1 380px;margin:0;font-size:{{ h2 }};line-height:1.08;letter-spacing:-.03em;font-weight:700">A community first.<br>Everything else second.</h2>
+<div style="flex:1 1 380px;min-width:0">
+<p style="margin:0;font-size:{{ lead }};line-height:1.68;color:#C9D3E0;max-width:66ch">SLGA connects Sri Lankan gamers across platforms. The Facebook group carries the reach and the conversation the community grew up with. Discord adds voice, LFG and everyday company. Between the two you get game sessions, screenshots, and questions answered by people playing the same things you are.</p>
+<p style="margin:18px 0 0;font-size:{{ lead }};line-height:1.68;color:#9BA7B7;max-width:66ch">We are not an esports organisation or a news outlet. We are a general gaming community, and the rules exist to keep it that way.</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;margin-top:48px;background:#253041;border:1px solid #253041;border-radius:14px;overflow:hidden">
+<sc-for list="{{ aboutFacts }}" as="f" hint-placeholder-count="3">
+<div style="background:#0D131E;padding:26px 24px">
+<p style="margin:0 0 12px;font:500 10px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.14em">{{ f.k }}</p>
+<p style="margin:0 0 6px;font-size:19px;line-height:1.25;font-weight:600;letter-spacing:-.02em">{{ f.t }}</p>
+<p style="margin:0;font-size:14px;line-height:1.55;color:#9BA7B7">{{ f.d }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="slga-latest-h" style="border-bottom:1px solid #253041">
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:30px">
+<div>
+<p style="display:flex;align-items:center;gap:12px;margin:0 0 16px;font:500 10.5px/1 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.16em"><span style="color:#20D6E7">02</span>LATEST ANNOUNCEMENT</p>
+<h2 id="slga-latest-h" style="margin:0;font-size:{{ h2 }};line-height:1.1;letter-spacing:-.03em;font-weight:700">Official communication</h2>
+</div>
+<a href="#/announcements" onClick="{{ go }}" data-route="announcements" style="display:flex;align-items:center;gap:8px;min-height:44px;font-size:14.5px;font-weight:500">All announcements<span aria-hidden="true">→</span></a>
+</div>
+<a href="{{ latest.href }}" onClick="{{ go }}" data-route="announcement" data-slug="{{ latest.slug }}" style="display:flex;flex-wrap:wrap;gap:0;background:#111722;border:1px solid #253041;border-radius:16px;overflow:hidden;color:#F6F8FB" style-hover="border-color:#20D6E7">
+<div style="flex:1 1 300px;min-height:230px;position:relative;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);display:grid;place-items:center">
+<p style="margin:0;text-align:center;padding:20px;font:500 10.5px/1.7 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.1em">COVER IMAGE<br><span style="color:#6C7A8C">16:9 · OPTIONAL</span></p>
+</div>
+<div style="flex:1 1 380px;min-width:0;padding:{{ cardPad }};display:flex;flex-direction:column;justify-content:center;gap:16px">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+<span style="display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid #20D6E7;border-radius:999px;font:500 10px/1 'Geist Mono',monospace;color:#20D6E7;letter-spacing:.12em"><span aria-hidden="true" style="width:5px;height:5px;background:#20D6E7;border-radius:50%"></span>{{ latest.type }}</span>
+<time datetime="{{ latest.iso }}" style="font:500 11px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.06em">{{ latest.date }}</time>
+</div>
+<h3 style="margin:0;font-size:{{ h3 }};line-height:1.15;letter-spacing:-.025em;font-weight:700;max-width:28ch">{{ latest.title }}</h3>
+<p style="margin:0;font-size:15.5px;line-height:1.62;color:#9BA7B7;max-width:60ch">{{ latest.excerpt }}</p>
+<span style="display:flex;align-items:center;gap:9px;font-size:15px;font-weight:600;color:#20D6E7">Read announcement<span aria-hidden="true">→</span></span>
+</div>
+</a>
+</div>
+</section>
+
+<section aria-labelledby="slga-featured-h" style="border-bottom:1px solid #253041">
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<p style="display:flex;align-items:center;gap:12px;margin:0 0 16px;font:500 10.5px/1 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.16em"><span style="color:#20D6E7">03</span>FROM OUR COMMUNITY</p>
+<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:32px">
+<h2 id="slga-featured-h" style="margin:0;font-size:{{ h2 }};line-height:1.1;letter-spacing:-.03em;font-weight:700">Featured from the group</h2>
+<p style="margin:0;font-size:13.5px;color:#9BA7B7;max-width:42ch">Hand-picked posts from the Facebook group. Selected by admins, not an automatic feed.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+<sc-for list="{{ features }}" as="c" hint-placeholder-count="3">
+<a href="{{ c.url }}" target="_blank" rel="noopener noreferrer" style="display:flex;flex-direction:column;background:#111722;border:1px solid #253041;border-radius:14px;overflow:hidden;color:#F6F8FB" style-hover="border-color:#20D6E7">
+<div style="aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);display:grid;place-items:center;border-bottom:1px solid #253041">
+<p style="margin:0;text-align:center;padding:16px;font:500 10px/1.7 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.1em">{{ c.img }}</p>
+</div>
+<div style="padding:22px;display:flex;flex-direction:column;gap:11px;flex:1">
+<p style="margin:0;display:flex;align-items:center;gap:8px;font:500 10px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.12em"><span aria-hidden="true" style="width:16px;height:16px;display:grid;place-items:center;border:1px solid #253041;border-radius:4px;font:700 10px/1 'Geist',sans-serif;color:#C9D3E0">f</span>FACEBOOK POST</p>
+<h3 style="margin:0;font-size:17.5px;line-height:1.3;letter-spacing:-.02em;font-weight:600">{{ c.title }}</h3>
+<p style="margin:0;font-size:14.5px;line-height:1.6;color:#9BA7B7;flex:1">{{ c.excerpt }}</p>
+<span style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#20D6E7;min-height:24px">View on Facebook<span aria-hidden="true">↗</span></span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="slga-cta-h" style="border-bottom:1px solid #253041;position:relative;overflow:hidden">
+<div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(70% 100% at 50% 120%,rgba(32,214,231,.12) 0%,rgba(32,214,231,0) 65%)"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<div style="max-width:56ch;margin:0 auto;text-align:center">
+<p style="margin:0 0 18px;font:500 10.5px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em">JOIN THE COMMUNITY</p>
+<h2 id="slga-cta-h" style="margin:0;font-size:{{ h2 }};line-height:1.08;letter-spacing:-.03em;font-weight:700">Two rooms, one community</h2>
+<p style="margin:18px 0 0;font-size:{{ lead }};line-height:1.65;color:#9BA7B7">Discord for voice, LFG and daily chat. Facebook for reach, posts and discussion. Both are free and both are moderated by the same team.</p>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:44px">
+<div style="background:#111722;border:1px solid #253041;border-radius:16px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:14px">
+<p style="margin:0;font:500 10px/1 'Geist Mono',monospace;color:#20D6E7;letter-spacing:.14em">DISCORD</p>
+<h3 style="margin:0;font-size:{{ h3 }};line-height:1.15;letter-spacing:-.025em;font-weight:700">Where the day happens</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#9BA7B7;flex:1">Voice channels, looking-for-group posts, screenshot rooms and weekend sessions. The fastest way to actually play with other Sri Lankan gamers.</p>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;background:#20D6E7;color:#061018;border-radius:10px;font:600 16px/1 'Geist',sans-serif">Join Discord<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;opacity:.55">↗</span></a>
+</div>
+<div style="background:#0D131E;border:1px solid #253041;border-radius:16px;padding:{{ cardPad }};display:flex;flex-direction:column;gap:14px">
+<p style="margin:0;font:500 10px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.14em">FACEBOOK</p>
+<h3 style="margin:0;font-size:{{ h3 }};line-height:1.15;letter-spacing:-.025em;font-weight:700">Where the community lives</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#9BA7B7;flex:1">66,000+ members, years of posts, and the widest reach in Sri Lankan gaming. Read the rules first — every post is reviewed against them.</p>
+<a href="https://facebook.com/groups/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;background:transparent;border:1px solid #253041;color:#F6F8FB;border-radius:10px;font:500 16px/1 'Geist',sans-serif">Join Facebook Community<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+</div>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRules }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="border-bottom:1px solid #253041;position:relative;overflow:hidden">
+<div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(90deg,#253041 1px,transparent 1px);background-size:64px 64px;opacity:.3;mask-image:radial-gradient(100% 100% at 50% 0%,#000 0%,transparent 75%)"></div>
+<div style="position:relative;max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} {{ sectionPadY }}">
+<div style="max-width:70ch">
+<p style="display:flex;align-items:center;gap:10px;margin:0 0 22px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em"><span aria-hidden="true" style="width:22px;height:1px;background:#20D6E7"></span>COMMUNITY RULES</p>
+<h1 lang="{{ rulesLang }}" style="margin:0;font-family:{{ rulesFont }};font-size:{{ h1s }};line-height:1.04;letter-spacing:-.03em;font-weight:800">{{ rulesHeading }}</h1>
+<p lang="{{ rulesLang }}" style="margin:24px 0 0;font-family:{{ rulesFont }};font-size:{{ lead }};line-height:1.7;color:#C9D3E0">{{ rulesIntro }}</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;margin-top:30px;padding-top:24px;border-top:1px solid #253041">
+<div role="group" aria-label="Rules language" style="width:{{ langW }};display:flex;gap:6px;padding:5px;background:#111722;border:1px solid #253041;border-radius:11px">
+<a href="#/rules" onClick="{{ go }}" data-route="rules" aria-current="{{ enCurrent }}" style="flex:{{ langFlex }};display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:8px;font-size:15px;font-weight:{{ enWeight }};background:{{ enBg }};color:{{ enColor }}">
+<sc-if value="{{ enCurrent }}"><span aria-hidden="true" style="font:500 10px/1 'Geist Mono',monospace">✓</span></sc-if>English</a>
+<a href="#/si/rules" onClick="{{ go }}" data-route="rules-si" lang="si" hrefLang="si" aria-current="{{ siCurrent }}" style="flex:{{ langFlex }};display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:8px;font-family:'Noto Sans Sinhala','Geist',sans-serif;font-size:15px;font-weight:{{ siWeight }};background:{{ siBg }};color:{{ siColor }}">
+<sc-if value="{{ siCurrent }}"><span aria-hidden="true" style="font:500 10px/1 'Geist Mono',monospace">✓</span></sc-if>සිංහල</a>
+</div>
+<p style="margin:0;font:500 11px/1.5 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.06em">LAST UPDATED <time datetime="2026-09-13" style="color:#F6F8FB">13 SEP 2026</time></p>
+</div>
+<sc-if value="{{ showDraftNotice }}" hint-placeholder-val="{{ true }}">
+<p style="margin:24px 0 0;padding:14px 16px;background:#0D131E;border:1px solid #253041;border-left:2px solid #20D6E7;border-radius:10px;font-size:13.5px;line-height:1.6;color:#9BA7B7">{{ draftNotice }}</p>
+</sc-if>
+</div>
+</div>
+</section>
+
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }};display:flex;flex-wrap:wrap;gap:{{ heroGap }};align-items:flex-start">
+
+<sc-if value="{{ indexCol }}" hint-placeholder-val="{{ true }}">
+<nav aria-label="Rules index" style="flex:0 1 250px;min-width:0;position:sticky;top:110px">
+<p style="margin:0 0 14px;font:500 10px/1 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.14em">INDEX · {{ ruleCount }} RULES</p>
+<ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;max-height:calc(100vh - 180px);overflow:auto">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="10">
+<li><a href="#rule-{{ r.n }}" lang="{{ rulesLang }}" style="display:flex;gap:10px;align-items:baseline;padding:8px 10px;border-radius:8px;font-family:{{ rulesFont }};font-size:13.5px;line-height:1.4;color:#9BA7B7;min-height:40px" style-hover="background:#111722;color:#F6F8FB"><span style="font:500 10.5px/1.6 'Geist Mono',monospace;color:#20D6E7">{{ r.nn }}</span>{{ r.title }}</a></li>
+</sc-for>
+</ol>
+</nav>
+</sc-if>
+
+<sc-if value="{{ indexRow }}" hint-placeholder-val="{{ false }}">
+<nav aria-label="Rules index" style="order:-1;width:100%">
+<p style="margin:0 0 12px;font:500 10px/1 'Geist Mono',ui-monospace,monospace;color:#9BA7B7;letter-spacing:.14em">JUMP TO RULE</p>
+<ol style="margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="10">
+<li><a href="#rule-{{ r.n }}" aria-label="{{ r.aria }}" style="display:grid;place-items:center;min-width:44px;min-height:44px;border:1px solid #253041;background:#0D131E;border-radius:10px;font:600 13px/1 'Geist Mono',ui-monospace,monospace;color:#C9D3E0" style-hover="border-color:#20D6E7;color:#20D6E7">{{ r.nn }}</a></li>
+</sc-for>
+</ol>
+</nav>
+</sc-if>
+
+<div style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:{{ ruleGap }}">
+<sc-for list="{{ rules }}" as="r" hint-placeholder-count="10">
+<article id="rule-{{ r.n }}" style="scroll-margin-top:110px;padding-bottom:{{ ruleGap }};border-bottom:1px solid #1B2432">
+<div style="display:flex;flex-direction:{{ ruleDir }};gap:{{ ruleNumGap }};align-items:{{ ruleAlign }}">
+<span aria-hidden="true" style="flex:none;align-self:{{ ruleNumSelf }};width:{{ ruleNumW }};height:{{ ruleNumH }};padding:{{ ruleNumPad }};display:grid;place-items:center;border:1px solid #253041;border-radius:10px;background:#0D131E;font:600 {{ ruleNumFont }}/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:-.02em">{{ r.nn }}</span>
+<div style="min-width:0;flex:1">
+<h2 lang="{{ rulesLang }}" style="margin:0;font-family:{{ rulesFont }};font-size:{{ h3 }};line-height:1.25;letter-spacing:-.02em;font-weight:700;overflow-wrap:break-word"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">Rule {{ r.n }}: </span>{{ r.title }}</h2>
+<sc-if value="{{ r.alt }}"><p style="margin:8px 0 0;font-size:14px;line-height:1.5;color:#6C7A8C">{{ r.alt }}</p></sc-if>
+<div lang="{{ rulesLang }}" style="font-family:{{ rulesFont }};margin-top:16px;display:flex;flex-direction:column;gap:14px">
+<sc-for list="{{ r.blocks }}" as="b" hint-placeholder-count="1">
+<sc-if value="{{ b.p }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:{{ bodySize }};line-height:1.78;color:#C9D3E0;max-width:72ch;overflow-wrap:break-word">{{ b.p }}</p></sc-if>
+<sc-if value="{{ b.items }}"><ol style="margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px;max-width:72ch"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li style="display:flex;gap:12px;font-size:{{ bodySize }};line-height:1.7;color:#C9D3E0"><span aria-hidden="true" style="flex:none;margin-top:.55em;width:5px;height:5px;background:#253041;border-radius:50%"></span><span>{{ it }}</span></li></sc-for></ol></sc-if>
+</sc-for>
+</div>
+</div>
+</div>
+</article>
+</sc-for>
+
+<div style="background:#111722;border:1px solid #253041;border-radius:16px;padding:{{ cardPad }};display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
+<div style="min-width:0">
+<h2 style="margin:0;font-size:{{ h3 }};line-height:1.2;letter-spacing:-.025em;font-weight:700">{{ rulesOutroTitle }}</h2>
+<p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#9BA7B7;max-width:52ch">{{ rulesOutroBody }}</p>
+</div>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0 24px;background:#20D6E7;color:#061018;border-radius:10px;font:600 16px/1 'Geist',sans-serif;white-space:nowrap">Join Discord<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;opacity:.55">↗</span></a>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isIndex }}" hint-placeholder-val="{{ false }}">
+<div>
+<section style="border-bottom:1px solid #253041">
+<div style="max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} {{ sectionPadY }}">
+<p style="display:flex;align-items:center;gap:10px;margin:0 0 22px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em"><span aria-hidden="true" style="width:22px;height:1px;background:#20D6E7"></span>OFFICIAL ANNOUNCEMENTS</p>
+<h1 style="margin:0;max-width:22ch;font-size:{{ h1s }};line-height:1.04;letter-spacing:-.03em;font-weight:800">Announcements</h1>
+<p style="margin:24px 0 0;max-width:62ch;font-size:{{ lead }};line-height:1.7;color:#9BA7B7">Notices published by the SLGA admin team: rule changes, server news and community programmes. Every announcement keeps a permanent link.</p>
+</div>
+</section>
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;align-items:start">
+<sc-for list="{{ announcements }}" as="a" hint-placeholder-count="4">
+<a href="{{ a.href }}" onClick="{{ go }}" data-route="announcement" data-slug="{{ a.slug }}" style="display:flex;flex-direction:column;background:#111722;border:1px solid #253041;border-radius:16px;overflow:hidden;color:#F6F8FB" style-hover="border-color:#20D6E7">
+<sc-if value="{{ a.hasImage }}" hint-placeholder-val="{{ true }}">
+<div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);display:grid;place-items:center;border-bottom:1px solid #253041">
+<p style="margin:0;font:500 10px/1.6 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.1em;text-align:center;padding:14px">{{ a.img }}</p>
+</div>
+</sc-if>
+<div style="padding:{{ listCardPad }};display:flex;flex-direction:column;gap:12px;flex:1">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+<span style="display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid #253041;border-radius:999px;font:500 9.5px/1 'Geist Mono',monospace;color:#C9D3E0;letter-spacing:.12em">{{ a.type }}</span>
+<time datetime="{{ a.iso }}" style="font:500 11px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.06em">{{ a.date }}</time>
+</div>
+<h2 style="margin:0;font-size:21px;line-height:1.24;letter-spacing:-.025em;font-weight:700">{{ a.title }}</h2>
+<p style="margin:0;font-size:14.5px;line-height:1.62;color:#9BA7B7;flex:1">{{ a.excerpt }}</p>
+<span style="display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:#20D6E7;min-height:24px">Read announcement<span aria-hidden="true">→</span></span>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+<article>
+<div style="max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} 0">
+<nav aria-label="Breadcrumb">
+<ol style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 34px;padding:0;list-style:none;font:500 11px/1 'Geist Mono',ui-monospace,monospace;letter-spacing:.08em;color:#6C7A8C">
+<li><a href="#/" onClick="{{ go }}" data-route="home" style="color:#9BA7B7">HOME</a></li>
+<li aria-hidden="true">/</li>
+<li><a href="#/announcements" onClick="{{ go }}" data-route="announcements" style="color:#9BA7B7">ANNOUNCEMENTS</a></li>
+<li aria-hidden="true">/</li>
+<li aria-current="page" style="color:#20D6E7">{{ detail.crumb }}</li>
+</ol>
+</nav>
+<div style="max-width:72ch">
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:20px">
+<span style="display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid #20D6E7;border-radius:999px;font:500 10px/1 'Geist Mono',monospace;color:#20D6E7;letter-spacing:.12em">{{ detail.type }}</span>
+<time datetime="{{ detail.iso }}" style="font:500 11.5px/1 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.06em">{{ detail.date }}</time>
+</div>
+<h1 style="margin:0;font-size:{{ h1s }};line-height:1.06;letter-spacing:-.03em;font-weight:800">{{ detail.title }}</h1>
+<p style="margin:22px 0 0;font-size:{{ lead }};line-height:1.68;color:#9BA7B7">{{ detail.excerpt }}</p>
+</div>
+</div>
+<sc-if value="{{ detail.hasImage }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }} 0">
+<div style="aspect-ratio:16/7;border:1px solid #253041;border-radius:16px;background:repeating-linear-gradient(135deg,#151C2A 0 11px,#101724 11px 22px);display:grid;place-items:center">
+<p style="margin:0;text-align:center;font:500 10.5px/1.7 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.1em">COVER IMAGE · 1200×630 SOCIAL CROP<br>FOUNDER-SUPPLIED</p>
+</div>
+</div>
+</sc-if>
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }}">
+<div style="max-width:72ch;display:flex;flex-direction:column;gap:20px">
+<sc-for list="{{ detail.body }}" as="b" hint-placeholder-count="4">
+<sc-if value="{{ b.h }}"><h2 style="margin:18px 0 0;font-size:{{ h3 }};line-height:1.2;letter-spacing:-.025em;font-weight:700">{{ b.h }}</h2></sc-if>
+<sc-if value="{{ b.p }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:{{ articleSize }};line-height:1.78;color:#C9D3E0">{{ b.p }}</p></sc-if>
+<sc-if value="{{ b.q }}"><blockquote style="margin:0;padding:20px 24px;background:#0D131E;border:1px solid #253041;border-left:2px solid #20D6E7;border-radius:12px;font-size:{{ articleSize }};line-height:1.7;color:#F6F8FB">{{ b.q }}</blockquote></sc-if>
+<sc-if value="{{ b.items }}"><ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px"><sc-for list="{{ b.items }}" as="it" hint-placeholder-count="3"><li style="display:flex;gap:12px;font-size:{{ articleSize }};line-height:1.7;color:#C9D3E0"><span aria-hidden="true" style="flex:none;margin-top:.6em;width:5px;height:5px;background:#20D6E7;border-radius:50%"></span><span>{{ it }}</span></li></sc-for></ul></sc-if>
+</sc-for>
+</div>
+<div style="max-width:72ch;margin-top:48px;padding-top:28px;border-top:1px solid #253041;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
+<a href="#/announcements" onClick="{{ go }}" data-route="announcements" style="display:flex;align-items:center;gap:9px;min-height:44px;font-size:15px;font-weight:600"><span aria-hidden="true">←</span>All announcements</a>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;background:#111722;border:1px solid #253041;border-radius:10px;color:#F6F8FB;font:500 15px/1 'Geist',sans-serif">Join Discord<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+</div>
+</article>
+</sc-if>
+
+<sc-if value="{{ isPrivacy }}" hint-placeholder-val="{{ false }}">
+<div style="max-width:1200px;margin:0 auto;padding:{{ pageTopPad }} {{ pad }} {{ sectionPadY }}">
+<div style="max-width:72ch">
+<p style="display:flex;align-items:center;gap:10px;margin:0 0 22px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.18em"><span aria-hidden="true" style="width:22px;height:1px;background:#20D6E7"></span>PRIVACY &amp; ANALYTICS</p>
+<h1 style="margin:0;font-size:{{ h1s }};line-height:1.06;letter-spacing:-.03em;font-weight:800">Privacy notice</h1>
+<p style="margin:22px 0 0;font-size:{{ lead }};line-height:1.7;color:#C9D3E0">This site is a public information page for the Sri Lankan Gaming Alliance community. It has no accounts, no sign-in and no member database.</p>
+<p style="margin:14px 0 0;font:500 11px/1.5 'Geist Mono',monospace;color:#9BA7B7;letter-spacing:.06em">LAST REVIEWED <time datetime="2026-09-13" style="color:#F6F8FB">13 SEP 2026</time></p>
+<div style="display:flex;flex-direction:column;gap:34px;margin-top:44px">
+<sc-for list="{{ privacy }}" as="s" hint-placeholder-count="4">
+<section>
+<h2 style="margin:0 0 14px;font-size:{{ h3 }};line-height:1.2;letter-spacing:-.025em;font-weight:700">{{ s.h }}</h2>
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-for list="{{ s.p }}" as="t" hint-placeholder-count="2">
+<p style="margin:0;font-size:{{ articleSize }};line-height:1.75;color:#C9D3E0">{{ t }}</p>
+</sc-for>
+</div>
+</section>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ is404 }}" hint-placeholder-val="{{ false }}">
+<div style="position:relative;overflow:hidden;min-height:70vh;display:grid;place-items:center">
+<div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(#253041 1px,transparent 1px),linear-gradient(90deg,#253041 1px,transparent 1px);background-size:48px 48px;opacity:.3;mask-image:radial-gradient(70% 70% at 50% 50%,#000 0%,transparent 70%)"></div>
+<div style="position:relative;max-width:1200px;width:100%;padding:{{ sectionPadY }} {{ pad }};text-align:center">
+<p style="margin:0 auto 26px;font:500 11px/1 'Geist Mono',ui-monospace,monospace;color:#20D6E7;letter-spacing:.2em">ERROR 404</p>
+<p aria-hidden="true" style="margin:0;font-size:{{ big404 }};line-height:.85;font-weight:800;letter-spacing:-.05em;color:#111722">404</p>
+<h1 style="margin:-.12em 0 0;font-size:{{ h2 }};line-height:1.08;letter-spacing:-.03em;font-weight:700">This page is off the map</h1>
+<p style="margin:20px auto 0;max-width:46ch;font-size:{{ lead }};line-height:1.65;color:#9BA7B7">The link may be old, or the page may have moved. Everything current is one of these three doors.</p>
+<div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:36px">
+<a href="#/" onClick="{{ go }}" data-route="home" style="display:flex;align-items:center;min-height:52px;padding:0 26px;background:#20D6E7;color:#061018;border-radius:10px;font:600 16px/1 'Geist',sans-serif">Back to home</a>
+<a href="#/rules" onClick="{{ go }}" data-route="rules" style="display:flex;align-items:center;min-height:52px;padding:0 26px;background:#111722;border:1px solid #253041;color:#F6F8FB;border-radius:10px;font:500 16px/1 'Geist',sans-serif">Read the rules</a>
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;min-height:52px;padding:0 26px;background:transparent;border:1px solid #253041;color:#F6F8FB;border-radius:10px;font:500 16px/1 'Geist',sans-serif">Join Discord<span aria-hidden="true" style="font:500 12px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+</div>
+</div>
+</sc-if>
+
+</main>
+
+<footer style="border-top:1px solid #253041;background:#06090F">
+<div style="max-width:1200px;margin:0 auto;padding:{{ sectionPadY }} {{ pad }} {{ footerPadB }}">
+<div style="display:flex;flex-wrap:wrap;gap:32px 40px;justify-content:space-between">
+<div style="flex:1 1 280px;min-width:0">
+<div style="display:flex;align-items:center;gap:11px">
+<span aria-hidden="true" style="width:30px;height:30px;flex:none;display:grid;place-items:center;border:1px solid #20D6E7;border-radius:7px;font:700 13px/1 'Geist',sans-serif;color:#20D6E7">SL</span>
+<span style="font:700 16px/1.1 'Geist',sans-serif;letter-spacing:-.02em">Sri Lankan Gaming Alliance</span>
+</div>
+<p style="margin:18px 0 0;max-width:38ch;font-size:14.5px;line-height:1.6;color:#9BA7B7">Home for Sri Lankan gamers. A community-run group for players on PC, PlayStation, Xbox and Switch.</p>
+</div>
+<div style="flex:0 1 180px">
+<p style="margin:0 0 16px;font:500 10px/1 'Geist Mono',monospace;color:#6C7A8C;letter-spacing:.14em">SITE</p>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px">
+<sc-for list="{{ footerLinks }}" as="l" hint-placeholder-count="4">
+<li><a href="{{ l.href }}" onClick="{{ go }}" data-route="{{ l.route }}" style="display:flex;align-items:center;min-height:{{ footerLinkH }};font-size:15px;color:#C9D3E0" style-hover="color:#20D6E7">{{ l.label }}</a></li>
+</sc-for>
+</ul>
+</div>
+<div style="flex:0 1 200px">
+<p style="margin:0 0 16px;font:500 10px/1 'Geist Mono',monospace;color:#6C7A8C;letter-spacing:.14em">COMMUNITY</p>
+<ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px">
+<sc-for list="{{ socials }}" as="s" hint-placeholder-count="4">
+<li><a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;min-height:{{ footerLinkH }};font-size:15px;color:#C9D3E0" style-hover="color:#20D6E7"><span aria-hidden="true" style="width:18px;height:18px;flex:none;display:grid;place-items:center;border:1px solid #253041;border-radius:5px;font:600 9px/1 'Geist',sans-serif;color:#9BA7B7">{{ s.mark }}</span>{{ s.label }}<span aria-hidden="true" style="font:500 10px/1 'Geist Mono',monospace;color:#6C7A8C">↗</span></a></li>
+</sc-for>
+</ul>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;margin-top:44px;padding-top:24px;border-top:1px solid #1B2432">
+<p style="margin:0;font:500 11px/1.6 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.06em">© {{ year }} SRI LANKAN GAMING ALLIANCE</p>
+<p style="margin:0;font:500 11px/1.6 'Geist Mono',ui-monospace,monospace;color:#6C7A8C;letter-spacing:.06em">COMMUNITY-RUN · NOT AN OFFICIAL GOVERNING BODY</p>
+</div>
+</div>
+</footer>
+
+<sc-if value="{{ showBottomBar }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;gap:8px;padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom));background:rgba(8,11,18,.95);backdrop-filter:blur(16px);border-top:1px solid #253041">
+<a href="https://discord.gg/slga" target="_blank" rel="noopener noreferrer" style="flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;background:#20D6E7;color:#061018;border-radius:10px;font:600 15px/1 'Geist',sans-serif">Join Discord<span aria-hidden="true" style="font:500 11px/1 'Geist Mono',monospace;opacity:.55">↗</span></a>
+<a href="https://facebook.com/groups/slga" target="_blank" rel="noopener noreferrer" style="flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border:1px solid #253041;background:#111722;color:#F6F8FB;border-radius:10px;font:500 15px/1 'Geist',sans-serif">Facebook<span aria-hidden="true" style="font:500 11px/1 'Geist Mono',monospace;color:#9BA7B7">↗</span></a>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;viewport&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Fluid&quot;,&quot;375&quot;,&quot;768&quot;,&quot;1440&quot;],&quot;default&quot;:&quot;Fluid&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Review&quot;},&quot;heroAtmosphere&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Purple bloom&quot;,&quot;Cyan only&quot;,&quot;None&quot;],&quot;default&quot;:&quot;Purple bloom&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showRulesIndex&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Design&quot;},&quot;showTranslationNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;showMockNotice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { route: "home", slug: "slga-discord-is-now-open", w: 1440, scrolled: false, deep: false, menu: false };
+
+  // ---- mock content (mirrors future Sanity types: siteSettings / rule / announcement / facebookFeature)
+  rulesData = [
+    { n: 1, en: "Allowed Gaming Platforms", si: "අනුමත වීඩියෝ ක්‍රීඩා මාධ්‍යයන්",
+      benEn: [{ p: "Discussion must stay with video games, hardware and software for the four supported platforms: PC, PlayStation, Xbox and Switch. Anything outside those platforms is not allowed in the group." }],
+      benSi: [{ p: "PC , Playstation , Xbox, Switch Gaming Platforms හතරට අදාල වීඩියෝ ක්‍රීඩා/දෘඨාංග/මෘදුකාංග වලට අයත් නොවන කරුණු පිළිබඳව සාකච්ඡා කිරීම මේ සමූහය තුල සම්පූර්ණයෙන්ම තහනම් වේ!" }] },
+    { n: 2, en: "Active Engaging Community Environment", si: "ක්‍රියාකාරී සමූහයක් පවත්වාගෙන යාම.",
+      benEn: [{ p: "Members who only post their own gaming content — live streams, pages, YouTube videos — to promote themselves, and never take part otherwise, will be acted on firmly." }],
+      benSi: [{ p: "තමන්ගේ Gaming Content (Live Streams, Pages, YouTube Videos) පමණක් පලකර, ඒවා Promote කරන ආත්මාර්ථකාමී සාමාජිකයන්ට එරෙහිව දැඩි ක්‍රියාමාර්ග ගනිමු!" }] },
+    { n: 3, en: "No NSFW Content, No Cursing/Swearing & No Drug References", si: "අසභ්‍ය නොවන, නීතිවිරෝධී මත්ද්‍රව්‍ය වලින් තොර අන්තර්ගතයක් පවත්වාගෙන යාම හා නිවැරදි භාෂා භාවිතය",
+      benEn: [{ p: "Posting 18+ video or images (full or half nude) is banned. Posts and comments containing profanity in any language are banned, as is addressing members with profanity. Any content referring directly or indirectly to drugs — other than alcohol and cigarettes, including cannabis — is banned." }],
+      benSi: [{ p: "18+ වීඩියෝපට/ඡායාරූප (Full Nude/Half Nude) පළ කිරීම, කිසිම භාෂාවකින් කුණුහරප අඩංගු posts, comments පළ කිරීම, කුණුහරපයෙන් ඇමතීම සහ මත්පැන්, සිගරට් හැර ගංජා ඇතුළු අනෙකුත් මත්ද්‍රව්‍ය සම්බන්ධව directly හෝ indirectly සඳහන් වන කිසිම දෙයක් පළ කිරීම තහනම්." }] },
+    { n: 4, en: "No Spoilers", si: "Spoilers අඩංගු දෑ පල කිරීම තහනම්.",
+      benEn: [{ p: "No spoilers may be posted until 3–4 weeks after a game releases, especially for AAA titles. This window often shifts slightly depending on the game, so we make sure to announce the applicable period a few days before a release. Whether the rule has been changed for a particular game can be checked in the group's announcements tab." }],
+      benSi: [{ p: "Game එකක්, විශේෂයෙන්ම AAA කාණ්ඩයට අයිති game එකක්, නිකුත් වීමෙන් සති 3-4 යනතුරු කිසිම spoiler එකක් පල කිරීම නොකළ යුතුය. මෙම නීතිය බොහෝවිට අදාල game එක අනුව සුළු සුළු වෙනස්වීම් වලට ලක්වන බැවින් ඒ පිළිබඳව අපි අදාල game එක release වීමට දවස් කිහිපයකට පෙර දැනුවත් කිරීමට වග බලා ගන්නෙමු. එසේ යම්කිසි game එකක් වෙනුවෙන් අප මෙම නීතිය වෙනස් කළේද නැද්ද යන වග, group එකෙහි announcements tab එකට පිවිසීමෙන් පහසුවෙන් දැනගත හැකිය." }] },
+    { n: 5, en: "In-Game Screenshots Must Be Unique", si: "තමාට අනන්‍ය වූ In-Game Screenshots",
+      benEn: [{ p: "Try as far as possible to capture screenshots that are your own. In games with a photo mode or a hideable HUD, screenshots taken during cutscenes should not be posted without reason — exceptions apply for special cases such as easter eggs or important story details. This exists to encourage your creativity and to avoid several people posting the same screenshot." }],
+      benSi: [{ p: "හැකි තරම් තමන්ටම අනන්‍ය වූ screenshots ලබා ගැනීමට උත්සාහ කරන්න. Photo mode එකක් හෝ HUD එක ඉවත් කළ හැකි games වල, විශේෂ අවස්ථාවකට (easter eggs, important story related details... etc) හැර, cutscenes අතරතුරදී ලබා ගත් screenshots *නිකරුනේ* පළ කිරීම නොකළ යුතුය. මෙය ඔබගේ නිර්මාණශීලිත්වය වර්ධනය කිරීමට සහ එකම screenshot එක කිහිප දෙනෙක් පළ කිරීම වැලැක්වීම් සඳහා පනවා ඇත." }] },
+    { n: 6, en: "No Repetitive Content — Memes, News, Posts", si: "එකම දෑ වරින් වර පළ කිරීමෙන් වළකින්න.",
+      benEn: [{ p: "When you post third-party content, a meme or a news item that someone else has already posted, please understand that your post may be declined or removed." }],
+      benSi: [{ p: "ඔබ යම්කිසි 3rd Party Content එකක්/meme එකක්/news එකක් පළ කිරීමේදී, එය, ඊට පෙර වෙන කෙනෙකු විසින් පල කර ඇත්නම්, ඔබේ post එක ප්‍රතික්ෂේප කිරීමට හෝ ඉවත් කිරීමට සිදු වන බව කරුණාවෙන් සලකන්න." }] },
+    { n: 7, en: "The Following Topics & Actions Are Prohibited", si: "පහත සඳහන් දේවල් මෙම Group එක තුළ තහනම් වේ.",
+      benEn: [{ items: ["Posting or discussing matters that damage members' privacy or break the unity of the community.", "Spamming.", "Repeatedly asking members to support or promote your own content (begging).", "Personal attacks.", "Advertising that goes around rule 2 above."] }],
+      benSi: [{ items: ["සාමාජිකයන්ගේ පෞද්ගලිකත්වය හානිවන හා සමූහයේ එකමුතු කම බිඳී යන ආකාරයේ කරුණු පළ කිරීම හා සාකච්ඡා කිරීම.", "Spam කිරීම", "තමන්ගේ content promote කර ගැනීමට සහය දක්වන්න යැයි නොනවත්වා ඉල්ලා සිටීම (Begging)", "පුද්ගලික මඩ ගැසීම් (Personal attacks)", "ඉහත සඳහන් 2 වෙනි නීතිය පිටින් සිදු කරන වෙළඳ දැන්වීම් (Advertising)"] }] },
+    { n: 8, en: "Any Other Action That Causes Problems Will Be Dealt With As Necessary", si: "මීට අමතරව ගැටුම් ඇති කරන අනෙකුත් දෑ සඳහා සුදුසු ක්‍රියාමාර්ග ගනු ලැබේ.",
+      benEn: [{ p: "Something is not permitted merely because it is not listed here. Keep contentious posts to a minimum. Where such situations do arise, admins judge each case individually and take the decisions the nature of the breach requires." }],
+      benSi: [{ p: "මෙහි සඳහන් කර නොඇතිබූ පමණින් ඔබට සිතෙන ඕනෑම දෙයක් කිරීමට අවසර නැත. ගැටුම් ඇති වන කරුණු පළ කිරීම හැකිතාක් අවම කරන්න. ඉහත සඳහන් කළ ආකාරයේ අවස්ථාවන් ඇති වුවහොත්, එම සෑම අවස්ථාවක්ම ඇඩ්මින් විසින් එකින් එක විමසා බලා (Judge), වරදේ ස්වභාවය අනුව අවශ්‍ය සුදුසු තීරණ ගනු ලැබේ." }] },
+    { n: 9, en: "Is Your Post Public & Visible?", si: "ඔබගේ Post එක Publicද?",
+      benEn: [{ p: "When you share a post into the group using Facebook's share option, that post's privacy setting must be set to \u201cPublic\u201d. Otherwise we cannot see your post and it has to be declined." }],
+      benSi: [{ p: "ඔබ විසින් යම්කිසි post එකක් group එකට share කිරීමේදී (Facebook share option එක මගින්), එම අදාල post එකේ privacy settings \u201cPublic\u201d ලෙස සකස් කළ යුතුය. නැත්නම් ඔබේ post එක අප හට නොපෙන්වන නිසා, එය decline කිරීමට සිදු වේ." }] },
+    { n: 10, en: "Reporting Posts", si: "පැමිණිලි කිරීම.",
+      benEn: [{ p: "If you have an issue with a post in the group, please use the \u201cReport post to group admins\u201d option. Alternatively, tag an admin on the post itself or reach one through Messenger." }],
+      benSi: [{ p: "Group එකේ පලවන posts පිළිබඳව ඔබට ගැටලුවක් පවතී නම් \u201cReport post to group admins\u201d යන option එක භාවිතා කරන මෙන් කාරුණිකව ඉල්ලා සිටිමු. නැතහොත් අදාල ස්ථානයේ admin කෙනෙකු tag කිරීමට හෝ Messenger හරහා සම්බන්ධ කර ගැනීමට වග බලාගන්න." }] }
+  ];
+
+  announcementsData = [
+    { slug: "slga-discord-is-now-open", type: "ANNOUNCEMENT", title: "SLGA Discord is now open", iso: "2026-09-08",
+      date: "8 September 2026", hasImage: true, img: "COVER IMAGE\n16:9 · OPTIONAL",
+      excerpt: "The community now has a permanent home for voice chat, looking-for-group posts and weekend sessions. Here is what is inside and how moderation carries over from the Facebook group.",
+      body: [
+        { p: "For years the Facebook group has been where SLGA happens: posts, screenshots, arguments about frame rates. It does one thing badly, though — it cannot get people into the same voice channel on a Friday night. The Discord server fixes that." },
+        { h: "What the server is for" },
+        { p: "The server is built around playing together rather than posting. Channels are organised by platform and by game, with voice rooms that stay open and a looking-for-group channel where you can post what you are playing and when." },
+        { items: ["Platform channels for PC, PlayStation, Xbox and Switch.", "Voice rooms open to all members, no scheduling needed.", "A looking-for-group channel for co-op and multiplayer sessions.", "A screenshots channel that follows the same originality rule as the group."] },
+        { h: "Moderation is the same" },
+        { p: "The community rules apply on Discord exactly as they do on Facebook. The same admin team moderates both, and breaking a rule in one place is treated as breaking it in the community." },
+        { q: "Read the rules once. They are short, they are in English and Sinhala, and they are the whole agreement." },
+        { h: "Joining" },
+        { p: "The invite is permanent and open to existing Facebook members and to new members alike. You do not need to leave the Facebook group to join the server — most people will use both." }
+      ] },
+    { slug: "community-rules-refresh-2026", type: "RULES UPDATE", title: "Community rules refreshed for 2026", iso: "2026-08-21",
+      date: "21 August 2026", hasImage: false, img: "",
+      excerpt: "The ten rules have been reviewed, reworded for clarity and published in English and Sinhala side by side. No new restrictions were added.",
+      body: [{ p: "MOCK CONTENT — replace before launch. This announcement exists so the layout can be evaluated without a cover image." }] },
+    { slug: "weekend-game-nights", type: "COMMUNITY", title: "Weekend game nights: how to join", iso: "2026-08-02",
+      date: "2 August 2026", hasImage: true, img: "COVER IMAGE\n16:9 · OPTIONAL",
+      excerpt: "Every Friday and Saturday the voice rooms fill up. No sign-up sheet, no team rosters — turn up, say what you are playing and someone will be playing it too.",
+      body: [{ p: "MOCK CONTENT — replace before launch." }] },
+    { slug: "five-years-of-slga", type: "ANNOUNCEMENT", title: "Five years of SLGA", iso: "2026-06-30",
+      date: "30 June 2026", hasImage: true, img: "COVER IMAGE\n16:9 · OPTIONAL",
+      excerpt: "From a small Facebook group to 66,000 members. A short note from the admin team on what changed, what did not, and what comes next.",
+      body: [{ p: "MOCK CONTENT — replace before launch." }] }
+  ];
+
+  featuresData = [
+    { id: "f1", title: "Screenshot night: our September picks", excerpt: "Six member captures chosen by admins, from Ghost of Yotei photo mode to a very patient Elden Ring sunrise.", url: "https://facebook.com/groups/slga/posts/1", img: "FEATURE IMAGE\nMOCK · 16:10" },
+    { id: "f2", title: "Where Sri Lankan gamers actually buy PC parts", excerpt: "A long comment thread turned into the most useful hardware guide in the group this year.", url: "https://facebook.com/groups/slga/posts/2", img: "FEATURE IMAGE\nMOCK · 16:10" },
+    { id: "f3", title: "Co-op request thread that turned into a clan", excerpt: "One member asked for two players for a Helldivers run. Forty replies later, the Friday squad exists.", url: "https://facebook.com/groups/slga/posts/3", img: "FEATURE IMAGE\nMOCK · 16:10" }
+  ];
+
+  privacyData = [
+    { h: "Analytics", p: ["We use Vercel Web Analytics to count page views and to see which links people use — for example how many visitors open Discord or Facebook from this site. Vercel describes the service as cookie-free and based on a daily-reset visitor hash.", "We do not collect names, email addresses, Discord identities or any free-text information, and we do not use advertising trackers."] },
+    { h: "No accounts in Phase 1", p: ["This website has no registration, no sign-in and no member profiles. There is no member database, so there is nothing here to store about you.", "Community membership lives on Facebook and Discord, not on this site."] },
+    { h: "External links", p: ["Links to Facebook, Discord, Steam, Reddit and similar platforms take you off this website. Those platforms collect their own data and have their own privacy policies, which apply once you arrive there.", "We have no control over, and take no responsibility for, how those platforms handle your information."] },
+    { h: "Content and images", p: ["Announcements, rules and featured cards are published by the SLGA admin team. Featured cards are hand-selected links to public Facebook posts; this site does not embed Facebook content or load Facebook scripts.", "If you believe something published here should be corrected or removed, contact an admin through the Facebook group or the Discord server."] },
+    { h: "Changes to this notice", p: ["If our analytics or data handling changes, this page is updated before the change goes live, and the review date above is changed with it."] }
+  ];
+
+  socialsData = [
+    { label: "Facebook Group", url: "https://facebook.com/groups/slga", mark: "f" },
+    { label: "Discord Server", url: "https://discord.gg/slga", mark: "D" },
+    { label: "Steam Group", url: "https://steamcommunity.com/groups/slga", mark: "S" },
+    { label: "Reddit", url: "https://reddit.com/r/slga", mark: "R" }
+  ];
+
+  // ---- lifecycle
+  componentDidMount() {
+    this.onHash = () => this.readHash();
+    this.onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      const s = y > 12, d = y > 460;
+      if (s !== this.state.scrolled || d !== this.state.deep) this.setState({ scrolled: s, deep: d });
+    };
+    this.onKey = (e) => { if (e.key === "Escape" && this.state.menu) this.setState({ menu: false }); };
+    window.addEventListener("hashchange", this.onHash);
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("keydown", this.onKey);
+    this.readHash();
+    this.onScroll();
+  }
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.onHash);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("keydown", this.onKey);
+    if (this.ro) this.ro.disconnect();
+  }
+  componentDidUpdate(pp, ps) {
+    if (this.state.menu && !ps.menu && this.closeBtn) this.closeBtn.focus();
+  }
+
+  readHash() {
+    const h = (window.location.hash || "").replace(/^#/, "");
+    if (!h || h === "/" || h === "") return this.setState({ route: "home", menu: false });
+    if (h === "/rules") return this.setState({ route: "rules", menu: false });
+    if (h === "/si/rules") return this.setState({ route: "rules-si", menu: false });
+    if (h === "/announcements") return this.setState({ route: "announcements", menu: false });
+    if (h === "/privacy") return this.setState({ route: "privacy", menu: false });
+    const m = h.match(/^\/announcements\/(.+)$/);
+    if (m) {
+      const found = this.announcementsData.find((a) => a.slug === m[1]);
+      if (found) return this.setState({ route: "announcement", slug: found.slug, menu: false });
+      return this.setState({ route: "404", menu: false });
+    }
+    if (h.charAt(0) === "/") return this.setState({ route: "404", menu: false });
+  }
+
+  renderVals() {
+    const w = this.state.w;
+    const sm = w < 700, md = w >= 700 && w < 1040, xs = w < 420;
+    const route = this.state.route;
+    const si = route === "rules-si";
+    const scrolled = this.state.scrolled;
+    const bloom = this.props.heroAtmosphere ?? "Purple bloom";
+
+    const go = (e) => {
+      const el = e.currentTarget;
+      const r = el.getAttribute("data-route");
+      if (!r) return;
+      e.preventDefault();
+      const slug = el.getAttribute("data-slug") || this.state.slug;
+      const hash = r === "home" ? "/" : r === "rules" ? "/rules" : r === "rules-si" ? "/si/rules"
+        : r === "announcements" ? "/announcements" : r === "privacy" ? "/privacy"
+        : r === "announcement" ? "/announcements/" + slug : "/404";
+      this.setState({ route: r, slug, menu: false }, () => window.scrollTo(0, 0));
+      try { window.location.hash = hash; } catch (err) { /* sandboxed */ }
+    };
+
+    const nav = [
+      { label: "Home", href: "#/", route: "home" },
+      { label: "Rules", href: "#/rules", route: "rules" },
+      { label: "Announcements", href: "#/announcements", route: "announcements" }
+    ].map((n) => {
+      const active = n.route === route || (n.route === "rules" && si) ||
+        (n.route === "announcements" && route === "announcement");
+      return Object.assign({}, n, {
+        current: active ? "page" : undefined,
+        color: active ? "#F6F8FB" : "#9BA7B7",
+        weight: active ? 600 : 450,
+        mBg: active ? "#111722" : "transparent",
+        mBorder: active ? "#20D6E7" : "#253041"
+      });
+    });
+
+    const rules = this.rulesData.map((r) => ({
+      n: r.n,
+      nn: r.n < 10 ? "0" + r.n : String(r.n),
+      title: si ? r.si : r.en,
+      alt: si ? r.en : null,
+      aria: "Rule " + r.n + ": " + (si ? r.si : r.en),
+      blocks: si ? r.benSi : r.benEn
+    }));
+
+    const anns = this.announcementsData.map((a) => Object.assign({}, a, {
+      href: "#/announcements/" + a.slug,
+      img: a.img.replace("\n", " · ")
+    }));
+    const latest = anns[0];
+    const detail = anns.find((a) => a.slug === this.state.slug) || latest;
+
+    return {
+      frameRef: (el) => {
+        if (!el || el === this.frameEl) return;
+        this.frameEl = el;
+        if (this.ro) this.ro.disconnect();
+        this.ro = new ResizeObserver(() => {
+          const cw = el.clientWidth;
+          if (cw && Math.abs(cw - this.state.w) > 2) this.setState({ w: cw });
+        });
+        this.ro.observe(el);
+        this.setState({ w: el.clientWidth || 1440 });
+      },
+      closeRef: (el) => { this.closeBtn = el; },
+      go,
+      openMenu: () => this.setState({ menu: true }),
+      closeMenu: () => this.setState({ menu: false }),
+      menuOpen: this.state.menu ? "true" : undefined,
+
+      // viewport frame
+      frameWidth: !this.props.viewport || this.props.viewport === "Fluid" ? "100%" : this.props.viewport + "px",
+      frameEdge: !this.props.viewport || this.props.viewport === "Fluid" ? "0" : "1px solid #253041",
+
+      // route flags
+      isHome: route === "home" || undefined,
+      isRules: route === "rules" || si || undefined,
+      isIndex: route === "announcements" || undefined,
+      isDetail: route === "announcement" || undefined,
+      isPrivacy: route === "privacy" || undefined,
+      is404: route === "404" || undefined,
+
+      // responsive scale
+      pad: xs ? "16px" : sm ? "20px" : md ? "32px" : "48px",
+      headerH: sm ? "60px" : "76px",
+      headerBg: scrolled ? "rgba(8,11,18,.92)" : "rgba(8,11,18,.55)",
+      headerBorder: scrolled ? "#253041" : "rgba(37,48,65,.4)",
+      deskNav: !sm || undefined,
+      mobileNav: sm || undefined,
+      showWordmarkSub: !sm || undefined,
+      h1: xs ? "37px" : sm ? "42px" : md ? "58px" : "78px",
+      h1s: xs ? "30px" : sm ? "34px" : md ? "46px" : "58px",
+      h2: xs ? "25px" : sm ? "28px" : md ? "33px" : "40px",
+      h3: sm ? "20px" : "25px",
+      lead: sm ? "16px" : "17.5px",
+      bodySize: sm ? "16px" : "16.5px",
+      articleSize: sm ? "16.5px" : "17.5px",
+      statSize: sm ? "30px" : "38px",
+      big404: xs ? "96px" : sm ? "120px" : "190px",
+      heroAspect: sm ? "16/10" : "4/5",
+      ctaFlex: sm ? "1 1 100%" : "0 0 auto",
+      langW: sm ? "100%" : "auto",
+      langFlex: sm ? "1 1 0" : "0 0 auto",
+      ruleDir: sm ? "column" : "row",
+      ruleAlign: sm ? "stretch" : "flex-start",
+      ruleNumW: sm ? "auto" : "52px",
+      ruleNumH: sm ? "30px" : "52px",
+      ruleNumPad: sm ? "0 11px" : "0",
+      ruleNumSelf: sm ? "flex-start" : "auto",
+      mockNotice: sm
+        ? "Announcements, cards, images and member count are mock data. Rule text needs founder approval."
+        : "Announcements, featured cards, images and member count are mock data — founders replace them in Sanity. Rule text is migrated from the legacy site and needs founder approval.",
+      listCardPad: sm ? "20px" : "24px",
+      footerPadB: sm ? "104px" : "34px",
+      footerLinkH: sm ? "48px" : "40px",
+      showBottomBar: (sm && this.state.deep) || undefined,
+      heroPadT: sm ? "44px" : md ? "60px" : "86px",
+      heroPadB: sm ? "52px" : md ? "72px" : "100px",
+      sectionPadY: sm ? "52px" : md ? "68px" : "88px",
+      pageTopPad: sm ? "44px" : "72px",
+      heroGap: sm ? "34px" : "48px",
+      cardPad: sm ? "24px" : "34px",
+      ruleGap: sm ? "30px" : "40px",
+      ruleNumGap: sm ? "14px" : "22px",
+      ruleNumSize: sm ? "42px" : "52px",
+      ruleNumFont: sm ? "15px" : "18px",
+      indexCol: ((this.props.showRulesIndex ?? true) && !sm && !md) || undefined,
+      indexRow: ((this.props.showRulesIndex ?? true) && (sm || md)) || undefined,
+
+      // atmosphere
+      bloomPurple: bloom === "Purple bloom" || undefined,
+      bloomCyan: bloom === "Cyan only" || undefined,
+
+      // content
+      navItems: nav,
+      rules,
+      ruleCount: rules.length,
+      rulesLang: si ? "si" : "en",
+      rulesFont: si ? "'Noto Sans Sinhala','Geist',sans-serif" : "'Geist',system-ui,sans-serif",
+      rulesHeading: si ? "සමූහයේ නීති සහ මාර්ගෝපදේශ" : "Community rules & guidelines",
+      rulesIntro: si
+        ? "SLGA සමූහයට සම්බන්ධ වීමට පෙර සියලුම නීති කියවා බලන්න. මෙම නීති Facebook සමූහයට සහ Discord සේවාදායකයට එක හා සමානව අදාළ වේ."
+        : "Read all ten rules before you join. They apply identically in the Facebook group and on the Discord server, and every post is reviewed against them.",
+      enCurrent: si ? undefined : "page",
+      siCurrent: si ? "page" : undefined,
+      enBg: si ? "transparent" : "#20D6E7",
+      enColor: si ? "#9BA7B7" : "#061018",
+      enWeight: si ? 450 : 600,
+      siBg: si ? "#20D6E7" : "transparent",
+      siColor: si ? "#061018" : "#9BA7B7",
+      siWeight: si ? 600 : 450,
+      showDraftNotice: (this.props.showTranslationNotice ?? true) || undefined,
+      draftNotice: si
+        ? "MOCK / MIGRATION NOTE — Sinhala wording is transcribed from the 2021 site and must be verified by founders before launch."
+        : "MOCK / MIGRATION NOTE — the legacy site published rule bodies in Sinhala only. The English bodies below are draft translations for layout review and must be approved by founders before launch.",
+      rulesOutroTitle: si ? "නීති පැහැදිලි නැද්ද?" : "Something unclear?",
+      rulesOutroBody: si
+        ? "නීතියක් පිළිබඳ ගැටලුවක් ඇත්නම් Discord සේවාදායකයේ admin කෙනෙකුගෙන් අසන්න."
+        : "Ask an admin in the Discord server. Rules are enforced by people, and we would rather explain one than remove a post.",
+
+      latest,
+      announcements: anns,
+      detail: Object.assign({}, detail, { crumb: detail.title.toUpperCase().slice(0, 26) }),
+      features: this.featuresData,
+      privacy: this.privacyData,
+      socials: this.socialsData,
+      footerLinks: [
+        { label: "Home", href: "#/", route: "home" },
+        { label: "Rules", href: "#/rules", route: "rules" },
+        { label: "නීති (සිංහල)", href: "#/si/rules", route: "rules-si" },
+        { label: "Announcements", href: "#/announcements", route: "announcements" },
+        { label: "Privacy", href: "#/privacy", route: "privacy" },
+        { label: "404 preview", href: "#/404", route: "404" }
+      ],
+      aboutFacts: [
+        { k: "FACEBOOK", t: "66,000+ members", d: "The main room: posts, screenshots and discussion, moderated since 2021." },
+        { k: "DISCORD", t: "Voice, LFG, sessions", d: "Where people actually get into a game together on a weekday evening." },
+        { k: "RULES", t: "English & සිංහල", d: "One set of rules, published in both languages and updated together." }
+      ],
+      showMockNotice: (this.props.showMockNotice ?? true) || undefined,
+      year: new Date().getFullYear()
+    };
+  }
+}
+</script>
+</body>
+</html>

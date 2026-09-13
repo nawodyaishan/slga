@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+:root { --background: #080b12; --foreground: #f6f8fb; --accent: #20d6e7; --surface: #111722; --muted: #9ba7b7; --border: #253041; }
+* { box-sizing: border-box; }
+html { background: var(--background); color: var(--foreground); }
+body { margin: 0; min-width: 320px; font-family: Arial, sans-serif; background: var(--background); }
+a { color: inherit; text-decoration: none; }
+.site-shell, .content-page, .centered { width: min(100% - 2rem, 72rem); margin: auto; }
+.site-header { display: flex; align-items: center; justify-content: space-between; min-height: 5rem; border-bottom: 1px solid var(--border); }
+.site-header nav, .actions { display: flex; align-items: center; gap: 1rem; }
+.wordmark { font-weight: 800; letter-spacing: .08em; }.wordmark span, .eyebrow { color: var(--accent); }
+.site-header nav a:not(.button) { color: var(--muted); font-size: .9rem; }
+.hero { padding: 8rem 0 9rem; max-width: 52rem; }.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+h1, h2 { line-height: 1.05; letter-spacing: -.04em; }.hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); margin: 1rem 0 1.5rem; }.hero-copy { color: var(--muted); font-size: 1.2rem; max-width: 38rem; }
+.button { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; padding: .75rem 1rem; border: 1px solid var(--accent); border-radius: .25rem; background: var(--accent); color: #061016; font-weight: 700; }.button-secondary { background: transparent; color: var(--foreground); border-color: var(--border); }.button-small { min-height: 2.5rem; padding: .5rem .75rem; }
+.foundation-note { border-top: 1px solid var(--border); padding: 3rem 0 6rem; max-width: 42rem; }.foundation-note h2 { font-size: clamp(2rem, 5vw, 3.5rem); }.foundation-note p:last-child, .content-page p { color: var(--muted); line-height: 1.7; }
+.content-page { padding: 7rem 0; max-width: 52rem; }.content-page h1, .centered h1 { font-size: clamp(3rem, 8vw, 6rem); }.centered { min-height: 70vh; display: grid; place-content: center; }
+@media (max-width: 640px) { .site-header nav a:not(.button) { display: none; }.hero { padding: 6rem 0; }.actions { align-items: stretch; flex-direction: column; max-width: 18rem; }.actions .button { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
