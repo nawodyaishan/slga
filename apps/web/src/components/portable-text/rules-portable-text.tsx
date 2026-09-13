@@ -2,9 +2,9 @@ import type { PortableTextComponents } from "@portabletext/react";
 
 /**
  * Allowlisted renderer for rule bodies (TECH-SPEC.md §11.2): paragraphs, h3,
- * bold, italic, links, ordered/bullet lists only — matching the reading
+ * bold, italic, links, ordered/bullet lists only - matching the reading
  * column markup in the design (`design/phase_1/SLGA Phase 1.dc.html` lines
- * 286–291). Any other block or mark type is not registered here, so
+ * 286-291). Any other block or mark type is not registered here, so
  * `@portabletext/react` falls back to plain text instead of raw HTML.
  */
 export const rulesPortableTextComponents: PortableTextComponents = {

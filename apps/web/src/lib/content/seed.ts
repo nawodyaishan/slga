@@ -13,7 +13,7 @@ import { h2, p, prose, quote, ul } from "./blocks";
 /**
  * Content migrated from `design/phase_1/SLGA Phase 1.dc.html`'s prototype
  * mock data (`rulesData`, `announcementsData`, `featuresData`, `privacyData`,
- * `socialsData`). This is migration input, not approved copy — every rule
+ * `socialsData`). This is migration input, not approved copy - every rule
  * body's English translation and every "MOCK CONTENT" announcement body
  * requires founder sign-off before it can ship to production
  * (TECH-SPEC.md §21). `provisional: true` below keeps the PROTOTYPE banner
@@ -81,13 +81,13 @@ const siteSettings: SiteSettings = {
   },
   seoTitle: "Sri Lankan Gaming Alliance",
   seoDescription:
-    "SLGA is the home for Sri Lankan gamers on PC, PlayStation, Xbox and Switch — community rules, announcements and where to find the group.",
+    "SLGA is the home for Sri Lankan gamers on PC, PlayStation, Xbox and Switch - community rules, announcements and where to find the group.",
   defaultOgImage: null,
 };
 
 /**
  * The prototype's rule bodies are English draft translations of a Sinhala-only
- * legacy site and are explicitly flagged there as unverified — see the
+ * legacy site and are explicitly flagged there as unverified - see the
  * `draftNotice` mock in the prototype: "the legacy site published rule
  * bodies in Sinhala only ... must be approved by founders before launch."
  */
@@ -116,7 +116,7 @@ const rules: readonly Rule[] = [
     body: {
       en: prose(
         p(
-          "Members who only post their own gaming content — live streams, pages, YouTube videos — to promote themselves, and never take part otherwise, will be acted on firmly.",
+          "Members who only post their own gaming content - live streams, pages, YouTube videos - to promote themselves, and never take part otherwise, will be acted on firmly.",
         ),
       ),
       si: prose(
@@ -136,7 +136,7 @@ const rules: readonly Rule[] = [
     body: {
       en: prose(
         p(
-          "Posting 18+ video or images (full or half nude) is banned. Posts and comments containing profanity in any language are banned, as is addressing members with profanity. Any content referring directly or indirectly to drugs — other than alcohol and cigarettes, including cannabis — is banned.",
+          "Posting 18+ video or images (full or half nude) is banned. Posts and comments containing profanity in any language are banned, as is addressing members with profanity. Any content referring directly or indirectly to drugs - other than alcohol and cigarettes, including cannabis - is banned.",
         ),
       ),
       si: prose(
@@ -153,7 +153,7 @@ const rules: readonly Rule[] = [
     body: {
       en: prose(
         p(
-          "No spoilers may be posted until 3–4 weeks after a game releases, especially for AAA titles. This window often shifts slightly depending on the game, so we make sure to announce the applicable period a few days before a release. Whether the rule has been changed for a particular game can be checked in the group's announcements tab.",
+          "No spoilers may be posted until 3-4 weeks after a game releases, especially for AAA titles. This window often shifts slightly depending on the game, so we make sure to announce the applicable period a few days before a release. Whether the rule has been changed for a particular game can be checked in the group's announcements tab.",
         ),
       ),
       si: prose(
@@ -170,7 +170,7 @@ const rules: readonly Rule[] = [
     body: {
       en: prose(
         p(
-          "Try as far as possible to capture screenshots that are your own. In games with a photo mode or a hideable HUD, screenshots taken during cutscenes should not be posted without reason — exceptions apply for special cases such as easter eggs or important story details. This exists to encourage your creativity and to avoid several people posting the same screenshot.",
+          "Try as far as possible to capture screenshots that are your own. In games with a photo mode or a hideable HUD, screenshots taken during cutscenes should not be posted without reason - exceptions apply for special cases such as easter eggs or important story details. This exists to encourage your creativity and to avoid several people posting the same screenshot.",
         ),
       ),
       si: prose(
@@ -183,7 +183,7 @@ const rules: readonly Rule[] = [
   {
     id: "rule-6",
     displayOrder: 6,
-    title: { en: "No Repetitive Content — Memes, News, Posts", si: "එකම දෑ වරින් වර පළ කිරීමෙන් වළකින්න." },
+    title: { en: "No Repetitive Content - Memes, News, Posts", si: "එකම දෑ වරින් වර පළ කිරීමෙන් වළකින්න." },
     body: {
       en: prose(
         p(
@@ -294,7 +294,7 @@ const announcements: readonly Announcement[] = [
       "The community now has a permanent home for voice chat, looking-for-group posts and weekend sessions. Here is what is inside and how moderation carries over from the Facebook group.",
     body: prose(
       p(
-        "For years the Facebook group has been where SLGA happens: posts, screenshots, arguments about frame rates. It does one thing badly, though — it cannot get people into the same voice channel on a Friday night. The Discord server fixes that.",
+        "For years the Facebook group has been where SLGA happens: posts, screenshots, arguments about frame rates. It does one thing badly, though - it cannot get people into the same voice channel on a Friday night. The Discord server fixes that.",
       ),
       h2("What the server is for"),
       p(
@@ -313,7 +313,7 @@ const announcements: readonly Announcement[] = [
       quote("Read the rules once. They are short, they are in English and Sinhala, and they are the whole agreement."),
       h2("Joining"),
       p(
-        "The invite is permanent and open to existing Facebook members and to new members alike. You do not need to leave the Facebook group to join the server — most people will use both.",
+        "The invite is permanent and open to existing Facebook members and to new members alike. You do not need to leave the Facebook group to join the server - most people will use both.",
       ),
     ),
     coverImage: null,
@@ -326,8 +326,8 @@ const announcements: readonly Announcement[] = [
     title: "Community rules refreshed for 2026",
     excerpt:
       "The ten rules have been reviewed, reworded for clarity and published in English and Sinhala side by side. No new restrictions were added.",
-    // MOCK CONTENT inherited from the prototype — replace before launch (TECH-SPEC.md §21).
-    body: prose(p("MOCK CONTENT — replace before launch. This announcement exists so the layout can be evaluated without a cover image.")),
+    // MOCK CONTENT inherited from the prototype - replace before launch (TECH-SPEC.md §21).
+    body: prose(p("MOCK CONTENT - replace before launch. This announcement exists so the layout can be evaluated without a cover image.")),
     coverImage: null,
     publishedAt: "2026-08-21T00:00:00.000Z",
   },
@@ -337,9 +337,9 @@ const announcements: readonly Announcement[] = [
     kind: "COMMUNITY",
     title: "Weekend game nights: how to join",
     excerpt:
-      "Every Friday and Saturday the voice rooms fill up. No sign-up sheet, no team rosters — turn up, say what you are playing and someone will be playing it too.",
-    // MOCK CONTENT inherited from the prototype — replace before launch (TECH-SPEC.md §21).
-    body: prose(p("MOCK CONTENT — replace before launch.")),
+      "Every Friday and Saturday the voice rooms fill up. No sign-up sheet, no team rosters - turn up, say what you are playing and someone will be playing it too.",
+    // MOCK CONTENT inherited from the prototype - replace before launch (TECH-SPEC.md §21).
+    body: prose(p("MOCK CONTENT - replace before launch.")),
     coverImage: null,
     publishedAt: "2026-08-02T00:00:00.000Z",
   },
@@ -350,8 +350,8 @@ const announcements: readonly Announcement[] = [
     title: "Five years of SLGA",
     excerpt:
       "From a small Facebook group to 66,000 members. A short note from the admin team on what changed, what did not, and what comes next.",
-    // MOCK CONTENT inherited from the prototype — replace before launch (TECH-SPEC.md §21).
-    body: prose(p("MOCK CONTENT — replace before launch.")),
+    // MOCK CONTENT inherited from the prototype - replace before launch (TECH-SPEC.md §21).
+    body: prose(p("MOCK CONTENT - replace before launch.")),
     coverImage: null,
     publishedAt: "2026-06-30T00:00:00.000Z",
   },
@@ -369,7 +369,7 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Screenshot night: our September picks",
     excerpt: "Six member captures chosen by admins, from Ghost of Yotei photo mode to a very patient Elden Ring sunrise.",
     postUrl: "https://facebook.com/groups/slga/posts/1",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE — MOCK · 16:10" },
+    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
     displayOrder: 1,
   },
   {
@@ -377,7 +377,7 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Where Sri Lankan gamers actually buy PC parts",
     excerpt: "A long comment thread turned into the most useful hardware guide in the group this year.",
     postUrl: "https://facebook.com/groups/slga/posts/2",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE — MOCK · 16:10" },
+    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
     displayOrder: 2,
   },
   {
@@ -385,7 +385,7 @@ const facebookFeatures: readonly FacebookFeature[] = [
     title: "Co-op request thread that turned into a clan",
     excerpt: "One member asked for two players for a Helldivers run. Forty replies later, the Friday squad exists.",
     postUrl: "https://facebook.com/groups/slga/posts/3",
-    image: { src: "", alt: "", placeholder: "FEATURE IMAGE — MOCK · 16:10" },
+    image: { src: "", alt: "", placeholder: "FEATURE IMAGE - MOCK · 16:10" },
     displayOrder: 3,
   },
 ];
@@ -398,7 +398,7 @@ const privacyNotice: PrivacyNotice = {
     {
       heading: "Analytics",
       paragraphs: [
-        "We use Vercel Web Analytics to count page views and to see which links people use — for example how many visitors open Discord or Facebook from this site. Vercel describes the service as cookie-free and based on a daily-reset visitor hash.",
+        "We use Vercel Web Analytics to count page views and to see which links people use - for example how many visitors open Discord or Facebook from this site. Vercel describes the service as cookie-free and based on a daily-reset visitor hash.",
         "We do not collect names, email addresses, Discord identities or any free-text information, and we do not use advertising trackers.",
       ],
     },

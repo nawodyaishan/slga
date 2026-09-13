@@ -12,7 +12,7 @@ export interface FooterProps {
 }
 
 /**
- * Global footer. Pure Server Component — everything it renders comes from
+ * Global footer. Pure Server Component - everything it renders comes from
  * props, so it has no dependency on the content-boundary or analytics agents.
  */
 export function Footer({ siteLinks, socialLinks }: FooterProps) {
@@ -34,7 +34,7 @@ export function Footer({ siteLinks, socialLinks }: FooterProps) {
             </span>
           </div>
           <p className="max-w-[34ch] text-[14.5px] leading-relaxed text-muted">
-            The home for Sri Lankan gamers — community-built, community-run.
+            The home for Sri Lankan gamers - community-built, community-run.
           </p>
         </div>
 

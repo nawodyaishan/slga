@@ -2,7 +2,7 @@ import { defineField, defineType } from "sanity";
 
 /**
  * Short bilingual text (titles, headings, labels). Both `en` and `si` are
- * required together — a document cannot publish half-translated copy
+ * required together - a document cannot publish half-translated copy
  * (spec 002, FR-3 / edge case "Rule body present in `si` but empty in `en`").
  *
  * Use `localizedText` instead for longer copy that needs a multi-line field.

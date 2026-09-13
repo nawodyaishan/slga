@@ -3,7 +3,7 @@ import { defineArrayMember, defineType } from "sanity";
 /**
  * Restricted Portable Text for announcement bodies (TECH-SPEC §11.3). Same
  * allowlist as `rulesBlockContent` plus h2, blockquote, and inline images
- * with required alt text — matching
+ * with required alt text - matching
  * `apps/web/src/components/portable-text/announcement-portable-text.tsx`
  * exactly. No raw HTML, scripts, iframes or arbitrary embeds.
  */

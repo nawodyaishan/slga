@@ -13,7 +13,7 @@ interface RulesPageProps {
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
-/** Shared by `/rules` and `/si/rules` — only the locale differs. */
+/** Shared by `/rules` and `/si/rules` - only the locale differs. */
 export async function RulesPage({ locale, discordUrl }: RulesPageProps) {
   const [rules, settings] = await Promise.all([content.getRules(), content.getSiteSettings()]);
   const copy = settings.rules;

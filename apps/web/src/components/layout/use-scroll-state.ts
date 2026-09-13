@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export interface ScrollState {
-  /** Past the header's own height — used to strengthen its background/border. */
+  /** Past the header's own height - used to strengthen its background/border. */
   scrolled: boolean;
   /** Deep enough into the page that the mobile CTA bar should appear. */
   deep: boolean;

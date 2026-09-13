@@ -1,4 +1,4 @@
-# Sri Lankan Gaming Alliance Website — Phase 1 Technical Specification
+# Sri Lankan Gaming Alliance Website - Phase 1 Technical Specification
 
 **Document status:** Approved for implementation  
 **Version:** 1.0  
@@ -30,7 +30,7 @@ It does **not** include public accounts, a custom admin system, events, news agg
 | Frontend | Next.js 16.x, TypeScript, App Router |
 | Public hosting | Vercel; use the assigned `*.vercel.app` production domain initially |
 | CMS | Sanity Content Lake + Sanity-hosted Studio |
-| Editors | 1–3 trusted founders |
+| Editors | 1-3 trusted founders |
 | Public language | English by default |
 | Sinhala | Only Rules content is bilingual in Phase 1 |
 | Announcements | English; index plus permanent `/announcements/[slug]` pages |
@@ -165,12 +165,12 @@ The site does not have a global language switch. Only the Rules pages display an
 
 Render sections in this order:
 
-1. **Hero** — editable eyebrow, heading, summary, optional hero image, member-count proof point, Join Facebook, and Join Discord.
-2. **About SLGA** — one short editable heading and body; no long history timeline.
-3. **Latest announcement** — the newest published announcement, or the founder-selected featured announcement if configured.
-4. **Featured from our community** — up to three active, manually curated Facebook cards.
-5. **Community links** — Facebook, Discord, and optional enabled social channels.
-6. **Footer** — copyright uses the current year automatically; social links, Rules, Announcements, and Privacy.
+1. **Hero** - editable eyebrow, heading, summary, optional hero image, member-count proof point, Join Facebook, and Join Discord.
+2. **About SLGA** - one short editable heading and body; no long history timeline.
+3. **Latest announcement** - the newest published announcement, or the founder-selected featured announcement if configured.
+4. **Featured from our community** - up to three active, manually curated Facebook cards.
+5. **Community links** - Facebook, Discord, and optional enabled social channels.
+6. **Footer** - copyright uses the current year automatically; social links, Rules, Announcements, and Privacy.
 
 Empty-state rules:
 
@@ -240,7 +240,7 @@ Typography:
 Layout and motion:
 
 - content maximum width: approximately 72rem;
-- readable article/rules measure: approximately 68–75 characters;
+- readable article/rules measure: approximately 68-75 characters;
 - mobile-first layout with meaningful breakpoints rather than device-specific hacks;
 - minimum interactive target: 44 × 44 CSS pixels;
 - subtle opacity/translation transitions only;
@@ -314,7 +314,7 @@ Phase 1 does not require a webhook. A signed Sanity webhook and tag-based on-dem
 
 Use one public dataset named `production`. Public datasets are appropriate because Phase 1 contains only public website content. Never place private member data, credentials, moderation reports, unpublished secrets, or internal operational notes in this dataset.
 
-### 11.1 `siteSettings` — singleton
+### 11.1 `siteSettings` - singleton
 
 Only one document may be created or edited.
 
@@ -344,7 +344,7 @@ Only one document may be created or edited.
 | `rulesOutroBodySi` | text | Yes | Sinhala rules closing-panel body |
 | `rulesLastUpdated` | date | Yes | Displayed on both versions |
 | `seoTitle` | string | Yes | Default metadata title |
-| `seoDescription` | text | Yes | Target roughly 120–160 characters |
+| `seoDescription` | text | Yes | Target roughly 120-160 characters |
 | `defaultOgImage` | image + alt | Yes | 1200 × 630 recommended |
 
 Allowed social platforms initially: Facebook, Discord, Steam, Reddit, Instagram, YouTube. Facebook and Discord must be enabled and have valid HTTPS URLs before launch.
@@ -375,7 +375,7 @@ Portable Text for rules permits paragraphs, `h3`, bold, italic, links, ordered l
 | `body` | Portable Text | Yes | English |
 | `coverImage` | image + alt | No | Hotspot enabled |
 | `publishedAt` | datetime | Yes | Public only when ≤ current time |
-| `seoDescription` | string | No | Optional metadata override; target roughly 120–160 characters |
+| `seoDescription` | string | No | Optional metadata override; target roughly 120-160 characters |
 
 Sanity's native draft/publish state is authoritative; do not create a redundant `published` boolean. The displayed date does not itself publish a draft. Sanity Free currently does not include Scheduled Drafts, so Phase 1 assumes manual publishing.
 
@@ -394,7 +394,7 @@ Announcement Portable Text permits paragraphs, `h2`/`h3`, bold, italic, links, l
 
 The homepage query returns only the first three enabled documents by `displayOrder`.
 
-### 11.5 `privacyNotice` — singleton
+### 11.5 `privacyNotice` - singleton
 
 | Field | Type | Required | Notes |
 | --- | --- | --- | --- |
@@ -610,7 +610,7 @@ These targets are acceptance gates unless a documented third-party/platform cons
 
 As verified on 13 September 2026, Sanity Free is $0 and includes up to 20 seats, two roles, public datasets, hosted Studio, live preview/visual-editing tooling, and quotas far above this Phase 1 content volume. However, the only included operational roles are **Administrator** and **Viewer**; Editor/Contributor roles require a paid plan.
 
-Operational consequence: the 1–3 founders who edit Phase 1 content will be Sanity Administrators. Only genuinely trusted founders should receive this access. If SLGA later adds non-founder editors, upgrading for narrower roles is preferred over granting everyone administrator rights.
+Operational consequence: the 1-3 founders who edit Phase 1 content will be Sanity Administrators. Only genuinely trusted founders should receive this access. If SLGA later adds non-founder editors, upgrading for narrower roles is preferred over granting everyone administrator rights.
 
 ### 19.2 Vercel
 
@@ -658,7 +658,7 @@ Normal content editing and publishing do not require a Git commit or Studio rede
 
 Vercel assigns an available `*.vercel.app` production domain. Save the exact assigned origin in `NEXT_PUBLIC_SITE_URL`; use it for canonical metadata, sitemap entries, and social previews.
 
-The architecture must remain domain-independent. A future custom domain change should require only Vercel domain configuration, environment updates, and canonical verification—not a code rewrite.
+The architecture must remain domain-independent. A future custom domain change should require only Vercel domain configuration, environment updates, and canonical verification-not a code rewrite.
 
 Disable GitHub Pages at launch so the old site is not served as a competing, stale public copy. The repository remains on GitHub; only public hosting moves to Vercel.
 
@@ -734,34 +734,34 @@ Phase 1 is complete only when all statements below are true:
 
 ## 24. Implementation sequence
 
-### Milestone 0 — Preserve and initialize
+### Milestone 0 - Preserve and initialize
 
 - Tag the legacy site.
 - Create pnpm workspace and Next.js/Sanity applications.
 - Add CI, environment examples, formatting, strict TypeScript, and branch protection.
 
-### Milestone 1 — CMS foundation
+### Milestone 1 - CMS foundation
 
 - Create Sanity project/dataset.
 - Implement schemas, singleton structure, validation, and Studio previews.
 - Deploy Sanity-hosted Studio.
 - Enter approved initial content.
 
-### Milestone 2 — Public shell and design system
+### Milestone 2 - Public shell and design system
 
 - Implement tokens, fonts, responsive layout, header, mobile sheet, footer, and reusable cards/buttons.
 - Configure Sanity client, typed queries, image pipeline, Portable Text, and caching.
 
-### Milestone 3 — Public pages
+### Milestone 3 - Public pages
 
 - Build Home, Rules EN, Rules SI, Announcements index/detail, Privacy, and 404.
 - Add robust empty states and external-link handling.
 
-### Milestone 4 — Discovery and measurement
+### Milestone 4 - Discovery and measurement
 
 - Add metadata, social cards, canonical URLs, JSON-LD, sitemap, robots policy, Vercel Analytics, and CTA events.
 
-### Milestone 5 — Migration, QA, and launch
+### Milestone 5 - Migration, QA, and launch
 
 - Finalize content migration.
 - Run automated/manual QA and share-preview checks.
@@ -773,7 +773,7 @@ Phase 1 is complete only when all statements below are true:
 | Risk | Control |
 | --- | --- |
 | Free-plan terms or quotas change | Recheck before launch and quarterly; document upgrade trigger |
-| Sanity Free gives editors Admin access | Restrict editing to 1–3 trusted founders; require strong account security |
+| Sanity Free gives editors Admin access | Restrict editing to 1-3 trusted founders; require strong account security |
 | Vercel Hobby has one developer seat | One technical owner; collaborate and review in GitHub |
 | Stale member count returns | Make it CMS-editable; include a monthly content checklist |
 | Sinhala translation drifts from English | Publish rule languages together; founders approve both versions |

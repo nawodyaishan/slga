@@ -135,7 +135,7 @@ export interface PrivacyNotice {
 /**
  * The contract every content source implements. Ordering, the three-card cap
  * and draft/future exclusion are the adapter's responsibility, never the
- * page's — see plan.md §2.
+ * page's - see plan.md §2.
  */
 export interface ContentAdapter {
   readonly name: "seed" | "sanity";

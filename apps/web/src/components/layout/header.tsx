@@ -45,7 +45,7 @@ export function Header({ navItems, discordUrl, facebookUrl, homeHref = "/" }: He
         <div className="mx-auto flex h-15 max-w-(--spacing-shell) items-center justify-between gap-4 px-(--spacing-gutter) nav:h-19">
           <a
             href={homeHref}
-            aria-label="Sri Lankan Gaming Alliance — home"
+            aria-label="Sri Lankan Gaming Alliance - home"
             className="flex min-h-11 items-center gap-2.5 text-foreground"
           >
             <span
