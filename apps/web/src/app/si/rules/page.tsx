@@ -7,16 +7,16 @@ import { createPageMetadata, isIndexableDeployment } from "@/lib/site";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await content.getSiteSettings();
   return {
-  ...createPageMetadata({
-    fallbackImage: settings.defaultOgImage,
-    locale: "si_LK",
-    title: "සමූහයේ නීති",
-    description: "SLGA සමූහයේ නීති සහ මාර්ගෝපදේශ, සිංහලෙන්.",
-    path: "/si/rules",
-  }),
-  alternates: isIndexableDeployment()
-    ? { canonical: "/si/rules", languages: { en: "/rules", si: "/si/rules" } }
-    : undefined,
+    ...createPageMetadata({
+      fallbackImage: settings.defaultOgImage,
+      locale: "si_LK",
+      title: "සමූහයේ නීති",
+      description: "SLGA සමූහයේ නීති සහ මාර්ගෝපදේශ, සිංහලෙන්.",
+      path: "/si/rules",
+    }),
+    alternates: isIndexableDeployment()
+      ? { canonical: "/si/rules", languages: { en: "/rules", si: "/si/rules" } }
+      : undefined,
   };
 }
 

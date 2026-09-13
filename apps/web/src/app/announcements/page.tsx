@@ -7,10 +7,10 @@ import { createPageMetadata } from "@/lib/site";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await content.getSiteSettings();
   return createPageMetadata({
-  fallbackImage: settings.defaultOgImage,
-  title: "Announcements",
-  description: "Notices published by the SLGA admin team: rule changes, server news and community programmes.",
-  path: "/announcements",
+    fallbackImage: settings.defaultOgImage,
+    title: "Announcements",
+    description: "Notices published by the SLGA admin team: rule changes, server news and community programmes.",
+    path: "/announcements",
   });
 }
 

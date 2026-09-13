@@ -7,10 +7,10 @@ import { formatShortDate } from "@/lib/date";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await content.getSiteSettings();
   return createPageMetadata({
-  fallbackImage: settings.defaultOgImage,
-  title: "Privacy notice",
-  description: "How SLGA's website handles analytics and external links.",
-  path: "/privacy",
+    fallbackImage: settings.defaultOgImage,
+    title: "Privacy notice",
+    description: "How SLGA's website handles analytics and external links.",
+    path: "/privacy",
   });
 }
 

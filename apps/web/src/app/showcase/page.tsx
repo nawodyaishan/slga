@@ -7,11 +7,11 @@ import { createPageMetadata } from "@/lib/site";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await content.getSiteSettings();
   return createPageMetadata({
-  fallbackImage: settings.defaultOgImage,
-  title: "Showcase",
-  description:
-    "In-game photography and art made by SLGA members. Admins pick the pieces; each one links back to the original post in the Facebook group.",
-  path: "/showcase",
+    fallbackImage: settings.defaultOgImage,
+    title: "Showcase",
+    description:
+      "In-game photography and art made by SLGA members. Admins pick the pieces; each one links back to the original post in the Facebook group.",
+    path: "/showcase",
   });
 }
 
